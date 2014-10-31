@@ -1,7 +1,11 @@
 package biomorph.prototype.Model;
 
 import biomorph.prototype.Model.Genes.Gene;
+import biomorph.prototype.View.Coordinate;
+import biomorph.prototype.View.Renderable;
+import biomorph.prototype.View.Renderers.Renderer;
 
+import java.awt.*;
 import java.io.*;
 import java.nio.charset.Charset;
 import java.util.Arrays;
@@ -13,7 +17,25 @@ import java.util.Stack;
 public class Biomorph implements Serializable {
 //    private ArrayList<Gene> genome;
 
-    private class RootGene extends Gene {
+    private class RootGene extends Gene implements Renderable {
+
+        private class RootGeneRenderer extends Renderer<RootGene> {
+
+            public RootGeneRenderer()
+            {
+                super(RootGene.this);
+            }
+
+            @Override
+            public void draw(Graphics g) {
+                throw new RuntimeException("This should never be called");
+            }
+
+            @Override
+            public Coordinate getAttachPoint() {
+                return new Coordinate(0,0);
+            }
+        }
 
         public RootGene()
         {
@@ -41,6 +63,14 @@ public class Biomorph implements Serializable {
             }
 
             return sb.toString();
+        }
+
+        RootGeneRenderer r = null;
+
+        @Override
+        public Renderer getRenderer() {
+            if(r == null) r = new RootGeneRenderer();
+            return r;
         }
     }
 
@@ -89,8 +119,6 @@ public class Biomorph implements Serializable {
             //Ensure gene code is valid (a-zA-Z)
             assert( (genomeChars[i] >= 'a' && genomeChars[i] <= 'z') || (genomeChars[i] >= 'A' && genomeChars[i] <= 'Z') );
 
-            Gene newgene = null;
-
             if(genomeChars[i] == 'S') //Subgene
             {
                 i++;
@@ -110,7 +138,7 @@ public class Biomorph implements Serializable {
                 break;
             }
 
-            newgene = GeneFactory.getGeneFromCode(genomeChars[i]);
+            Gene newgene = GeneFactory.getGeneFromCode(genomeChars[i]);
 
 //            System.err.println("Gene: " + genomeChars[i]);
 //            System.err.println("Depth: " + geneStack.size());

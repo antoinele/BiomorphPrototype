@@ -1,16 +1,16 @@
 package biomorph.prototype.Model.Genes;
 
-import biomorph.prototype.View.DotRenderer;
+import biomorph.prototype.View.Renderers.DotRenderer;
 import biomorph.prototype.View.Renderable;
-import biomorph.prototype.View.Renderer;
+import biomorph.prototype.View.Renderers.Renderer;
 
 /**
  * Created by antoine on 29/10/14.
  */
 public class Dot extends Gene implements Renderable {
-    private short width;
-    private short height;
-    private short angle;
+    public short width;
+    public short height;
+    public short angle;
 
     public Dot()
     {
@@ -25,8 +25,12 @@ public class Dot extends Gene implements Renderable {
         angle  = (short)(values[2] & 0xff);
     }
 
+    private DotRenderer r = null;
+
     @Override
-    public Renderer getRenderer() {
-        return new DotRenderer(this);
+    public Renderer getRenderer()
+    {
+        if(r == null) r = new DotRenderer(this);
+        return r;
     }
 }

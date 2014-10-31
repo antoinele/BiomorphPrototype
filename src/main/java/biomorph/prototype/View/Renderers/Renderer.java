@@ -1,6 +1,7 @@
-package biomorph.prototype.View;
+package biomorph.prototype.View.Renderers;
 
 import biomorph.prototype.Model.Genes.Gene;
+import biomorph.prototype.View.Coordinate;
 
 import java.awt.*;
 
@@ -15,7 +16,8 @@ public abstract class Renderer<T extends Gene> {
         this.gene = gene;
     }
 
-    public abstract void draw(Graphics g, int originX, int originY);
+    public abstract void draw(Graphics g);
+    public abstract Coordinate getAttachPoint();
 
     public T getGene()
     {

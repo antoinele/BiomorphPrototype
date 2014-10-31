@@ -2,6 +2,8 @@ package biomorph.prototype.Model.Genes;
 
 import biomorph.prototype.View.Processed;
 
+import java.awt.*;
+
 /**
  * Created by antoine on 30/10/14.
  */
@@ -27,7 +29,7 @@ public class Movement extends Gene implements Processed {
     }
 
     @Override
-    public void process() {
-        
+    public void process(Graphics g) {
+
     }
 }

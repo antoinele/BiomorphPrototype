@@ -1,5 +1,7 @@
 package biomorph.prototype.View;
 
+import biomorph.prototype.View.Renderers.Renderer;
+
 /**
  * Created by antoine on 30/10/14.
  */
