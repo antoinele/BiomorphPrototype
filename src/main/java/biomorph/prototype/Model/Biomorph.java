@@ -33,7 +33,7 @@ public class Biomorph implements Serializable {
 
             @Override
             public Coordinate getAttachPoint() {
-                return new Coordinate(0,0);
+                return new Coordinate(400,300);
             }
         }
 
@@ -79,6 +79,13 @@ public class Biomorph implements Serializable {
     public Biomorph()
     {
         rootGene = new RootGene();
+    }
+
+    public Biomorph(String genome)
+    {
+        super();
+
+        deserialiseString(genome);
     }
 
     private void writeObject(ObjectOutputStream out)

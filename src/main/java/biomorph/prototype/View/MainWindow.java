@@ -11,6 +11,9 @@ import java.awt.*;
  */
 public class MainWindow extends JFrame {
 
+    private final int WINDOW_WIDTH  = 800;
+    private final int WINDOW_HEIGHT = 600;
+
     class BiomorphSurface extends JPanel {
 
         Gene rootGene;
@@ -20,6 +23,16 @@ public class MainWindow extends JFrame {
 
         private void doDrawing(Graphics g)
         {
+            Graphics2D g2 = (Graphics2D)g;
+
+            RenderingHints rh = new RenderingHints(
+                    RenderingHints.KEY_ANTIALIASING,
+                    RenderingHints.VALUE_ANTIALIAS_ON
+            );
+
+            g2.setRenderingHints(rh);
+
+            // Iterate subgenes directly to avoid processing/drawing the root gene, which is impossible
             for(Gene gene : rootGene.getSubGenes())
             {
                 drawGene(g, gene);
@@ -28,9 +41,14 @@ public class MainWindow extends JFrame {
 
         private void drawGene(Graphics g, Gene gene)
         {
-            for(Gene sg : rootGene.getSubGenes())
+            Gene[] subGenes = gene.getSubGenes();
+
+            for(Gene sg : subGenes)
             {
-                drawGene(g, sg);
+                if(sg instanceof Processed)
+                {
+                    ((Processed) sg).process(g);
+                }
             }
 
             if(gene instanceof Processed)
@@ -42,6 +60,11 @@ public class MainWindow extends JFrame {
             {
                 biomorph.prototype.View.Renderers.Renderer r = ((Renderable) gene).getRenderer();
                 r.draw(g);
+            }
+
+            for(Gene sg : subGenes)
+            {
+                drawGene(g, sg);
             }
         }
 
@@ -61,14 +84,21 @@ public class MainWindow extends JFrame {
         }
     }
 
+    BiomorphSurface biomorphSurface;
+
     public MainWindow()
     {
         setTitle("Biomorph Example");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        add(new BiomorphSurface());
+        biomorphSurface = new BiomorphSurface();
 
-        setSize(800,600);
+        add(biomorphSurface);
+
+//        biomorphSurface.setBiomorph(new Biomorph("D21F00CSLBEEF00SMCAFEsL123456LFF12F0SLF24300s"));
+        biomorphSurface.setBiomorph(new Biomorph("D59578ASL4785BEL985247SD589347"));
+
+        setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
     }
 
     public static void main(String[] args)
@@ -77,6 +107,7 @@ public class MainWindow extends JFrame {
             @Override
             public void run() {
                 MainWindow mw = new MainWindow();
+
                 mw.setVisible(true);
             }
         });
