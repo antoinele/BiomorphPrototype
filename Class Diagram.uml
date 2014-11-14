@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement />
+  <nodes>
+    <node x="671.3174242424242" y="67.95454545454545">biomorph.prototype.Model.Biomorph</node>
+    <node x="611.2416666666666" y="333.0">biomorph.prototype.Model.Biomorph.RootGene</node>
+    <node x="267.86369047619036" y="564.8571428571429">biomorph.prototype.View.Renderers.Renderer</node>
+    <node x="441.9916666666666" y="96.0">biomorph.prototype.View.Renderable</node>
+    <node x="266.72083333333325" y="312.0">biomorph.prototype.Model.Genes.Dot</node>
+    <node x="0.0" y="0.0">biomorph.prototype.Model.Genes.Gene</node>
+    <node x="47.38452380952373" y="750.8571428571429">biomorph.prototype.View.Renderers.DotRenderer</node>
+    <node x="513.3845238095237" y="750.8571428571429">biomorph.prototype.Model.Biomorph.RootGene.RootGeneRenderer</node>
+    <node x="277.3845238095237" y="750.8571428571429">biomorph.prototype.View.Renderers.LineRenderer</node>
+    <node x="9.699999999999932" y="312.0">biomorph.prototype.Model.Genes.Line</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="biomorph.prototype.Model.Biomorph.RootGene" target="biomorph.prototype.View.Renderable">
+      <point x="0.0" y="-47.0" />
+      <point x="696.2416666666666" y="262.0" />
+      <point x="606.9916666666666" y="262.0" />
+      <point x="66.0" y="25.0" />
+    </edge>
+    <edge source="biomorph.prototype.Model.Biomorph.RootGene.RootGeneRenderer" target="biomorph.prototype.View.Renderers.Renderer">
+      <point x="-57.0" y="-47.0" />
+      <point x="570.3845238095237" y="725.8571428571429" />
+      <point x="445.3636904761904" y="725.8571428571429" />
+      <point x="71.0" y="68.0" />
+    </edge>
+    <edge source="biomorph.prototype.Model.Biomorph.RootGene" target="biomorph.prototype.Model.Genes.Gene">
+      <point x="-56.66666666666663" y="-47.0" />
+      <point x="639.575" y="272.0" />
+      <point x="339.16666666666663" y="272.0" />
+      <point x="135.66666666666663" y="121.0" />
+    </edge>
+    <edge source="biomorph.prototype.View.Renderers.LineRenderer" target="biomorph.prototype.View.Renderers.Renderer">
+      <point x="0.0" y="-47.0" />
+      <point x="385.38452380952367" y="725.8571428571429" />
+      <point x="374.3636904761904" y="725.8571428571429" />
+      <point x="0.0" y="68.0" />
+    </edge>
+    <edge source="biomorph.prototype.Model.Genes.Dot" target="biomorph.prototype.Model.Genes.Gene">
+      <point x="-51.0" y="-68.0" />
+      <point x="317.72083333333325" y="272.0" />
+      <point x="203.5" y="272.0" />
+      <point x="-2.8421709430404007E-14" y="121.0" />
+    </edge>
+    <edge source="biomorph.prototype.Model.Genes.Dot" target="biomorph.prototype.View.Renderable">
+      <point x="51.0" y="-68.0" />
+      <point x="419.72083333333325" y="292.0" />
+      <point x="540.9916666666666" y="292.0" />
+      <point x="0.0" y="25.0" />
+    </edge>
+    <edge source="biomorph.prototype.Model.Genes.Line" target="biomorph.prototype.Model.Genes.Gene">
+      <point x="-52.75" y="-68.0" />
+      <point x="62.44999999999993" y="292.0" />
+      <point x="67.83333333333337" y="292.0" />
+      <point x="-135.66666666666666" y="121.0" />
+    </edge>
+    <edge source="biomorph.prototype.Model.Biomorph.RootGene" target="biomorph.prototype.Model.Biomorph">
+      <point x="56.66666666666663" y="-47.0" />
+      <point x="0.0" y="78.5" />
+    </edge>
+    <edge source="biomorph.prototype.Model.Biomorph.RootGene.RootGeneRenderer" target="biomorph.prototype.Model.Biomorph.RootGene">
+      <point x="57.0" y="-47.0" />
+      <point x="0.0" y="47.0" />
+    </edge>
+    <edge source="biomorph.prototype.View.Renderers.DotRenderer" target="biomorph.prototype.View.Renderers.Renderer">
+      <point x="0.0" y="-47.0" />
+      <point x="152.38452380952373" y="725.8571428571429" />
+      <point x="303.3636904761904" y="725.8571428571429" />
+      <point x="-71.0" y="68.0" />
+    </edge>
+    <edge source="biomorph.prototype.Model.Genes.Line" target="biomorph.prototype.View.Renderable">
+      <point x="52.75" y="-68.0" />
+      <point x="167.94999999999993" y="282.0" />
+      <point x="474.9916666666666" y="282.0" />
+      <point x="-66.0" y="25.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="0.7999999999999995" x="648.1647160029513" y="442.218799990859" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Inner Classes</Category>
+    <Category>Fields</Category>
+    <Category>Constructors</Category>
+    <Category>Methods</Category>
+    <Category>Properties</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>public</VISIBILITY>
+</Diagram>
+

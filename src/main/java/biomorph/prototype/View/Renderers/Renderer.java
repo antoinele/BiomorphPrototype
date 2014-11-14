@@ -17,7 +17,7 @@ public abstract class Renderer<T extends Gene> {
         this.gene = gene;
     }
 
-    public abstract void draw(Graphics g);
+    public abstract void draw(Graphics2D g);
     public abstract Coordinate getAttachPoint();
 
     public Coordinate getParentAttachPoint()

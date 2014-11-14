@@ -8,8 +8,8 @@ import java.awt.*;
  * Created by antoine on 30/10/14.
  */
 public class Movement extends Gene implements Processed {
-    private byte speed;
-    private byte distance;
+    private short speed;
+    private short distance;
 
     public Movement()
     {

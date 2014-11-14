@@ -14,8 +14,10 @@ import java.util.Stack;
 /**
  * Created by antoine on 29/10/14.
  */
-public class Biomorph implements Serializable {
+public class Biomorph {
 //    private ArrayList<Gene> genome;
+
+    private Coordinate origin;
 
     private class RootGene extends Gene implements Renderable {
 
@@ -27,13 +29,13 @@ public class Biomorph implements Serializable {
             }
 
             @Override
-            public void draw(Graphics g) {
+            public void draw(Graphics2D g) {
                 throw new RuntimeException("This should never be called");
             }
 
             @Override
             public Coordinate getAttachPoint() {
-                return new Coordinate(400,300);
+                return origin;
             }
         }
 
@@ -79,31 +81,20 @@ public class Biomorph implements Serializable {
     public Biomorph()
     {
         rootGene = new RootGene();
+
+        this.origin = new Coordinate(0,0);
     }
 
     public Biomorph(String genome)
     {
-        super();
+        this();
 
         deserialiseString(genome);
     }
 
-    private void writeObject(ObjectOutputStream out)
-            throws IOException
+    public void setOrigin(Coordinate origin)
     {
-        out.write(this.toString().getBytes(Charset.forName("UTF-7")));
-    }
-
-    private void readObject(ObjectInputStream in)
-            throws IOException, ClassNotFoundException
-    {
-        deserialiseString(in.readUTF());
-    }
-
-    private void readObjectNoData()
-            throws ObjectStreamException
-    {
-
+        this.origin = origin;
     }
 
     public Gene getRootGene()
@@ -121,28 +112,44 @@ public class Biomorph implements Serializable {
 
         geneStack.push(rootGene);
 
-        for (int i = 0; i < genomeChars.length; /*i++*/ ) {
+        boolean skipLine = false;
+
+        for (int i = 0; i < genomeChars.length; i++ ) {
+
+            // Skip comments
+            if( genomeChars[i] == '#' )
+            {
+                skipLine = true;
+                continue;
+            }
+            if( skipLine )
+            {
+                if(genomeChars[i] == '\n' || genomeChars[i] == '\r')
+                {
+                    skipLine = false;
+                }
+
+                continue;
+            }
 
             //Ensure gene code is valid (a-zA-Z)
-            assert( (genomeChars[i] >= 'a' && genomeChars[i] <= 'z') || (genomeChars[i] >= 'A' && genomeChars[i] <= 'Z') );
+            if( ! ( (genomeChars[i] >= 'a' && genomeChars[i] <= 'z') || (genomeChars[i] >= 'A' && genomeChars[i] <= 'Z') ) )
+            {
+                continue;
+            }
 
             if(genomeChars[i] == 'S') //Subgene
             {
-                i++;
-
                 Gene[] parentGenes = geneStack.peek().getSubGenes();
                 geneStack.push(parentGenes[parentGenes.length-1]);
+                continue;
             }
 
             if(genomeChars[i] == 's') //Parent Sibling gene
             {
-                i++;
-                geneStack.pop();
-            }
-
-            if(i >= genomeChars.length)
-            {
-                break;
+                if(geneStack.size() > 1)
+                    geneStack.pop();
+                continue;
             }
 
             Gene newgene = GeneFactory.getGeneFromCode(genomeChars[i]);
@@ -152,14 +159,14 @@ public class Biomorph implements Serializable {
 
             if(newgene == null)
             {
-                throw new InvalidGeneSequenceException();
+                throw new InvalidGeneSequenceException(genomeChars[i]);
             }
 
             char[] remainingGenome = Arrays.copyOfRange(genomeChars, i, genomeChars.length);
 
 //            System.err.println(remainingGenome);
 
-            i += newgene.deserialise(remainingGenome);
+            i += newgene.deserialise(remainingGenome) - 1;
 
             geneStack.peek().addSubGene(newgene);
         }

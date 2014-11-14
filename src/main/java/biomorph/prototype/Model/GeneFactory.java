@@ -10,6 +10,11 @@ import java.util.Set;
  * Created by antoine on 29/10/14.
  */
 public class GeneFactory {
+
+    static {
+        buildGeneMap();
+    }
+
     private static HashMap<Character, Class<? extends Gene>> geneMap = null;
 
     private static void buildGeneMap()

@@ -11,11 +11,11 @@ import java.util.Arrays;
  */
 public abstract class Gene {
 //    public static final byte MAX_VALUES = 3;
-    private char geneCode;
+    public final char geneCode;
     private Gene parent = null;
     private byte[] values;
 
-    private ArrayList<Gene> subGenes;
+    public final ArrayList<Gene> subGenes;
 
     public Gene(char geneCode)
     {
@@ -63,9 +63,16 @@ public abstract class Gene {
         parseValues();
     }
 
-    public byte[] getValues()
+    public short[] getValues()
     {
-        return this.values;
+        short[] output = new short[values.length];
+
+        for (int i = 0; i < values.length; i++) {
+            output[i] = (short)(values[i] & 0xff); // Convert a signed byte into its unsigned value by upgrading its
+                                                   // type
+        }
+
+        return output;
     }
 
     public Gene[] getSubGenes()

@@ -26,7 +26,7 @@ public class LineRenderer extends Renderer<Line> {
     }
 
     @Override
-    public void draw(Graphics g) {
+    public void draw(Graphics2D g) {
         Coordinate pc = getParentAttachPoint();
         Coordinate sc = calculateSecondPoint();
 

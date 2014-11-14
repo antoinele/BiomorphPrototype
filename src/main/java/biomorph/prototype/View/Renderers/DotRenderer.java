@@ -16,16 +16,18 @@ public class DotRenderer extends Renderer<Dot> {
     }
 
     @Override
-    public void draw(Graphics g) {
+    public void draw(Graphics2D g) {
         Coordinate origin = ((Renderable)getGene().getParent()).getRenderer().getAttachPoint();
 
-        Graphics2D g2d = (Graphics2D)g;
-
-        System.err.println(String.format("Drawing oval at (%d,%d) width: %d height: %d", origin.x, origin.y, getGene().width, getGene().height));
+//        System.err.println(String.format("Drawing oval at (%d,%d) width: %d height: %d", origin.x, origin.y, getGene().width, getGene().height));
 
         Dot d = getGene();
 
-        g2d.drawOval(origin.x - (d.width / 2), origin.y - (d.height / 2), d.width, d.height);
+        g.rotate(d.angle, origin.x, origin.y);
+
+        g.drawOval(origin.x - (d.width / 2), origin.y - (d.height / 2), d.width, d.height);
+
+//        g2d.rotate(-d.angle, origin.x, origin.y);
     }
 
     @Override

@@ -7,7 +7,7 @@ import biomorph.prototype.View.Renderers.Renderer;
 /**
  * Created by antoine on 30/10/14.
  */
-public class Line extends Gene implements Renderable {
+public class Line extends Gene implements Renderable<Line> {
     public short length;
     public short thickness;
     public short angle;
@@ -25,16 +25,16 @@ public class Line extends Gene implements Renderable {
 
     @Override
     protected void parseValues() {
-        byte[] values = this.getValues();
-        length    = (short)(values[0] & 0xff);
-        thickness = (short)(values[1] & 0xff);
-        angle     = (short)(values[2] & 0xff);
+        short[] values = this.getValues();
+        length    = values[0];
+        thickness = values[1];
+        angle     = values[2];
     }
 
-    private Renderer<Line> r = null;
+    private LineRenderer r = null;
 
     @Override
-    public Renderer<Line> getRenderer()
+    public LineRenderer getRenderer()
     {
         if(r == null)
         {

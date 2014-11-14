@@ -7,7 +7,7 @@ import biomorph.prototype.View.Renderers.Renderer;
 /**
  * Created by antoine on 29/10/14.
  */
-public class Dot extends Gene implements Renderable {
+public class Dot extends Gene implements Renderable<Dot> {
     public short width;
     public short height;
     public short angle;
@@ -19,16 +19,16 @@ public class Dot extends Gene implements Renderable {
 
     @Override
     protected void parseValues() {
-        byte[] values = this.getValues();
-        width  = (short)(values[0] & 0xff); // Converting a signed byte into an unsigned short
-        height = (short)(values[1] & 0xff);
-        angle  = (short)(values[2] & 0xff);
+        short[] values = this.getValues();
+        width  = values[0];
+        height = values[1];
+        angle  = values[2];
     }
 
     private DotRenderer r = null;
 
     @Override
-    public Renderer getRenderer()
+    public DotRenderer getRenderer()
     {
         if(r == null) r = new DotRenderer(this);
         return r;
