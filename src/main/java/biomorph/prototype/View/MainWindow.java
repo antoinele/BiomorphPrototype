@@ -27,6 +27,8 @@ import java.nio.file.Paths;
  */
 public class MainWindow extends JFrame {
 
+    public boolean CLIPMIRROR = false;
+
     public final int WINDOW_WIDTH  = 800;
     public final int WINDOW_HEIGHT = 600;
 
@@ -52,10 +54,11 @@ public class MainWindow extends JFrame {
 
             AffineTransform t = g.getTransform(); // Store transform before drawing messes with it
 
-//            if(CLIPMIRROR)
-//            {
+            if(CLIPMIRROR)
+            {
+                g.setClip(-WINDOW_WIDTH/2, -WINDOW_HEIGHT/2, WINDOW_WIDTH/2, WINDOW_HEIGHT);
 //                g.clipRect(0, -WINDOW_HEIGHT/2, WINDOW_WIDTH/2, WINDOW_HEIGHT);
-//            }
+            }
 
             // Iterate subgenes directly to avoid processing/drawing the root gene, which is impossible
             for(Gene gene : rootGene.getSubGenes())
@@ -75,11 +78,12 @@ public class MainWindow extends JFrame {
             g.transform(mirrorTransform);
 
 
-//            if(CLIPMIRROR)
-//            {
+            if(CLIPMIRROR)
+            {
+                g.setClip(-WINDOW_WIDTH/2, -WINDOW_HEIGHT/2, WINDOW_WIDTH/2, WINDOW_HEIGHT);
 //                g.clipRect(0, -WINDOW_HEIGHT/2, WINDOW_WIDTH/2, WINDOW_HEIGHT);
 //                g.fillRect(-WINDOW_WIDTH/2, -WINDOW_HEIGHT/2, WINDOW_WIDTH, WINDOW_HEIGHT);
-//            }
+            }
 
 
 
@@ -142,14 +146,15 @@ public class MainWindow extends JFrame {
         public void paintComponent(Graphics g)
         {
             super.paintComponent(g);
-            System.out.println("Draw to image");
-            doDrawing((Graphics2D) currentFrame.createGraphics());
-            System.out.println("Draw to window");
+//            System.out.println("Draw to image");
+//            doDrawing((Graphics2D) currentFrame.createGraphics());
+//            System.out.println("Draw to window");
             doDrawing((Graphics2D)g);
         }
 
         public BufferedImage getFrame()
         {
+            doDrawing((Graphics2D) currentFrame.createGraphics());
             return currentFrame.getSubimage(0,0,WINDOW_WIDTH,WINDOW_HEIGHT);
         }
     }
