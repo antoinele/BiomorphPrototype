@@ -32,7 +32,16 @@ public class LineRenderer extends Renderer<Line> {
 
         System.err.println(String.format("Drawing line from (%d,%d) to (%d,%d)", pc.x, pc.y, sc.x, sc.y));
 
+        Stroke s = g.getStroke();
+
+        // Limit the stroke size to 10
+        float stroke = (10 * getGene().thickness) / 256f;
+
+        g.setStroke(new BasicStroke(stroke));
+
         g.drawLine(pc.x, pc.y, sc.x, sc.y);
+
+        g.setStroke(s);
     }
 
     @Override
