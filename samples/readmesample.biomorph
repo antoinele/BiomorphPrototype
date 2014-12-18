@@ -1,0 +1,9 @@
+D112233 # although in the program they appear on only one line, biomorph
+        # files may span several
+L223344
+S # S and s don't require any values
+  H1234
+  S L111111D123456 s  # whitespace is optional
+  D222222
+s # it's not necessary to pop at the end, even though the exporter will
+  # add them
