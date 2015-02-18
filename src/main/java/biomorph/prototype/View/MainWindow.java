@@ -47,7 +47,7 @@ public class MainWindow extends JFrame {
                     RenderingHints.KEY_ANTIALIASING,
                     RenderingHints.VALUE_ANTIALIAS_ON
             );
-            //banana test
+            //apple
 
             g.setRenderingHints(rh);
             g.setTransform(AffineTransform.getTranslateInstance(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2));
