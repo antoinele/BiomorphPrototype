@@ -1,13 +1,11 @@
-package biomorph.prototype.Model;
+package aston.group2.biomorph.Model;
 
-import biomorph.prototype.Model.Genes.Gene;
-import biomorph.prototype.View.Coordinate;
-import biomorph.prototype.View.Renderable;
-import biomorph.prototype.View.Renderers.Renderer;
+import aston.group2.biomorph.GUI.Renderers.Renderer;
+import aston.group2.biomorph.Model.Genes.Gene;
+import aston.group2.biomorph.GUI.Coordinate;
+import aston.group2.biomorph.GUI.Renderable;
 
 import java.awt.*;
-import java.io.*;
-import java.nio.charset.Charset;
 import java.util.Arrays;
 import java.util.Stack;
 

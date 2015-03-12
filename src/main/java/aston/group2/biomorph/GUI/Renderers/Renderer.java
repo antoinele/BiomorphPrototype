@@ -1,8 +1,8 @@
-package biomorph.prototype.View.Renderers;
+package aston.group2.biomorph.GUI.Renderers;
 
-import biomorph.prototype.Model.Genes.Gene;
-import biomorph.prototype.View.Coordinate;
-import biomorph.prototype.View.Renderable;
+import aston.group2.biomorph.Model.Genes.Gene;
+import aston.group2.biomorph.GUI.Coordinate;
+import aston.group2.biomorph.GUI.Renderable;
 
 import java.awt.*;
 

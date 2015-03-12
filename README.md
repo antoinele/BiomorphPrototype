@@ -4,7 +4,7 @@ Biomorph Prototype
 The preferred IDE to use is IntelliJ, however the project has been converted
 so that Eclipse may use it too.
 
-The main class is `biomorph.prototype.View.MainWindow`
+The main class is `MainWindow`
 
 ## .biomorph file format
 

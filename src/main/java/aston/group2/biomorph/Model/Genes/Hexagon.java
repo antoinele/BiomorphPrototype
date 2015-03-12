@@ -1,8 +1,8 @@
-package biomorph.prototype.Model.Genes;
+package aston.group2.biomorph.Model.Genes;
 
-import biomorph.prototype.View.Renderable;
-import biomorph.prototype.View.Renderers.HexagonRenderer;
-import biomorph.prototype.View.Renderers.Renderer;
+import aston.group2.biomorph.GUI.Renderers.HexagonRenderer;
+import aston.group2.biomorph.GUI.Renderers.Renderer;
+import aston.group2.biomorph.GUI.Renderable;
 
 /**
  * Created by Antoine on 27/11/2014.

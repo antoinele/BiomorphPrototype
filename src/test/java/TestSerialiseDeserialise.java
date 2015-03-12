@@ -1,4 +1,4 @@
-import biomorph.prototype.Model.Biomorph;
+import aston.group2.biomorph.Model.Biomorph;
 import org.junit.Test;
 import static org.junit.Assert.*;
 

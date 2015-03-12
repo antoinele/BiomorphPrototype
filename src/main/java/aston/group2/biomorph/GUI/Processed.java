@@ -1,4 +1,4 @@
-package biomorph.prototype.View;
+package aston.group2.biomorph.GUI;
 
 import java.awt.*;
 

@@ -1,4 +1,4 @@
-package biomorph.prototype.Model;
+package aston.group2.biomorph.Model;
 
 /**
  * Created by antoine on 30/10/14.

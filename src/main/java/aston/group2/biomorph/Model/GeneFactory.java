@@ -1,6 +1,6 @@
-package biomorph.prototype.Model;
+package aston.group2.biomorph.Model;
 
-import biomorph.prototype.Model.Genes.Gene;
+import aston.group2.biomorph.Model.Genes.Gene;
 import org.reflections.Reflections;
 
 import java.util.HashMap;

@@ -1,6 +1,6 @@
-package biomorph.prototype.Model.Genes;
+package aston.group2.biomorph.Model.Genes;
 
-import biomorph.prototype.Model.InvalidGeneSequenceException;
+import aston.group2.biomorph.Model.InvalidGeneSequenceException;
 
 import javax.xml.bind.DatatypeConverter;
 import java.util.ArrayList;

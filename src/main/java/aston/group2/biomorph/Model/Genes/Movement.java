@@ -1,6 +1,6 @@
-package biomorph.prototype.Model.Genes;
+package aston.group2.biomorph.Model.Genes;
 
-import biomorph.prototype.View.Processed;
+import aston.group2.biomorph.GUI.Processed;
 
 import java.awt.*;
 
