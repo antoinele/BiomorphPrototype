@@ -32,4 +32,10 @@ public class Dot extends Gene implements Renderable<Dot> {
         if(r == null) r = new DotRenderer(this);
         return r;
     }
+
+	@Override
+	protected int maxValues() {
+		// TODO Auto-generated method stub
+		return 3;
+	}
 }
