@@ -23,7 +23,7 @@ public class GeneFactory {
 
         geneMap = new HashMap<Character, Class<? extends Gene>>();
 
-        Reflections reflections = new Reflections("biomorph.prototype.Model.Genes");
+        Reflections reflections = new Reflections("aston.group2.biomorph.Model.Genes");
 
         Set<Class<? extends Gene>> geneTypes = reflections.getSubTypesOf(Gene.class);
 
