@@ -38,10 +38,7 @@ public abstract class Gene {
         setValues(values);
     }
 
-    protected int maxValues()
-    {
-        return 3;
-    }
+    protected abstract int maxValues();
     protected abstract void parseValues();
 
     public char getGeneCode()
