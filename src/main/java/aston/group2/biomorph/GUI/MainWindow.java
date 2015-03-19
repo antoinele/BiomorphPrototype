@@ -20,8 +20,6 @@ import java.nio.file.Paths;
  */
 public class MainWindow extends JFrame {
 
-    public boolean CLIPMIRROR = false;
-
     public final int WINDOW_WIDTH  = 400;
     public final int WINDOW_HEIGHT = 400;
 

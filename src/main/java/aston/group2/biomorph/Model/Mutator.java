@@ -17,12 +17,6 @@ public class Mutator {
 
         //TODO: actually put something here
 
-        try {
-            biomorph[0].generation.addNextGeneration(newGeneration);
-        } catch (IncompatibleSpeciesException e) {
-            return null;
-        }
-
         return newGeneration;
     }
 }

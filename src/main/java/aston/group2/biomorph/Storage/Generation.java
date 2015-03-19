@@ -3,6 +3,7 @@ package aston.group2.biomorph.Storage;
 import aston.group2.biomorph.Model.Biomorph;
 import aston.group2.biomorph.Model.IncompatibleSpeciesException;
 import aston.group2.biomorph.Model.Mutator;
+import aston.group2.biomorph.Model.Species;
 
 import java.util.Arrays;
 
@@ -10,9 +11,9 @@ import java.util.Arrays;
  * Created by antoine on 12/03/15.
  */
 public class Generation {
-    public final BiomorphHistory.Species species;
+    public final Species species;
     public Biomorph[] children;
-    private final Mutator mutator;
+    public final Mutator mutator;
     public Generation prevGeneration;
     public Generation[] nextGeneration;
 
