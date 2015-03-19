@@ -1,16 +1,12 @@
 package aston.group2.biomorph.GUI;
 
 import aston.group2.biomorph.Model.Biomorph;
-import aston.group2.biomorph.Model.Genes.Gene;
-
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.geom.AffineTransform;
-import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -28,8 +24,6 @@ public class MainWindow extends JFrame {
 
     public final int WINDOW_WIDTH  = 800;
     public final int WINDOW_HEIGHT = 600;
-
-    
 
     public BiomorphSurface biomorphSurface;
 
