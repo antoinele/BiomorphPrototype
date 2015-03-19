@@ -40,8 +40,6 @@ class BiomorphSurface extends JPanel {
 		//Horizontal Scaling is newwidth/oldwidth 
 		//Vertical Scaling is newheight/oldheight
 		//Also fix main window Class
-		System.out.println(newWidth);
-		System.out.println(newHeight);
 		g.scale((double)newWidth/fixedWidth, (double)newHeight/fixedHeight);
 		//scaling added
 		
@@ -55,7 +53,6 @@ class BiomorphSurface extends JPanel {
 		if (CLIPMIRROR) {
 			g.setClip(-newWidth / 2, -newHeight / 2, newWidth / 2,
 					newHeight);
-			// g.clipRect(0, -WINDOW_HEIGHT/2, WINDOW_WIDTH/2, WINDOW_HEIGHT);
 		}
 
 		// Iterate subgenes directly to avoid processing/drawing the root gene,
@@ -66,26 +63,15 @@ class BiomorphSurface extends JPanel {
 
 		g.setTransform(t); // Restore transform
 
-		System.err.println("Flipping");
-
 		AffineTransform mirrorTransform = AffineTransform.getScaleInstance(
 				-1.0, 1.0);
-		// mirrorTransform.translate(-WINDOW_WIDTH,0);
-
-		// AffineTransformOp op = new AffineTransformOp(mirrorTransform,
-		// AffineTransformOp.TYPE_NEAREST_NEIGHBOR);
 
 		g.transform(mirrorTransform);
 
 		if (CLIPMIRROR) {
 			g.setClip(-newWidth / 2, -newHeight / 2, newWidth / 2,
 					newHeight);
-			// g.clipRect(0, -WINDOW_HEIGHT/2, WINDOW_WIDTH/2, WINDOW_HEIGHT);
-			// g.fillRect(-WINDOW_WIDTH/2, -WINDOW_HEIGHT/2, WINDOW_WIDTH,
-			// WINDOW_HEIGHT);
 		}
-
-		// g.transform(mirrorTransform);
 
 		for (Gene gene : rootGene.getSubGenes()) {
 			drawGene(g, gene);

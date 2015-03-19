@@ -30,8 +30,6 @@ public class LineRenderer extends Renderer<Line> {
         Coordinate pc = getParentAttachPoint();
         Coordinate sc = calculateSecondPoint();
 
-        System.err.println(String.format("Drawing line from (%d,%d) to (%d,%d)", pc.x, pc.y, sc.x, sc.y));
-
         Stroke s = g.getStroke();
 
         // Limit the stroke size to 10

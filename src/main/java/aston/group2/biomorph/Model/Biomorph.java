@@ -4,6 +4,7 @@ import aston.group2.biomorph.GUI.Renderers.Renderer;
 import aston.group2.biomorph.Model.Genes.Gene;
 import aston.group2.biomorph.GUI.Coordinate;
 import aston.group2.biomorph.GUI.Renderable;
+import aston.group2.biomorph.Storage.Generation;
 
 import java.awt.*;
 import java.util.Arrays;
@@ -13,7 +14,7 @@ import java.util.Stack;
  * Created by antoine on 29/10/14.
  */
 public class Biomorph {
-//    private ArrayList<Gene> genome;
+    public final Generation generation;
 
     private Coordinate origin;
 
@@ -76,16 +77,18 @@ public class Biomorph {
 
     private RootGene rootGene;
 
-    public Biomorph()
+    public Biomorph(Generation generation)
     {
         rootGene = new RootGene();
 
         this.origin = new Coordinate(0,0);
+
+        this.generation = generation;
     }
 
     public Biomorph(String genome)
     {
-        this();
+        this((Generation)null);
 
         deserialiseString(genome);
     }
@@ -152,17 +155,12 @@ public class Biomorph {
 
             Gene newgene = GeneFactory.getGeneFromCode(genomeChars[i]);
 
-//            System.err.println("Gene: " + genomeChars[i]);
-//            System.err.println("Depth: " + geneStack.size());
-
             if(newgene == null)
             {
                 throw new InvalidGeneSequenceException(genomeChars[i]);
             }
 
             char[] remainingGenome = Arrays.copyOfRange(genomeChars, i, genomeChars.length);
-
-//            System.err.println(remainingGenome);
 
             i += newgene.deserialise(remainingGenome) - 1;
 
@@ -172,8 +170,7 @@ public class Biomorph {
 
     public static Biomorph deserialise(String genome)
     {
-        Biomorph bm = new Biomorph();
-        bm.deserialiseString(genome);
+        Biomorph bm = new Biomorph(genome);
         return bm;
     }
 

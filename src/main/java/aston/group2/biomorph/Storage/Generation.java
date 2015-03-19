@@ -1,29 +1,35 @@
 package aston.group2.biomorph.Storage;
 
 import aston.group2.biomorph.Model.Biomorph;
+import aston.group2.biomorph.Model.IncompatibleSpeciesException;
+import aston.group2.biomorph.Model.Mutator;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Arrays;
 
 /**
  * Created by antoine on 12/03/15.
  */
 public class Generation {
-    public Generation           prevGeneration;
-    public Generation[]         nextGeneration;
-    private int                 seed; //TODO: we need more mutation info (settings, etc)
+    public final BiomorphHistory.Species species;
+    public Biomorph[] children;
+    private final Mutator mutator;
+    public Generation prevGeneration;
+    public Generation[] nextGeneration;
 
-    private Map<String, Object> settings;
-
-    public Biomorph[]           children;
-
-    public Generation()
-    {
-        settings = new HashMap<String, Object>();
+    public Generation(Generation prevGeneration, Mutator mutator) {
+        this.prevGeneration = prevGeneration;
+        this.species = prevGeneration.species;
+        this.mutator = mutator;
     }
 
-    public void setProperty(String key, Object value)
-    {
-        settings.put(key, value);
+    public void addNextGeneration(Generation generation) throws IncompatibleSpeciesException {
+        if (generation.species != species) {
+            throw new IncompatibleSpeciesException();
+        }
+
+        Generation[] newNextGeneration = Arrays.copyOf(nextGeneration, nextGeneration.length + 1);
+        newNextGeneration[newNextGeneration.length] = generation;
+
+        nextGeneration = newNextGeneration;
     }
 }
