@@ -29,7 +29,7 @@ public class MainWindow extends JFrame {
     public final int WINDOW_WIDTH  = 400;
     public final int WINDOW_HEIGHT = 400;
 
-    
+    public JButton viewGallery;
 
     public BiomorphSurface biomorphSurface;
 
@@ -77,8 +77,10 @@ public class MainWindow extends JFrame {
             {   // Load/Save buttons
                 JButton loadButton = new JButton("Load");
                 JButton saveButton = new JButton("Save");
+               
                 footer.add(loadButton);
                 footer.add(saveButton);
+               
 
                 loadButton.addActionListener(new ActionListener() {
                     @Override
@@ -117,6 +119,10 @@ public class MainWindow extends JFrame {
                     }
                 });
 
+                
+                
+                
+                
                 saveButton.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
@@ -144,7 +150,29 @@ public class MainWindow extends JFrame {
                     }
                 });
             }
+            
+            {
+            	 JButton viewGallery = new JButton("Gallery");
+                 footer.add(viewGallery);
+                 
+                 viewGallery.addActionListener(new ActionListener(){
 
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						// TODO Auto-generated method stub
+						Gallery gallery = new Gallery();
+						gallery.setVisible(true);
+						
+					}
+                	 
+                 });
+            }
+
+
+           
+            
+            
+            
             {   // Export button
                 JButton exportButton = new JButton("Export to PNG");
                 footer.add(exportButton);
@@ -178,6 +206,20 @@ public class MainWindow extends JFrame {
             }
         }
 
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
 
 //        add(biomorphSurface);
 
