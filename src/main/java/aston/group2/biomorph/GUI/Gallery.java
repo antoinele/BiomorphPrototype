@@ -53,6 +53,8 @@ public class Gallery extends JFrame{
 	private int newHeight = 0;
 	
 	
+	
+	
 	public Gallery(){
 		
 		setMinimumSize(new Dimension(400,400));
