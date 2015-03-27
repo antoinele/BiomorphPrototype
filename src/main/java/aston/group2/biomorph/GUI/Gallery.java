@@ -3,6 +3,7 @@ package aston.group2.biomorph.GUI;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Frame;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -30,6 +31,7 @@ import java.nio.file.Paths;
 
 public class Gallery extends JFrame{
 
+	private JFrame frame;
 	private JPanel panelOne;
 	private JPanel panelTwo;
 	private JPanel middlePanel;
@@ -51,19 +53,29 @@ public class Gallery extends JFrame{
 	private final int fixedHeight = 600;
 	private int newWidth = 0;
 	private int newHeight = 0;
+	// dimensions of the individual biomorph box (for dynamic resizing)
+	// both equal 400
+	private int boxWidth = fixedWidth/2;
+	private int boxHeight = (fixedHeight/3)*2;
+	
 	
 	
 	
 	
 	public Gallery(){
+		JFrame frame = new JFrame();
+		frame.pack();
+		frame.setResizable(true);
 		
-		setMinimumSize(new Dimension(400,400));
+		setMinimumSize(new Dimension(boxHeight,boxWidth));
 		panelOne = new JPanel();
 		panelOne.setLayout(new FlowLayout());
 		panelTwo = new JPanel();
 		panelTwo.setLayout(new FlowLayout());
+	    
 		middlePanel = new JPanel();
-		middlePanel.setLayout(new FlowLayout());
+		//middlePanel.setLayout(new FlowLayout());
+		middlePanel.setLayout(new GridLayout(2,10,10,10));
 		back = new JButton("Back");
 		exit = new JButton("Exit");
 		save = new JButton("Save/Export");
@@ -75,15 +87,16 @@ public class Gallery extends JFrame{
 		biomorph5 = new JButton();
 		biomorph6 = new JButton();
 		
+		// sets size of biomorph relative to canvas size
+		biomorph1.setPreferredSize(new Dimension(boxWidth/4, boxHeight/4));
 		
-		biomorph1.setPreferredSize(new Dimension(100, 100));
-	    biomorph2.setPreferredSize(new Dimension(100, 100));
-	    biomorph3.setPreferredSize(new Dimension(100, 100));
-	    biomorph4.setPreferredSize(new Dimension(100, 100));
-	    biomorph5.setPreferredSize(new Dimension(100, 100));
-	    biomorph6.setPreferredSize(new Dimension(100, 100));
+	    biomorph2.setPreferredSize(new Dimension(boxWidth/4, boxHeight/4));
+	    biomorph3.setPreferredSize(new Dimension(boxWidth/4, boxHeight/4));
+	    biomorph4.setPreferredSize(new Dimension(boxWidth/4, boxHeight/4));
+	    biomorph5.setPreferredSize(new Dimension(boxWidth/4, boxHeight/4));
+	    biomorph6.setPreferredSize(new Dimension(boxWidth/4, boxHeight/4));
 	    
-	    
+	    frame.add(middlePanel);
 	    
 	    middlePanel.add(biomorph1);
 	    middlePanel.add(biomorph2);
