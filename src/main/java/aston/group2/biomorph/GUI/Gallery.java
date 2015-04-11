@@ -118,7 +118,11 @@ public class Gallery extends JFrame{
 		 add(middlePanel, BorderLayout.CENTER);
 		 add(panelOne, BorderLayout.SOUTH);
 		
-		
+		 exit.addActionListener(new ActionListener() {
+			    public void actionPerformed(ActionEvent event) {
+			        System.exit(0);
+			  }
+		 });
 		
 	}
 	
