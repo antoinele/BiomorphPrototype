@@ -121,7 +121,7 @@ public class Gallery extends JFrame{
 		
 		
 	}
-	//dsdsds
+	
 }
 
 
