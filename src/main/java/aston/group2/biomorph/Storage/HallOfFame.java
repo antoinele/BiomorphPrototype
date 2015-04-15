@@ -9,10 +9,10 @@ import java.util.List;
  * Created by antoine on 12/03/15.
  */
 public class HallOfFame {
-    private List<Biomorph> favouriteBiomorphs;
+    private List<Biomorph> hallOfFame;
 
     public HallOfFame()
     {
-        favouriteBiomorphs = new ArrayList<Biomorph>();
+        hallOfFame = new ArrayList<Biomorph>();
     }
 }
