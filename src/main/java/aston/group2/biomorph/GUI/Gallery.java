@@ -145,13 +145,6 @@ public class Gallery extends JFrame{
 		panelTwo.add(exit);
 		
          
-		 add(panelTwo, BorderLayout.NORTH);
-		 add(middlePanel, BorderLayout.CENTER);
-		 hofPanel.setPreferredSize(new Dimension(100, 1000));
-		 middlePanel.add(galleryPanel, BorderLayout.WEST);
-		 middlePanel.add(hofPanel);
-		 add(panelOne, BorderLayout.SOUTH);
-		 
 		 favBio1 = new JLabel("ddfdcfdc");
 		 Border border = BorderFactory.createLineBorder(Color.BLACK, 1);
 		// favBio1.setPreferredSize(new Dimension(10, 10));
@@ -167,6 +160,14 @@ public class Gallery extends JFrame{
 		 hofPanel.add(favBio1);
 		 hofPanel.add(favBio2);
 		 
+		 
+		 add(panelTwo, BorderLayout.NORTH);
+		 add(middlePanel, BorderLayout.CENTER);
+		 middlePanel.add(galleryPanel, BorderLayout.WEST);
+		 middlePanel.add(hofPanel);
+		 add(panelOne, BorderLayout.SOUTH);
+		 
+		
 		
 		
 		 exit.addActionListener(new ActionListener() {
