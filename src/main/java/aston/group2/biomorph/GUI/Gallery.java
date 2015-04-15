@@ -93,7 +93,7 @@ public class Gallery extends JFrame{
 		panelTwo.setLayout(new FlowLayout());
 	    
 		middlePanel = new JPanel();
-		middlePanel.setLayout(new GridLayout(1,10,10,10));
+		middlePanel.setLayout(new BorderLayout());
 		
 		galleryPanel = new JPanel();
 		galleryPanel.setLayout(new GridLayout(2,10,10,10));
@@ -145,11 +145,13 @@ public class Gallery extends JFrame{
 		panelTwo.add(exit);
 		
          
-		 add(panelTwo, BorderLayout.NORTH);
+		 //add(panelTwo, BorderLayout.NORTH);
 		 add(middlePanel, BorderLayout.CENTER);
 		 middlePanel.add(galleryPanel, BorderLayout.WEST);
 		 middlePanel.add(hofPanel, BorderLayout.EAST);
-		 add(panelOne, BorderLayout.SOUTH);
+		 middlePanel.add(panelTwo, BorderLayout.NORTH);
+		 middlePanel.add(panelOne, BorderLayout.SOUTH);
+		 //add(panelOne, BorderLayout.SOUTH);
 		 
 		 favBio1 = new JLabel("ddfdcfdc");
 		 Border border = BorderFactory.createLineBorder(Color.BLACK, 1);
