@@ -15,4 +15,13 @@ public class SelectedBiomorphs {
 		
 	}
 	
+	public void addBiomorph(Biomorph biomorph){
+		selectedList.add(biomorph);
+		
+	}
+	
+	public List returnSelectedBiomorphs(){
+		return selectedList;
+		
+	}
 }
