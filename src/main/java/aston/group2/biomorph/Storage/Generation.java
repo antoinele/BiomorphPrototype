@@ -13,6 +13,7 @@ import java.util.Arrays;
 public class Generation {
     public final Species species;
     public Biomorph[] children;
+    public Biomorph[] parents;
     public final Mutator mutator;
     public Generation prevGeneration;
     public Generation[] nextGeneration;

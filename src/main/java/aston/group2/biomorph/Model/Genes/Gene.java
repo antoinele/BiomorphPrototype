@@ -53,11 +53,26 @@ public abstract class Gene {
 
     public void setValues(byte[] values)
     {
-        assert(values.length == maxValues());
+        assert(values.length >= maxValues());
 
         this.values = Arrays.copyOf(values, maxValues());
 
         parseValues();
+    }
+
+    public void setValues(short[] values)
+    {
+        assert(values.length >= maxValues());
+
+        byte[] newValues = new byte[maxValues()];
+
+        for (int i=0; i<newValues.length; i++)
+        {
+            newValues[i] = (byte)(values[i] & 0xff); // Convert a signed byte into its unsigned value by upgrading its
+            // type
+        }
+
+        setValues(newValues);
     }
 
     public short[] getValues()

@@ -19,7 +19,7 @@ public class EvolutionHelper {
 
     public static Generation mutate(Biomorph[] biomorphs, Mutator mutator)
     {
-        Generation generation = mutator.mutateBiomorph(biomorphs);
+        Generation generation = mutator.mutateBiomorph(biomorphs, null);
 
         try {
             biomorphs[0].generation.addNextGeneration(generation);
