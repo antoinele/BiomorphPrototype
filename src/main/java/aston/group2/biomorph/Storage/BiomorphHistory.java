@@ -13,4 +13,12 @@ public class BiomorphHistory {
 		List<Species> biomorphList = new ArrayList<Species>();
 		
 	}
+	
+	public void addToBiomorphHistory(Species species){
+		biomorphList.add(species);	
+	}
+	
+	public List<Species> returnBiomorphHistory(){
+		return biomorphList;	
+	}
 }

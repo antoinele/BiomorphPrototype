@@ -12,7 +12,6 @@ public class SelectedBiomorphs {
 	public SelectedBiomorphs(){
 		selectedList = new java.util.LinkedList();
 		
-		
 	}
 	
 	public void addBiomorph(Biomorph biomorph){
