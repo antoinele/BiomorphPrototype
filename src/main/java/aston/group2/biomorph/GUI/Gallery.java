@@ -156,11 +156,14 @@ public class Gallery extends JFrame{
 		 favBio2.setPreferredSize(new Dimension(100, 100));
 		
 		 
+		 
+		 
 		 favBio2.setBorder(border);
 		 hofPanel.setLayout(layout);
 		 hofPanel.setBorder(border);
-		 hofPanel.add(favBio1);
-		 hofPanel.add(favBio2);
+		 
+		 hofPanel.add(favBio1, BorderLayout.WEST); 
+		 hofPanel.add(favBio2, BorderLayout.WEST);
 		 
 		 
 		 add(panelTwo, BorderLayout.NORTH);
