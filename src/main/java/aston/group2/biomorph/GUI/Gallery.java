@@ -166,11 +166,15 @@ public class Gallery extends JFrame{
 		 hofPanel.add(favBio2, BorderLayout.WEST);
 		 
 		 
-		 add(panelTwo, BorderLayout.NORTH);
-		 add(middlePanel, BorderLayout.CENTER);
+		
+		
+		 middlePanel.add(panelTwo, BorderLayout.NORTH);
 		 middlePanel.add(galleryPanel, BorderLayout.WEST);
 		 middlePanel.add(hofPanel);
-		 add(panelOne, BorderLayout.SOUTH);
+		 middlePanel.add(panelOne, BorderLayout.SOUTH);
+		 
+		 add(middlePanel, BorderLayout.WEST);
+		
 		 
 		
 		
