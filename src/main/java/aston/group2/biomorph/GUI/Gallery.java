@@ -5,6 +5,9 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Frame;
 
+
+
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -14,6 +17,7 @@ import aston.group2.biomorph.Model.Genes.Gene;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.border.Border;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import java.awt.*;
@@ -81,7 +85,8 @@ public class Gallery extends JFrame{
 		frame.pack();
 		frame.setResizable(true);
 		
-		setMinimumSize(new Dimension(boxHeight,boxWidth));
+		//setMinimumSize(new Dimension(boxHeight,boxWidth));
+		setMinimumSize(new Dimension(1000, 400));
 		panelOne = new JPanel();
 		panelOne.setLayout(new FlowLayout());
 		panelTwo = new JPanel();
@@ -93,7 +98,8 @@ public class Gallery extends JFrame{
 		galleryPanel = new JPanel();
 		galleryPanel.setLayout(new GridLayout(2,10,10,10));
 		hofPanel = new JPanel();
-		hofPanel.setLayout(new FlowLayout());
+		hofPanel.setPreferredSize(new Dimension(1,1));
+		//hofPanel.setLayout(new GridLayout(5, 0, 0, 0));
 		
 		
 		back = new JButton("Back");
@@ -129,19 +135,38 @@ public class Gallery extends JFrame{
 	    
 	   
 	    
-	    middlePanel.add(galleryPanel, BorderLayout.WEST);
-	    middlePanel.add(hofPanel, BorderLayout.EAST);
+	    
+	    
 	    
 	    
 		panelOne.add(compareBiomorphs);
 		panelOne.add(save);
-		panelTwo.add(back);
+		panelTwo.add(back, BorderLayout.WEST);
 		panelTwo.add(exit);
 		
-
+         
 		 add(panelTwo, BorderLayout.NORTH);
-		 add(middlePanel, BorderLayout.WEST);
+		 add(middlePanel, BorderLayout.CENTER);
+		 middlePanel.add(galleryPanel, BorderLayout.WEST);
+		 middlePanel.add(hofPanel, BorderLayout.EAST);
 		 add(panelOne, BorderLayout.SOUTH);
+		 
+		 favBio1 = new JLabel("ddfdcfdc");
+		 Border border = BorderFactory.createLineBorder(Color.BLACK, 1);
+		// favBio1.setPreferredSize(new Dimension(10, 10));
+		 favBio1.setBorder(border);
+		 favBio2 = new JLabel("2");
+		 GridLayout layout = new GridLayout(2,0);
+		 
+		 //favBio2.setPreferredSize(new Dimension(100, 100));
+		 
+		 favBio2.setBorder(border);
+		 hofPanel.setLayout(layout);
+		 hofPanel.setBorder(border);
+		 hofPanel.add(favBio1);
+		 hofPanel.add(favBio2);
+		 
+		
 		
 		 exit.addActionListener(new ActionListener() {
 			    public void actionPerformed(ActionEvent event) {
