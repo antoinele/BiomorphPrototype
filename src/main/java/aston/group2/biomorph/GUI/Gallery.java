@@ -35,12 +35,26 @@ public class Gallery extends JFrame{
 	private JPanel panelOne;
 	private JPanel panelTwo;
 	private JPanel middlePanel;
+	private JPanel galleryPanel;
+	private JPanel hofPanel;
+	
 	private JButton biomorph1;
 	private JButton biomorph2;
 	private JButton biomorph3;
 	private JButton biomorph4;
 	private JButton biomorph5;
 	private JButton biomorph6;
+	
+	//hall of fame biomorphs
+	private JLabel favBio1;
+	private JLabel favBio2;
+	private JLabel favBio3;
+	private JLabel favBio4;
+	private JLabel favBio5;
+	private JLabel favBio6;
+	private JLabel favBio7;
+	private JLabel favBio8;
+	private JLabel favBio9;
 	
 	
 	private JButton back;
@@ -74,8 +88,14 @@ public class Gallery extends JFrame{
 		panelTwo.setLayout(new FlowLayout());
 	    
 		middlePanel = new JPanel();
-		//middlePanel.setLayout(new FlowLayout());
-		middlePanel.setLayout(new GridLayout(2,10,10,10));
+		middlePanel.setLayout(new GridLayout(1,10,10,10));
+		
+		galleryPanel = new JPanel();
+		galleryPanel.setLayout(new GridLayout(2,10,10,10));
+		hofPanel = new JPanel();
+		hofPanel.setLayout(new FlowLayout());
+		
+		
 		back = new JButton("Back");
 		exit = new JButton("Exit");
 		save = new JButton("Save/Export");
@@ -98,14 +118,19 @@ public class Gallery extends JFrame{
 	    
 	    frame.add(middlePanel);
 	    
-	    middlePanel.add(biomorph1);
-	    middlePanel.add(biomorph2);
-	    middlePanel.add(biomorph3);
-	    middlePanel.add(biomorph4);
-	    middlePanel.add(biomorph5);
-	    middlePanel.add(biomorph6);
 	    
-		
+	    
+	    galleryPanel.add(biomorph1);
+	    galleryPanel.add(biomorph2);
+	    galleryPanel.add(biomorph3);
+	    galleryPanel.add(biomorph4);
+	    galleryPanel.add(biomorph5);
+	    galleryPanel.add(biomorph6);
+	    
+	   
+	    
+	    middlePanel.add(galleryPanel, BorderLayout.WEST);
+	    middlePanel.add(hofPanel, BorderLayout.EAST);
 	    
 	    
 		panelOne.add(compareBiomorphs);
@@ -115,7 +140,7 @@ public class Gallery extends JFrame{
 		
 
 		 add(panelTwo, BorderLayout.NORTH);
-		 add(middlePanel, BorderLayout.CENTER);
+		 add(middlePanel, BorderLayout.WEST);
 		 add(panelOne, BorderLayout.SOUTH);
 		
 		 exit.addActionListener(new ActionListener() {
@@ -125,6 +150,8 @@ public class Gallery extends JFrame{
 		 });
 		
 	}
+	
+	
 	
 }
 
