@@ -86,7 +86,7 @@ public class Gallery extends JFrame{
 		frame.setResizable(true);
 		
 		//setMinimumSize(new Dimension(boxHeight,boxWidth));
-		setMinimumSize(new Dimension(1000, 400));
+		setMinimumSize(new Dimension(400, 400));
 		panelOne = new JPanel();
 		panelOne.setLayout(new FlowLayout());
 		panelTwo = new JPanel();
@@ -98,7 +98,7 @@ public class Gallery extends JFrame{
 		galleryPanel = new JPanel();
 		galleryPanel.setLayout(new GridLayout(2,10,10,10));
 		hofPanel = new JPanel();
-		hofPanel.setPreferredSize(new Dimension(1,1));
+	
 		//hofPanel.setLayout(new GridLayout(5, 0, 0, 0));
 		
 		
@@ -147,12 +147,14 @@ public class Gallery extends JFrame{
          
 		 favBio1 = new JLabel("ddfdcfdc");
 		 Border border = BorderFactory.createLineBorder(Color.BLACK, 1);
-		// favBio1.setPreferredSize(new Dimension(10, 10));
+		 favBio1.setPreferredSize(new Dimension(100, 100));
 		 favBio1.setBorder(border);
 		 favBio2 = new JLabel("2");
-		 GridLayout layout = new GridLayout(2,0);
+		 //FlowLayout layout = new FlowLayout();
+		GridLayout layout = new GridLayout(9, 0);
 		 
-		 //favBio2.setPreferredSize(new Dimension(100, 100));
+		 favBio2.setPreferredSize(new Dimension(100, 100));
+		
 		 
 		 favBio2.setBorder(border);
 		 hofPanel.setLayout(layout);
