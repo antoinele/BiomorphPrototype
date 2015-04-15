@@ -35,12 +35,24 @@ public class Gallery extends JFrame{
 	private JPanel panelOne;
 	private JPanel panelTwo;
 	private JPanel middlePanel;
+	
 	private JButton biomorph1;
 	private JButton biomorph2;
 	private JButton biomorph3;
 	private JButton biomorph4;
 	private JButton biomorph5;
 	private JButton biomorph6;
+	
+	//hall of fame biomorphs
+	private JLabel favBio1;
+	private JLabel favBio2;
+	private JLabel favBio3;
+	private JLabel favBio4;
+	private JLabel favBio5;
+	private JLabel favBio6;
+	private JLabel favBio7;
+	private JLabel favBio8;
+	private JLabel favBio9;
 	
 	
 	private JButton back;
@@ -125,6 +137,8 @@ public class Gallery extends JFrame{
 		 });
 		
 	}
+	
+	
 	
 }
 
