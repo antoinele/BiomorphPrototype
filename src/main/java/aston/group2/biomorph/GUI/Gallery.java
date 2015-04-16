@@ -86,70 +86,60 @@ public class Gallery extends JFrame{
 	
 	
 	public Gallery(){
-		JFrame frame = new JFrame();
-		frame.pack();
-		frame.setResizable(true);
+		 JFrame frame = new JFrame();
+		 frame.pack();
+		 frame.setResizable(true);
 		
-		//setMinimumSize(new Dimension(boxHeight,boxWidth));
-		setMinimumSize(new Dimension(400, 400));
-		panelOne = new JPanel();
-		panelOne.setLayout(new FlowLayout());
-		panelTwo = new JPanel();
-		panelTwo.setLayout(new FlowLayout());
+		 //setMinimumSize(new Dimension(boxHeight,boxWidth));
+		 setMinimumSize(new Dimension(400, 400));
+		 panelOne = new JPanel();
+		 panelOne.setLayout(new FlowLayout());
+		 panelTwo = new JPanel();
+		 panelTwo.setLayout(new FlowLayout());
 	    
-		middlePanel = new JPanel();
-		middlePanel.setLayout(new BorderLayout());
+		 middlePanel = new JPanel();
+		 middlePanel.setLayout(new BorderLayout());
 		
-		galleryPanel = new JPanel();
-		galleryPanel.setLayout(new GridLayout(2,10,10,10));
-		hofPanel = new JPanel();
+		 galleryPanel = new JPanel();
+		 galleryPanel.setLayout(new GridLayout(2,10,10,10));
+		 hofPanel = new JPanel();
 	
-		//hofPanel.setLayout(new GridLayout(5, 0, 0, 0));
-		
-		
-		back = new JButton("Back");
-		exit = new JButton("Exit");
-		save = new JButton("Save/Export");
-		compareBiomorphs = new JButton("Compare Biomorphs");
+		 
+		 back = new JButton("Back");
+		 exit = new JButton("Exit");
+		 save = new JButton("Save/Export");
+		 compareBiomorphs = new JButton("Compare Biomorphs");
 		
 		//biomorph windows for gallery panel
-		biomorph1 = new JButton();
-		biomorph2 = new JButton();
-		biomorph3 = new JButton();
-		biomorph4 = new JButton();
-		biomorph5 = new JButton();
-		biomorph6 = new JButton();
+		 biomorph1 = new JButton();
+		 biomorph2 = new JButton();
+		 biomorph3 = new JButton();
+		 biomorph4 = new JButton();
+		 biomorph5 = new JButton();
+		 biomorph6 = new JButton();
 		
-		// sets size of biomorph relative to canvas size
-		biomorph1.setPreferredSize(new Dimension(boxWidth/4, boxHeight/4));
+		 // sets size of biomorph relative to canvas size
+		 biomorph1.setPreferredSize(new Dimension(boxWidth/4, boxHeight/4));
 		
-	    biomorph2.setPreferredSize(new Dimension(boxWidth/4, boxHeight/4));
-	    biomorph3.setPreferredSize(new Dimension(boxWidth/4, boxHeight/4));
-	    biomorph4.setPreferredSize(new Dimension(boxWidth/4, boxHeight/4));
-	    biomorph5.setPreferredSize(new Dimension(boxWidth/4, boxHeight/4));
-	    biomorph6.setPreferredSize(new Dimension(boxWidth/4, boxHeight/4));
+	     biomorph2.setPreferredSize(new Dimension(boxWidth/4, boxHeight/4));
+	     biomorph3.setPreferredSize(new Dimension(boxWidth/4, boxHeight/4));
+	     biomorph4.setPreferredSize(new Dimension(boxWidth/4, boxHeight/4));
+	     biomorph5.setPreferredSize(new Dimension(boxWidth/4, boxHeight/4));
+	     biomorph6.setPreferredSize(new Dimension(boxWidth/4, boxHeight/4));
 	    
-	    frame.add(middlePanel);
+	     frame.add(middlePanel);
 	    
+	     galleryPanel.add(biomorph1);
+	     galleryPanel.add(biomorph2);
+	     galleryPanel.add(biomorph3);
+	     galleryPanel.add(biomorph4);
+	     galleryPanel.add(biomorph5);
+	     galleryPanel.add(biomorph6);
 	    
-	    
-	    galleryPanel.add(biomorph1);
-	    galleryPanel.add(biomorph2);
-	    galleryPanel.add(biomorph3);
-	    galleryPanel.add(biomorph4);
-	    galleryPanel.add(biomorph5);
-	    galleryPanel.add(biomorph6);
-	    
-	   
-	    
-	    
-	    
-	    
-	    
-		panelOne.add(compareBiomorphs);
-		panelOne.add(save);
-		panelTwo.add(back, BorderLayout.WEST);
-		panelTwo.add(exit);
+		 panelOne.add(compareBiomorphs);
+		 panelOne.add(save);
+		 panelTwo.add(back, BorderLayout.WEST);
+		 panelTwo.add(exit);
 		
          
 		 favBio1 = new JLabel("ddfdcfdc");
@@ -161,31 +151,20 @@ public class Gallery extends JFrame{
 		 GridLayout layout = new GridLayout(9, 0);
 		 
 		 favBio2.setPreferredSize(new Dimension(100, 100));
-		
-		 
-		 
-		 
 		 favBio2.setBorder(border);
 		 hofPanel.setLayout(layout);
 		 hofPanel.setBorder(border);
 		 
 		 hofPanel.add(favBio1, BorderLayout.WEST); 
 		 hofPanel.add(favBio2, BorderLayout.WEST);
-		 
-		 
-		
-		
+
 		 middlePanel.add(panelTwo, BorderLayout.NORTH);
 		 middlePanel.add(galleryPanel, BorderLayout.WEST);
 		 middlePanel.add(hofPanel);
 		 middlePanel.add(panelOne, BorderLayout.SOUTH);
 		 
 		 add(middlePanel, BorderLayout.WEST);
-		
-		 
-		
-		
-		
+
 		 exit.addActionListener(new ActionListener() {
 			    public void actionPerformed(ActionEvent event) {
 			        System.exit(0);
