@@ -181,6 +181,7 @@ public class Gallery extends JFrame{
 		 hofPanel.setBorder(border);
 		 
 		 addTiles(favBio1, 0, 0); 
+		
 		 addTiles(favBio2, 0, 1);
 		 addTiles(favBio3, 0, 2); 
 		 addTiles(favBio4, 0, 3); 
@@ -206,15 +207,20 @@ public class Gallery extends JFrame{
 		
 	}
 	
+	//for hall of fame
 	public void addTiles(JLabel l, int gridx, int gridy){
 		GridBagConstraints c = new GridBagConstraints();
 		c.gridx = gridx;
 		c.gridy = gridy;
-
-		
 		hofPanel.add(l, c);
 	}
 	
+	//for hall of fame
+	public void addButtons(JButton button, int gridx, int gridy){
+		GridBagConstraints c = new GridBagConstraints();
+		c.gridx = gridx;
+		c.gridy = gridy;
+	}
 	
 	
 }
