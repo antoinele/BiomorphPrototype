@@ -36,10 +36,15 @@ import java.nio.file.Paths;
 public class Gallery extends JFrame{
 
 	private JFrame frame;
+	//bottom panel on the screen
 	private JPanel panelOne;
+	//top panel
 	private JPanel panelTwo;
+	//parent for halloffame and gallery
 	private JPanel middlePanel;
+	//panel on the left side
 	private JPanel galleryPanel;
+	//panel on the right side
 	private JPanel hofPanel;
 	
 	private JButton biomorph1;
@@ -106,6 +111,8 @@ public class Gallery extends JFrame{
 		exit = new JButton("Exit");
 		save = new JButton("Save/Export");
 		compareBiomorphs = new JButton("Compare Biomorphs");
+		
+		//biomorph windows for gallery panel
 		biomorph1 = new JButton();
 		biomorph2 = new JButton();
 		biomorph3 = new JButton();
@@ -151,7 +158,7 @@ public class Gallery extends JFrame{
 		 favBio1.setBorder(border);
 		 favBio2 = new JLabel("2");
 		 //FlowLayout layout = new FlowLayout();
-		GridLayout layout = new GridLayout(9, 0);
+		 GridLayout layout = new GridLayout(9, 0);
 		 
 		 favBio2.setPreferredSize(new Dimension(100, 100));
 		
