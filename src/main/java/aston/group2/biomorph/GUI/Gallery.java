@@ -176,6 +176,7 @@ public class Gallery extends JFrame{
 		 
 		 
 		 GridBagLayout layout = new GridBagLayout();
+		
 		 hofPanel.setLayout(layout);
 		 hofPanel.setBorder(border);
 		 
@@ -209,6 +210,7 @@ public class Gallery extends JFrame{
 		GridBagConstraints c = new GridBagConstraints();
 		c.gridx = gridx;
 		c.gridy = gridy;
+
 		
 		hofPanel.add(l, c);
 	}
