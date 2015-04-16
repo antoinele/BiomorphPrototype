@@ -141,52 +141,53 @@ public class Gallery extends JFrame{
 		 panelTwo.add(back, BorderLayout.WEST);
 		 panelTwo.add(exit);
 		
+		 
          
 		 favBio1 = new JLabel("1");
 		 Border border = BorderFactory.createLineBorder(Color.BLACK, 1);
-		 favBio1.setPreferredSize(new Dimension(100, 100));
+		 favBio1.setPreferredSize(new Dimension(70, 70));
 		 favBio1.setBorder(border);
 		 favBio2 = new JLabel("2");
 		 //FlowLayout layout = new FlowLayout();
-		 GridLayout layout = new GridLayout(9, 0);
-		 favBio2.setPreferredSize(new Dimension(100, 100));
+		 
+		 favBio2.setPreferredSize(new Dimension(70, 70));
 		 favBio2.setBorder(border);
 		 favBio3 = new JLabel("3");
-		 favBio3.setSize(new Dimension(100, 100));
+		 favBio3.setPreferredSize(new Dimension(70, 70));
 		 favBio3.setBorder(border);
 		 favBio4 = new JLabel("4");
-		 favBio4.setPreferredSize(new Dimension(100, 100));
+		 favBio4.setPreferredSize(new Dimension(70, 70));
 		 favBio4.setBorder(border);
 		 favBio5 = new JLabel("5");
-		 favBio5.setPreferredSize(new Dimension(100, 100));
+		 favBio5.setPreferredSize(new Dimension(70, 70));
 		 favBio5.setBorder(border);
 		 favBio6 = new JLabel("6");
-		 favBio6.setPreferredSize(new Dimension(100, 100));
+		 favBio6.setPreferredSize(new Dimension(70, 70));
 		 favBio6.setBorder(border);
 		 favBio7 = new JLabel("7");
-		 favBio7.setPreferredSize(new Dimension(100, 100));
+		 favBio7.setPreferredSize(new Dimension(70, 70));
 		 favBio7.setBorder(border);
 		 favBio8 = new JLabel("8");
-		 favBio8.setPreferredSize(new Dimension(100, 100));
+		 favBio8.setPreferredSize(new Dimension(70, 70));
 		 favBio8.setBorder(border);
 		 favBio9 = new JLabel("9");
-		 favBio9.setPreferredSize(new Dimension(100, 100));
+		 favBio9.setPreferredSize(new Dimension(70, 70));
 		 favBio9.setBorder(border);
 		 
 		 
-		 
+		 GridBagLayout layout = new GridBagLayout();
 		 hofPanel.setLayout(layout);
 		 hofPanel.setBorder(border);
 		 
-		 hofPanel.add(favBio1); 
-		 hofPanel.add(favBio2);
-		 hofPanel.add(favBio3); 
-		 hofPanel.add(favBio4); 
-		 hofPanel.add(favBio5); 
-		 hofPanel.add(favBio6);
-		 hofPanel.add(favBio7); 
-		 hofPanel.add(favBio8); 
-		 hofPanel.add(favBio9); 
+		 addTiles(favBio1, 0, 0); 
+		 addTiles(favBio2, 0, 1);
+		 addTiles(favBio3, 0, 2); 
+		 addTiles(favBio4, 0, 3); 
+		 addTiles(favBio5, 0, 4); 
+		 addTiles(favBio6, 0, 5);
+		 addTiles(favBio7, 0, 6); 
+		 addTiles(favBio8, 0, 7); 
+		 addTiles(favBio9, 0, 8); 
 		 
 
 		 middlePanel.add(panelTwo, BorderLayout.NORTH);
@@ -202,6 +203,14 @@ public class Gallery extends JFrame{
 			  }
 		 });
 		
+	}
+	
+	public void addTiles(JLabel l, int gridx, int gridy){
+		GridBagConstraints c = new GridBagConstraints();
+		c.gridx = gridx;
+		c.gridy = gridy;
+		
+		hofPanel.add(l, c);
 	}
 	
 	
