@@ -71,6 +71,8 @@ public class Gallery extends JFrame{
 	private JButton compareBiomorphs;
 	private JButton save;
 	
+	private JButton swap;
+	private JButton clear;
 	
 	private final int fixedWidth = 800;
 	private final int fixedHeight = 600;
@@ -109,6 +111,9 @@ public class Gallery extends JFrame{
 		 exit = new JButton("Exit");
 		 save = new JButton("Save/Export");
 		 compareBiomorphs = new JButton("Compare Biomorphs");
+		 
+		 swap = new JButton("Swap");
+		 clear = new JButton("Clear");
 		
 		//biomorph windows for gallery panel
 		 biomorph1 = new JButton();
@@ -140,6 +145,8 @@ public class Gallery extends JFrame{
 		 panelOne.add(save);
 		 panelTwo.add(back, BorderLayout.WEST);
 		 panelTwo.add(exit);
+		
+
 		
 		 
          
@@ -181,7 +188,7 @@ public class Gallery extends JFrame{
 		 hofPanel.setBorder(border);
 		 
 		 addTiles(favBio1, 0, 0); 
-		
+		 addButtons(swap, 1, 0);
 		 addTiles(favBio2, 0, 1);
 		 addTiles(favBio3, 0, 2); 
 		 addTiles(favBio4, 0, 3); 
@@ -220,6 +227,8 @@ public class Gallery extends JFrame{
 		GridBagConstraints c = new GridBagConstraints();
 		c.gridx = gridx;
 		c.gridy = gridy;
+		
+		hofPanel.add(button, c);
 	}
 	
 	
