@@ -144,24 +144,24 @@ public class Gallery extends JFrame{
 		 save = new JButton("Save/Export");
 		 compareBiomorphs = new JButton("Compare Biomorphs");
 		 
-		 swap1 = new JButton("Swap1");
-		 clear1 = new JButton("Clear1");
-		 swap2 = new JButton("Swap2");
-		 clear2 = new JButton("Clear2");
-		 swap3 = new JButton("Swap3");
-		 clear3 = new JButton("Clear3");
-		 swap4 = new JButton("Swap4");
-		 clear4 = new JButton("Clear4");
-		 swap5 = new JButton("Swap5");
-		 clear5 = new JButton("Clear5");
-		 swap6 = new JButton("Swap6");
-		 clear6 = new JButton("Clear6");
-		 swap7 = new JButton("Swap7");
-		 clear7 = new JButton("Clear7");
-		 swap8 = new JButton("Swap8");
-		 clear8 = new JButton("Clear8");
-		 swap9 = new JButton("Swap9");
-		 clear9 = new JButton("Clear9");
+		 swap1 = new JButton("Swap");
+		 clear1 = new JButton("Clear");
+		 swap2 = new JButton("Swap");
+		 clear2 = new JButton("Clear");
+		 swap3 = new JButton("Swap");
+		 clear3 = new JButton("Clear");
+		 swap4 = new JButton("Swap");
+		 clear4 = new JButton("Clear");
+		 swap5 = new JButton("Swap");
+		 clear5 = new JButton("Clear");
+		 swap6 = new JButton("Swap");
+		 clear6 = new JButton("Clear");
+		 swap7 = new JButton("Swap");
+		 clear7 = new JButton("Clear");
+		 swap8 = new JButton("Swap");
+		 clear8 = new JButton("Clear");
+		 swap9 = new JButton("Swap");
+		 clear9 = new JButton("Clear");
 		
 		
 		
