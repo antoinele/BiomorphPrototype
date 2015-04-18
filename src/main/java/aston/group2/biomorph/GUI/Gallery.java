@@ -163,24 +163,9 @@ public class Gallery extends JFrame{
 		 clear8 = new JButton("Clear");
 		 swap9 = new JButton("Swap");
 		 clear9 = new JButton("Clear");
-		
-		
-
-		
 	
-		
-		
-		//biomorph windows for gallery panel
-		 biomorph1 = new JButton();
-		 biomorph2 = new JButton();
-		 biomorph3 = new JButton();
-		 biomorph4 = new JButton();
-		 biomorph5 = new JButton();
-		 biomorph6 = new JButton();
-		
-		
-
-		createBiomorphTiles();
+		 
+		 createBiomorphTiles();
 	
 
 	     frame.add(middlePanel);
