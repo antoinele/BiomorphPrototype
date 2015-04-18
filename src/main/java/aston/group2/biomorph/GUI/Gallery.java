@@ -135,11 +135,12 @@ public class Gallery extends JFrame{
 		 panelTwo.add(exit);
 		 
 		 createBiomorphTiles();
-		 createHallOfFamePanel();
+		
 
 	     frame.add(middlePanel);
 
 	     favouritePanelHF();
+	     createHallOfFamePanel();
 		 
 		 Border border = BorderFactory.createLineBorder(Color.BLACK, 1);
 
@@ -226,6 +227,22 @@ public class Gallery extends JFrame{
 		 swap9 = new JButton("Swap");
 		 clear9 = new JButton("Clear");
 		 
+		 JButton[] swaps = {swap1, swap2, swap3, swap4, swap5, swap6, swap7, swap8, swap9};
+		
+		 int y = 0;
+		 for(JButton swap: swaps){
+		 addButtons(swap, 1, y);
+		 y++;
+		 }
+		 
+		 JButton[] clearbuttons = {clear1, clear2, clear3, clear4, clear5, clear6, clear7, clear8, clear9};
+		 
+		 int cleary = 0;
+		 for(JButton clear: clearbuttons){
+		 addButtons(clear, 2, cleary);
+		 cleary++;
+		 }
+		 
 		
 	}
 	
@@ -239,7 +256,6 @@ public class Gallery extends JFrame{
 		 favBio6 = new JLabel("6");
 		 favBio7 = new JLabel("7");
 		 favBio8 = new JLabel("8");
-		 favBio8.setBorder(border);
 		 favBio9 = new JLabel("9");
 		 
 		 JLabel[] favourites = {favBio1, favBio2, favBio3, favBio4, favBio5, favBio6, favBio7, favBio8, favBio9};
@@ -254,35 +270,14 @@ public class Gallery extends JFrame{
 		 hofPanel.setLayout(layout);
 		 hofPanel.setBorder(border);
 		 
+		 int x = 0;
+		 for(int i = 0; i<favourites.length; i++){
+			addTiles(favourites[i], 0, x);
+			x++;
+		 }
 		 
-		 addTiles(favBio1, 0, 0); 
-		 addButtons(swap1,1,0);
-		 addButtons(clear1, 2, 0);
-		 addTiles(favBio2, 0, 1);
-		 addButtons(swap2,1,1);
-		 addButtons(clear2, 2, 1);
-		 addTiles(favBio3, 0, 2); 
-		 addButtons(swap3,1,2);
-		 addButtons(clear3, 2, 2);
-		 addTiles(favBio4, 0, 3); 
-		 addButtons(swap4,1,3);
-		 addButtons(clear4, 2, 3);
-		 addTiles(favBio5, 0, 4); 
-		 addButtons(swap5,1,4);
-		 addButtons(clear5, 2, 4);
-		 addTiles(favBio6, 0, 5);
-		 addButtons(swap6,1,5);
-		 addButtons(clear6, 2, 5);
-		 addTiles(favBio7, 0, 6); 
-		 addButtons(swap7,1,6);
-		 addButtons(clear7, 2, 6);
-		 addTiles(favBio8, 0, 7);
-		 addButtons(swap8,1,7);
-		 addButtons(clear8, 2, 7);
-		 addTiles(favBio9, 0, 8); 
-		 addButtons(swap9,1,8);
-		 addButtons(clear9, 2, 8);
-		 
+		
+		
 		 
 	
 	}
