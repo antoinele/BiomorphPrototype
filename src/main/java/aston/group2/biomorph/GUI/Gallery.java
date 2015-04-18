@@ -9,6 +9,7 @@ import java.awt.Frame;
 
 
 
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -120,7 +121,7 @@ public class Gallery extends JFrame{
 	
 	
 	public Gallery(){
-		 JFrame frame = new JFrame();
+	     frame = new JFrame();
 		 frame.pack();
 		 frame.setResizable(true);
 		
@@ -165,7 +166,7 @@ public class Gallery extends JFrame{
 		
 		
 		
-		
+	
 		
 		
 		//biomorph windows for gallery panel
@@ -277,6 +278,14 @@ public class Gallery extends JFrame{
 		 middlePanel.add(panelOne, BorderLayout.SOUTH);
 		 
 		 add(middlePanel, BorderLayout.WEST);
+		 
+		 back.addActionListener(new ActionListener() {
+			    public void actionPerformed(ActionEvent event) {
+			    	MainWindow mw = new MainWindow();
+					mw.setVisible(false);
+					dispose();
+			  }
+		 });
 
 		 exit.addActionListener(new ActionListener() {
 			    public void actionPerformed(ActionEvent event) {
