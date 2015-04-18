@@ -94,19 +94,6 @@ public class Gallery extends JFrame{
 	private JButton swap9;
 	private JButton clear9;
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	private final int fixedWidth = 800;
 	private final int fixedHeight = 600;
 	private int newWidth = 0;
@@ -135,120 +122,26 @@ public class Gallery extends JFrame{
 		 middlePanel = new JPanel();
 		 middlePanel.setLayout(new BorderLayout());
 		
-		 galleryPanel = new JPanel();
-		 galleryPanel.setLayout(new GridLayout(2,10,10,10));
 		 hofPanel = new JPanel();
-	
-		 
+ 
 		 back = new JButton("Back");
 		 exit = new JButton("Exit");
 		 save = new JButton("Save/Export");
 		 compareBiomorphs = new JButton("Compare Biomorphs");
-		 
-		 swap1 = new JButton("Swap");
-		 clear1 = new JButton("Clear");
-		 swap2 = new JButton("Swap");
-		 clear2 = new JButton("Clear");
-		 swap3 = new JButton("Swap");
-		 clear3 = new JButton("Clear");
-		 swap4 = new JButton("Swap");
-		 clear4 = new JButton("Clear");
-		 swap5 = new JButton("Swap");
-		 clear5 = new JButton("Clear");
-		 swap6 = new JButton("Swap");
-		 clear6 = new JButton("Clear");
-		 swap7 = new JButton("Swap");
-		 clear7 = new JButton("Clear");
-		 swap8 = new JButton("Swap");
-		 clear8 = new JButton("Clear");
-		 swap9 = new JButton("Swap");
-		 clear9 = new JButton("Clear");
-	
-		 
-		 createBiomorphTiles();
-	
 
-	     frame.add(middlePanel);
-	    
-	    
-	    
 		 panelOne.add(compareBiomorphs);
 		 panelOne.add(save);
 		 panelTwo.add(back, BorderLayout.WEST);
 		 panelTwo.add(exit);
-		
+		 
+		 createBiomorphTiles();
+		 createHallOfFamePanel();
 
-		
+	     frame.add(middlePanel);
+
+	     favouritePanelHF();
 		 
-         
-		 favBio1 = new JLabel("1");
 		 Border border = BorderFactory.createLineBorder(Color.BLACK, 1);
-		 favBio1.setPreferredSize(new Dimension(80, 70));
-		 favBio1.setBorder(border);
-		 favBio2 = new JLabel("2");
-		 //FlowLayout layout = new FlowLayout();
-		 
-		 favBio2.setPreferredSize(new Dimension(80, 70));
-		 favBio2.setBorder(border);
-		 favBio3 = new JLabel("3");
-		 favBio3.setPreferredSize(new Dimension(80, 70));
-		 favBio3.setBorder(border);
-		 favBio4 = new JLabel("4");
-		 favBio4.setPreferredSize(new Dimension(80, 70));
-		 favBio4.setBorder(border);
-		 favBio5 = new JLabel("5");
-		 favBio5.setPreferredSize(new Dimension(80, 70));
-		 favBio5.setBorder(border);
-		 favBio6 = new JLabel("6");
-		 favBio6.setPreferredSize(new Dimension(80, 70));
-		 favBio6.setBorder(border);
-		 favBio7 = new JLabel("7");
-		 favBio7.setPreferredSize(new Dimension(80, 70));
-		 favBio7.setBorder(border);
-		 favBio8 = new JLabel("8");
-		 favBio8.setPreferredSize(new Dimension(80, 70));
-		 favBio8.setBorder(border);
-		 favBio9 = new JLabel("9");
-		 favBio9.setPreferredSize(new Dimension(80, 70));
-		 favBio9.setBorder(border);
-		 
-		 
-		 GridBagLayout layout = new GridBagLayout();
-		
-		 hofPanel.setLayout(layout);
-		 hofPanel.setBorder(border);
-		 
-		 addTiles(favBio1, 0, 0); 
-		 addButtons(swap1,1,0);
-		 addButtons(clear1, 2, 0);
-		 addTiles(favBio2, 0, 1);
-		 addButtons(swap2,1,1);
-		 addButtons(clear2, 2, 1);
-		 addTiles(favBio3, 0, 2); 
-		 addButtons(swap3,1,2);
-		 addButtons(clear3, 2, 2);
-		 addTiles(favBio4, 0, 3); 
-		 addButtons(swap4,1,3);
-		 addButtons(clear4, 2, 3);
-		 addTiles(favBio5, 0, 4); 
-		 addButtons(swap5,1,4);
-		 addButtons(clear5, 2, 4);
-		 addTiles(favBio6, 0, 5);
-		 addButtons(swap6,1,5);
-		 addButtons(clear6, 2, 5);
-		 addTiles(favBio7, 0, 6); 
-		 addButtons(swap7,1,6);
-		 addButtons(clear7, 2, 6);
-		 addTiles(favBio8, 0, 7);
-		 addButtons(swap8,1,7);
-		 addButtons(clear8, 2, 7);
-		 addTiles(favBio9, 0, 8); 
-		 addButtons(swap9,1,8);
-		 addButtons(clear9, 2, 8);
-		 
-	
-		 
-		 
 
 		 middlePanel.add(panelTwo, BorderLayout.NORTH);
 		 middlePanel.add(galleryPanel, BorderLayout.WEST);
@@ -291,6 +184,9 @@ public class Gallery extends JFrame{
 	}
 	
 	public void createBiomorphTiles(){
+		 galleryPanel = new JPanel();
+		 galleryPanel.setLayout(new GridLayout(2,10,10,10));
+		 
 		//biomorph windows for gallery panel
 		 biomorph1 = new JButton();
 		 biomorph2 = new JButton();
@@ -309,6 +205,87 @@ public class Gallery extends JFrame{
 	  
 	}
 	
+	public void createHallOfFamePanel(){
+		
+		 swap1 = new JButton("Swap");
+		 clear1 = new JButton("Clear");
+		 swap2 = new JButton("Swap");
+		 clear2 = new JButton("Clear");
+		 swap3 = new JButton("Swap");
+		 clear3 = new JButton("Clear");
+		 swap4 = new JButton("Swap");
+		 clear4 = new JButton("Clear");
+		 swap5 = new JButton("Swap");
+		 clear5 = new JButton("Clear");
+		 swap6 = new JButton("Swap");
+		 clear6 = new JButton("Clear");
+		 swap7 = new JButton("Swap");
+		 clear7 = new JButton("Clear");
+		 swap8 = new JButton("Swap");
+		 clear8 = new JButton("Clear");
+		 swap9 = new JButton("Swap");
+		 clear9 = new JButton("Clear");
+		 
+		
+	}
+	
+	public void favouritePanelHF(){
+		 Border border = BorderFactory.createLineBorder(Color.BLACK, 1);
+		 favBio1 = new JLabel("1");
+		 favBio2 = new JLabel("2");
+		 favBio3 = new JLabel("3");
+		 favBio4 = new JLabel("4");
+		 favBio5 = new JLabel("5");
+		 favBio6 = new JLabel("6");
+		 favBio7 = new JLabel("7");
+		 favBio8 = new JLabel("8");
+		 favBio8.setBorder(border);
+		 favBio9 = new JLabel("9");
+		 
+		 JLabel[] favourites = {favBio1, favBio2, favBio3, favBio4, favBio5, favBio6, favBio7, favBio8, favBio9};
+		 
+		 for(JLabel pick: favourites){
+			 pick.setPreferredSize(new Dimension(80, 70));
+			 pick.setBorder(border); 
+		 }
+		 
+		 GridBagLayout layout = new GridBagLayout();
+			
+		 hofPanel.setLayout(layout);
+		 hofPanel.setBorder(border);
+		 
+		 
+		 addTiles(favBio1, 0, 0); 
+		 addButtons(swap1,1,0);
+		 addButtons(clear1, 2, 0);
+		 addTiles(favBio2, 0, 1);
+		 addButtons(swap2,1,1);
+		 addButtons(clear2, 2, 1);
+		 addTiles(favBio3, 0, 2); 
+		 addButtons(swap3,1,2);
+		 addButtons(clear3, 2, 2);
+		 addTiles(favBio4, 0, 3); 
+		 addButtons(swap4,1,3);
+		 addButtons(clear4, 2, 3);
+		 addTiles(favBio5, 0, 4); 
+		 addButtons(swap5,1,4);
+		 addButtons(clear5, 2, 4);
+		 addTiles(favBio6, 0, 5);
+		 addButtons(swap6,1,5);
+		 addButtons(clear6, 2, 5);
+		 addTiles(favBio7, 0, 6); 
+		 addButtons(swap7,1,6);
+		 addButtons(clear7, 2, 6);
+		 addTiles(favBio8, 0, 7);
+		 addButtons(swap8,1,7);
+		 addButtons(clear8, 2, 7);
+		 addTiles(favBio9, 0, 8); 
+		 addButtons(swap9,1,8);
+		 addButtons(clear9, 2, 8);
+		 
+		 
+	
+	}
 	
 }
 
