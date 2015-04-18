@@ -11,5 +11,6 @@ public class Species {
     public Species(Generation firstGeneration)
     {
         this.firstGeneration = firstGeneration;
+        this.firstGeneration.species = this;
     }
 }

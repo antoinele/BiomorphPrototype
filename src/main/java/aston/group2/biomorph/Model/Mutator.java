@@ -1,8 +1,11 @@
 package aston.group2.biomorph.Model;
 
+import aston.group2.biomorph.GUI.Coordinate;
 import aston.group2.biomorph.Model.Genes.Gene;
+import aston.group2.biomorph.Model.Genes.RootGene;
 import aston.group2.biomorph.Storage.Generation;
 
+import java.util.Arrays;
 import java.util.Random;
 
 /**
@@ -65,6 +68,7 @@ public class Mutator {
 
         Gene[] newGene = new Gene[Math.max(sg1.length,sg2.length)];
 
+        // Merge subgenes
         int i=0;
         for (; i<Math.min(sg1.length,sg2.length); i++)
         {
@@ -78,19 +82,47 @@ public class Mutator {
             }
         }
 
+        // Merge additional genes
         for (; i<Math.max(sg1.length,sg2.length); i++)
         {   // TODO: figure out how to merge additional genes
             if(sg1.length > sg2.length)
-            {
                 newGene[i] = sg1[i];
+            else
+                newGene[i] = sg2[i];
+        }
+
+        // Determine gene type
+        Gene ng;
+
+        if(rootGene1.getGeneCode() == rootGene2.getGeneCode())
+        {
+            if(rootGene1.getGeneCode() == 'X')
+                ng = new RootGene();
+            else
+                ng = GeneFactory.getGeneFromCode(rootGene1.getGeneCode());
+        }
+        else
+        {
+            //Decide which gene to become
+            if(rng.nextBoolean())
+            {
+                if(rootGene1.getGeneCode() == 'X')
+                    ng = new RootGene();
+                else
+                    ng = GeneFactory.getGeneFromCode(rootGene1.getGeneCode());
             }
             else
             {
-                newGene[i] = sg2[i];
+                if(rootGene2.getGeneCode() == 'X')
+                    ng = new RootGene();
+                else
+                    ng = GeneFactory.getGeneFromCode(rootGene2.getGeneCode());
             }
         }
 
+        ng.subGenes.addAll(Arrays.asList(newGene));
 
+        return ng;
     }
 
     private static Gene mergeGenes(Gene[] genes, Random rng)
@@ -119,27 +151,51 @@ public class Mutator {
 
     private static Gene mutateGenes(Gene rootGene, Random rng)
     {
+        Gene newRootGene = GeneFactory.getGeneFromCode(rootGene.getGeneCode());
 
+        for (int i = 0; i < rootGene.subGenes.size(); i++)
+        {
+            Gene gene = rootGene.subGenes.get(i);
+            Gene newGene = GeneFactory.getGeneFromCode(gene.getGeneCode());
+
+            if(rng.nextBoolean()) {
+                // Mutate gene values?
+                short[] values = gene.getValues();
+                for (int j = 0; j < values.length; j++) {
+                    if (rng.nextBoolean())
+                        values[j] += rng.nextInt(2) - 1;
+                }
+                newGene.setValues(values);
+            }
+
+            newGene = mutateGenes(gene, rng);
+
+            newRootGene.subGenes.set(i, newGene);
+        }
+
+        return newRootGene;
     }
 
-    public Generation mutateBiomorph(Biomorph[] biomorph, Gene[] protectedParts) {
-        if (biomorph.length == 0) {
+    public Generation mutateBiomorph(Biomorph[] biomorphs)
+    {
+        return mutateBiomorph(biomorphs, new Gene[0]);
+    }
+    public Generation mutateBiomorph(Biomorph[] biomorphs, Gene[] protectedParts) {
+        if (biomorphs.length == 0) {
             throw new IllegalArgumentException("Not enough arguments");
         }
-        if(protectedParts == null)
-        {
-            protectedParts = new Gene[0];
-        }
 
-        Generation newGeneration = new Generation(biomorph[0].generation, this);
+        random.setSeed(12345678); // TODO: Really, this needs to be set properly
+
+        Generation newGeneration = new Generation(biomorphs[0].generation, this);
         newGeneration.children = new Biomorph[childrenRequired];
-        newGeneration.parents = biomorph;
+        newGeneration.parents = biomorphs;
 
         for (int i=0; i<childrenRequired; i++)
         {
             Biomorph newBiomorph = new Biomorph(newGeneration);
 
-            Gene newGenes = mergeGenes(biomorph, random);
+            Gene newGenes = mergeGenes(biomorphs, random);
             newGenes = mutateGenes(newGenes, random);
 
             //set genes

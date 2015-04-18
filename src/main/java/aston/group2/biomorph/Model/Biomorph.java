@@ -4,6 +4,7 @@ import aston.group2.biomorph.GUI.Renderers.Renderer;
 import aston.group2.biomorph.Model.Genes.Gene;
 import aston.group2.biomorph.GUI.Coordinate;
 import aston.group2.biomorph.GUI.Renderable;
+import aston.group2.biomorph.Model.Genes.RootGene;
 import aston.group2.biomorph.Storage.Generation;
 
 import java.awt.*;
@@ -18,70 +19,13 @@ public class Biomorph {
 
     private Coordinate origin;
 
-    private class RootGene extends Gene implements Renderable {
-
-        private class RootGeneRenderer extends Renderer<RootGene> {
-
-            public RootGeneRenderer()
-            {
-                super(RootGene.this);
-            }
-
-            @Override
-            public void draw(Graphics2D g) {
-                throw new RuntimeException("This should never be called");
-            }
-
-            @Override
-            public Coordinate getAttachPoint() {
-                return origin;
-            }
-        }
-
-        public RootGene()
-        {
-            super('X');
-        }
-
-        @Override
-        protected int maxValues()
-        {
-            return 0;
-        }
-
-        @Override
-        protected void parseValues() {
-
-        }
-
-        @Override
-        public String toString()
-        {
-            StringBuilder sb = new StringBuilder();
-
-            for (Gene gene : getSubGenes()) {
-                sb.append(gene.toString());
-            }
-
-            return sb.toString();
-        }
-
-        RootGeneRenderer r = null;
-
-        @Override
-        public Renderer getRenderer() {
-            if(r == null) r = new RootGeneRenderer();
-            return r;
-        }
-    }
-
     private RootGene rootGene;
 
     public Biomorph(Generation generation)
     {
-        rootGene = new RootGene();
-
         this.origin = new Coordinate(0,0);
+
+        rootGene = new RootGene(this.origin);
 
         this.generation = generation;
     }
@@ -109,7 +53,7 @@ public class Biomorph {
 
         Stack<Gene> geneStack = new Stack<Gene>();
 
-        rootGene = new RootGene();
+        rootGene = new RootGene(this.origin);
 
         geneStack.push(rootGene);
 

@@ -5,6 +5,7 @@ import aston.group2.biomorph.Model.InvalidGeneSequenceException;
 import javax.xml.bind.DatatypeConverter;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * Created by antoine on 29/10/14.
@@ -15,7 +16,7 @@ public abstract class Gene {
     private Gene parent = null;
     private byte[] values;
 
-    public final ArrayList<Gene> subGenes;
+    public final List<Gene> subGenes;
 
     public Gene(char geneCode)
     {

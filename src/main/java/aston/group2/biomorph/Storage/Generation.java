@@ -11,12 +11,19 @@ import java.util.Arrays;
  * Created by antoine on 12/03/15.
  */
 public class Generation {
-    public final Species species;
+    public Species species;
     public Biomorph[] children;
     public Biomorph[] parents;
     public final Mutator mutator;
     public Generation prevGeneration;
     public Generation[] nextGeneration;
+
+    public Generation(Mutator mutator)
+    {
+        this.prevGeneration = null;
+        this.species = null;
+        this.mutator = mutator;
+    }
 
     public Generation(Generation prevGeneration, Mutator mutator) {
         this.prevGeneration = prevGeneration;
