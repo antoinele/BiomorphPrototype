@@ -178,13 +178,7 @@ public class Gallery extends JFrame{
 		 biomorph5 = new JButton();
 		 biomorph6 = new JButton();
 		
-		 // sets size of biomorph relative to canvas size
-		 biomorph1.setPreferredSize(new Dimension(boxWidth/4, boxHeight/4));
-	     biomorph2.setPreferredSize(new Dimension(boxWidth/4, boxHeight/4));
-	     biomorph3.setPreferredSize(new Dimension(boxWidth/4, boxHeight/4));
-	     biomorph4.setPreferredSize(new Dimension(boxWidth/4, boxHeight/4));
-	     biomorph5.setPreferredSize(new Dimension(boxWidth/4, boxHeight/4));
-	     biomorph6.setPreferredSize(new Dimension(boxWidth/4, boxHeight/4));
+		
 
 		createBiomorphTiles();
 	
