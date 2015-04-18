@@ -165,6 +165,7 @@ public class Gallery extends JFrame{
 		 clear9 = new JButton("Clear");
 		
 		
+
 		
 	
 		
@@ -184,15 +185,13 @@ public class Gallery extends JFrame{
 	     biomorph4.setPreferredSize(new Dimension(boxWidth/4, boxHeight/4));
 	     biomorph5.setPreferredSize(new Dimension(boxWidth/4, boxHeight/4));
 	     biomorph6.setPreferredSize(new Dimension(boxWidth/4, boxHeight/4));
-	    
+
+		createBiomorphTiles();
+	
+
 	     frame.add(middlePanel);
 	    
-	     galleryPanel.add(biomorph1);
-	     galleryPanel.add(biomorph2);
-	     galleryPanel.add(biomorph3);
-	     galleryPanel.add(biomorph4);
-	     galleryPanel.add(biomorph5);
-	     galleryPanel.add(biomorph6);
+	    
 	    
 		 panelOne.add(compareBiomorphs);
 		 panelOne.add(save);
@@ -310,6 +309,25 @@ public class Gallery extends JFrame{
 		c.gridy = gridy;
 		
 		hofPanel.add(button, c);
+	}
+	
+	public void createBiomorphTiles(){
+		//biomorph windows for gallery panel
+		 biomorph1 = new JButton();
+		 biomorph2 = new JButton();
+		 biomorph3 = new JButton();
+		 biomorph4 = new JButton();
+		 biomorph5 = new JButton();
+		 biomorph6 = new JButton();
+		 
+		 JButton[] biomorphs = {biomorph1, biomorph2, biomorph3, biomorph4, biomorph5, biomorph6};
+		
+		 // sets size of biomorph relative to canvas size
+		 for(int i = 0; i<biomorphs.length; i++){
+	     biomorphs[i].setPreferredSize(new Dimension(boxWidth/4, boxHeight/4));
+	     galleryPanel.add(biomorphs[i]);
+		 }
+	  
 	}
 	
 	
