@@ -37,10 +37,10 @@ public class Biomorph {
         deserialiseString(genome);
     }
 
-    public void setOrigin(Coordinate origin)
-    {
-        this.origin = origin;
-    }
+//    public void setOrigin(Coordinate origin)
+//    {
+//        this.origin = origin;
+//    }
 
     public Gene getRootGene()
     {

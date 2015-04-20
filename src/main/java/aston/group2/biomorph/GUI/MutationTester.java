@@ -24,6 +24,8 @@ public class MutationTester extends JFrame {
     public MutationTester()
     {
         setLayout(new BorderLayout());
+        setTitle("Mutation Tester");
+        setMinimumSize(new Dimension(800, 600));
 
         biomorphGrid = new JPanel();
         biomorphGrid.setLayout(new GridLayout(rows,cols));
@@ -35,25 +37,42 @@ public class MutationTester extends JFrame {
         refreshGrid();
 
         {
+            JLabel infoLabel = new JLabel("This program takes the top left biomorph and mutates it into 6 children");
+            add(infoLabel, BorderLayout.NORTH);
+        }
+
+        {
             JButton mutateButton = new JButton("Mutate");
             mutateButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
+                    initialiseBiomorph();
 
+                    refreshGrid();
                 }
             });
+
+            add(mutateButton, BorderLayout.SOUTH);
         }
     }
 
     private void initialiseBiomorph()
     {
-        mutator = new Mutator();
+        Biomorph bm;
+        if(generation == null) {
+            mutator = new Mutator();
+            mutator.childrenRequired = rows * cols;
 
-        generation = new Generation(mutator);
+            generation = new Generation(mutator);
 
-        new Species(generation);
+            new Species(generation);
 
-        Biomorph bm = new Biomorph("D21F00CSLBEEF00SMCAFEsL123456LFF12F0SLF24300s");
+            bm = new Biomorph("D21F00CSLBEEF00SMCAFEsL123456LFF12F0SLF24300s");
+        }
+        else
+        {
+            bm = generation.children[0];
+        }
 
         Biomorph[] bma = {bm};
 
@@ -64,7 +83,7 @@ public class MutationTester extends JFrame {
     {
         biomorphGrid.removeAll();
 
-        for (int i=0; i<generation.children.length; i++)
+        for (int i=0; i<Math.min(generation.children.length, rows*cols); i++)
         {
             BiomorphSurface bs = new BiomorphSurface();
             bs.setBiomorph(generation.children[i]);
