@@ -111,11 +111,15 @@ public class Gallery extends JFrame{
 		 exit = new JButton("Exit");
 		 save = new JButton("Save/Export");
 		 compareBiomorphs = new JButton("Compare Biomorphs");
+		 shape = new JSlider();
+		 colour = new JSlider();
 
 		 panelOne.add(compareBiomorphs);
 		 panelOne.add(save);
+		 panelOne.add(shape);
 		 panelTwo.add(back, BorderLayout.WEST);
 		 panelTwo.add(exit);
+		 
 		 
 		 createBiomorphTiles();
 		
