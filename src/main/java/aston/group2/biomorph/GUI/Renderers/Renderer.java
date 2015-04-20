@@ -29,7 +29,11 @@ public abstract class Renderer<T extends Gene> {
         }
         else
         {
-            throw new RuntimeException("How...?");
+            // No parent gene?
+            if(parentGene == null)
+                throw new RuntimeException("Parent is null");
+            else
+                throw new RuntimeException("Parent gene isn't a renderable");
         }
     }
 

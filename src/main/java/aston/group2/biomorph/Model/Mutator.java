@@ -15,6 +15,13 @@ public class Mutator {
     public int childrenRequired;
     public Random random;
 
+    public Mutator()
+    {
+        this.random = new Random(); // TODO: this probably needs changing
+
+        random.setSeed(12345678); // TODO: Really, this needs to be set properly
+    }
+
     private static Gene mergeGene(Gene g1, Gene g2, Random rng)
     {
         short[] v1 = g1.getValues(),
@@ -158,19 +165,21 @@ public class Mutator {
             Gene gene = rootGene.subGenes.get(i);
             Gene newGene = GeneFactory.getGeneFromCode(gene.getGeneCode());
 
+            short[] values = gene.getValues();
+
             if(rng.nextBoolean()) {
                 // Mutate gene values?
-                short[] values = gene.getValues();
                 for (int j = 0; j < values.length; j++) {
-                    if (rng.nextBoolean())
-                        values[j] += rng.nextInt(2) - 1;
+                    if (rng.nextBoolean()) {
+                        values[j] += rng.nextInt(10) - 5;
+                    }
                 }
-                newGene.setValues(values);
             }
 
             newGene = mutateGenes(gene, rng);
+            newGene.setValues(values);
 
-            newRootGene.subGenes.set(i, newGene);
+            newRootGene.addSubGene(newGene);
         }
 
         return newRootGene;
@@ -185,9 +194,13 @@ public class Mutator {
             throw new IllegalArgumentException("Not enough arguments");
         }
 
-        random.setSeed(12345678); // TODO: Really, this needs to be set properly
+        Generation newGeneration;
 
-        Generation newGeneration = new Generation(biomorphs[0].generation, this);
+        if(biomorphs[0].generation != null)
+            newGeneration = new Generation(biomorphs[0].generation, this);
+        else
+            newGeneration = new Generation(this);
+
         newGeneration.children = new Biomorph[childrenRequired];
         newGeneration.parents = biomorphs;
 
