@@ -10,7 +10,10 @@ import java.awt.Frame;
 
 
 
+
+
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -104,7 +107,7 @@ public class Gallery extends JFrame{
 	private int boxHeight = (fixedHeight/3)*2;
 	
 	
-	
+	 public BiomorphSurface biomorphSurface;
 	
 	
 	public Gallery(){
@@ -164,6 +167,35 @@ public class Gallery extends JFrame{
 			        System.exit(0);
 			  }
 		 });
+		 
+		 
+		 
+		 save.addActionListener(new ActionListener() {
+             @Override
+             public void actionPerformed(ActionEvent e) {
+                 JFileChooser jf = new JFileChooser();
+                 jf.setFileFilter(new FileNameExtensionFilter("Biomorph file","biomorph"));
+
+                 int rv = jf.showSaveDialog(getParent());
+
+                 if(rv == JFileChooser.APPROVE_OPTION)
+                 {
+                     String path = jf.getSelectedFile().getPath();
+
+                     if (!path.endsWith(".biomorph")) {
+                         path += ".biomorph";
+                     }
+
+                     try {
+                         BufferedWriter br = Files.newBufferedWriter(Paths.get(path), Charset.forName("US-ASCII"));
+                         br.write(biomorphSurface.getBiomorph().toString());
+                         br.close();
+                     } catch (IOException e1) {
+                         e1.printStackTrace();
+                     }
+                 }
+             }
+         });
 		
 	}
 	
