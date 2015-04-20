@@ -3,14 +3,18 @@ package aston.group2.biomorph.GUI;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import aston.group2.biomorph.Model.Biomorph;
+
 import javax.swing.*;
 import javax.swing.border.Border;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import java.awt.*;
@@ -86,7 +90,9 @@ public class Gallery extends JFrame{
 	
 	 
 	private JSlider shape;
+	private JLabel shapes;
 	private JSlider colour;
+	private JLabel colours;
 	private int minpercent = 0;
 	private int maxpercent = 100;
 	
@@ -96,7 +102,7 @@ public class Gallery extends JFrame{
 		 frame.setResizable(true);
 		
 		 //setMinimumSize(new Dimension(boxHeight,boxWidth));
-		 setMinimumSize(new Dimension(400, 400));
+		 setMinimumSize(new Dimension(900, 800));
 		 panelOne = new JPanel();
 		 panelOne.setLayout(new FlowLayout());
 		 panelTwo = new JPanel();
@@ -111,12 +117,42 @@ public class Gallery extends JFrame{
 		 exit = new JButton("Exit");
 		 save = new JButton("Save/Export");
 		 compareBiomorphs = new JButton("Compare Biomorphs");
-		 shape = new JSlider();
-		 colour = new JSlider();
+		 
+		 shape = new JSlider(JSlider.HORIZONTAL, minpercent, maxpercent, 0);
+		 shape.setMajorTickSpacing(10);
+		 shape.setPaintTicks(true);
+
+		 colour = new JSlider(JSlider.HORIZONTAL, minpercent, maxpercent, 0);
+		 colour.setMajorTickSpacing(10);
+		 colour.setPaintTicks(true);
+
+		 shapes = new JLabel("Shape: ");
+		 
+		 colours = new JLabel("Colour: ");
+		 
+		  shape.addChangeListener(new ChangeListener() {
+		      public void stateChanged(ChangeEvent event) {
+		       int shapevalue = shape.getValue();
+		       shapes.setText("Shape " + shapevalue + " %");
+		      }
+		    });
+		  
+		  colour.addChangeListener(new ChangeListener(){
+			  public void stateChanged(ChangeEvent event){
+				  int colourvalue = colour.getValue();
+				  colours.setText("Colour " + colourvalue + " %");
+			  }
+		  });
+		  
+		  
+		 
 
 		 panelOne.add(compareBiomorphs);
 		 panelOne.add(save);
+		 panelOne.add(shapes);
 		 panelOne.add(shape);
+		 panelOne.add(colours);
+		 panelOne.add(colour);
 		 panelTwo.add(back, BorderLayout.WEST);
 		 panelTwo.add(exit);
 		 
@@ -301,8 +337,10 @@ public class Gallery extends JFrame{
 	
 	}
 	
-	public void createSliders(){
+	public void createSliders(ChangeEvent e){
+		int shapevalue = shape.getValue();
 		
+		shapes.setText("Shape" + shapevalue + " %");
 	}
 	
 }
