@@ -3,36 +3,20 @@ package aston.group2.biomorph.GUI;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.Frame;
-
-
-
-
-
-
-
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import aston.group2.biomorph.Model.Biomorph;
-import aston.group2.biomorph.Model.Genes.Gene;
-
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-import com.sun.xml.internal.ws.api.config.management.policy.ManagementAssertion.Setting;
-
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.geom.AffineTransform;
-import java.awt.image.BufferedImage;
-import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
@@ -98,7 +82,7 @@ public class Gallery extends JFrame{
 	private int boxHeight = (fixedHeight/3)*2;
 	
 	
-	
+	 public BiomorphSurface biomorphSurface;
 	
 	
 	public Gallery(){
@@ -158,6 +142,35 @@ public class Gallery extends JFrame{
 			        System.exit(0);
 			  }
 		 });
+		 
+		 
+		 
+		 save.addActionListener(new ActionListener() {
+             @Override
+             public void actionPerformed(ActionEvent e) {
+                 JFileChooser jf = new JFileChooser();
+                 jf.setFileFilter(new FileNameExtensionFilter("Biomorph file","biomorph"));
+
+                 int rv = jf.showSaveDialog(getParent());
+
+                 if(rv == JFileChooser.APPROVE_OPTION)
+                 {
+                     String path = jf.getSelectedFile().getPath();
+
+                     if (!path.endsWith(".biomorph")) {
+                         path += ".biomorph";
+                     }
+
+                     try {
+                         BufferedWriter br = Files.newBufferedWriter(Paths.get(path), Charset.forName("US-ASCII"));
+                         br.write(biomorphSurface.getBiomorph().toString());
+                         br.close();
+                     } catch (IOException e1) {
+                         e1.printStackTrace();
+                     }
+                 }
+             }
+         });
 		
 	}
 	

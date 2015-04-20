@@ -20,7 +20,7 @@ public class BiomorphSurfaceWithTools extends JPanel {
 	
 	public BiomorphSurfaceWithTools() {
 		bS = new BiomorphSurface();
-		
+
 		this.setLayout(new BorderLayout());
 		this.add(bS, BorderLayout.CENTER);
 		
