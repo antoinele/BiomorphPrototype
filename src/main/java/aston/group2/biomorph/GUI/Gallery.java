@@ -84,6 +84,11 @@ public class Gallery extends JFrame{
 	
 	 public BiomorphSurface biomorphSurface;
 	
+	 
+	private JSlider shape;
+	private JSlider colour;
+	private int minpercent = 0;
+	private int maxpercent = 100;
 	
 	public Gallery(){
 	     frame = new JFrame();
@@ -290,6 +295,10 @@ public class Gallery extends JFrame{
 		
 		 
 	
+	}
+	
+	public void createSliders(){
+		
 	}
 	
 }
