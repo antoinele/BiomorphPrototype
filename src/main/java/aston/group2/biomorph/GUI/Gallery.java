@@ -10,6 +10,7 @@ import java.awt.Frame;
 
 
 
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -50,13 +51,6 @@ public class Gallery extends JFrame{
 	private JPanel galleryPanel;
 	//panel on the right side
 	private JPanel hofPanel;
-	
-	private JButton biomorph1;
-	private JButton biomorph2;
-	private JButton biomorph3;
-	private JButton biomorph4;
-	private JButton biomorph5;
-	private JButton biomorph6;
 	
 	//hall of fame biomorphs
 	private JLabel favBio1;
@@ -186,23 +180,26 @@ public class Gallery extends JFrame{
 	
 	public void createBiomorphTiles(){
 		 galleryPanel = new JPanel();
-		 galleryPanel.setLayout(new GridLayout(2,10,10,10));
+		 galleryPanel.setLayout(new GridLayout(2,3,10,10));
 		 
 		//biomorph windows for gallery panel
-		 biomorph1 = new JButton();
-		 biomorph2 = new JButton();
-		 biomorph3 = new JButton();
-		 biomorph4 = new JButton();
-		 biomorph5 = new JButton();
-		 biomorph6 = new JButton();
 		 
-		 JButton[] biomorphs = {biomorph1, biomorph2, biomorph3, biomorph4, biomorph5, biomorph6};
+		 //JPanel[] biomorphs = new JPanel[6];
+		 for(int i =0; i<6; i++){
+			 BiomorphSurfaceWithTools bS = new BiomorphSurfaceWithTools();
+			 Biomorph bm = new Biomorph("D21F00CSLBEEF00SMCAFEsL123456LFF12F0SLF2430"+i+"s");
+			 
+			 bS.setBiomorph(bm);
+			 //biomorphs[i] = bS;
+			 bS.setPreferredSize(new Dimension(boxWidth/4, boxHeight/4));
+			 galleryPanel.add(bS);
+		 }
 		
 		 // sets size of biomorph relative to canvas size
-		 for(int i = 0; i<biomorphs.length; i++){
-	     biomorphs[i].setPreferredSize(new Dimension(boxWidth/4, boxHeight/4));
-	     galleryPanel.add(biomorphs[i]);
-		 }
+		 //for(int i = 0; i<biomorphs.length; i++){
+	     //biomorphs[i].setPreferredSize(new Dimension(boxWidth/4, boxHeight/4));
+	     //galleryPanel.add(biomorphs[i]);
+		 //}
 	  
 	}
 	

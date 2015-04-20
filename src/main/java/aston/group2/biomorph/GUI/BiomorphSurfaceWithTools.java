@@ -16,10 +16,10 @@ import javax.swing.JPanel;
 import aston.group2.biomorph.Model.Biomorph;
 
 public class BiomorphSurfaceWithTools extends JPanel {
+	BiomorphSurface bS;
+	
 	public BiomorphSurfaceWithTools() {
-		BiomorphSurface bS = new BiomorphSurface();
-		bS.setBiomorph(new Biomorph("D21F00CSLBEEF00SMCAFEsL123456LFF12F0SLF24300s"));
-		
+		bS = new BiomorphSurface();
 		
 		this.setLayout(new BorderLayout());
 		this.add(bS, BorderLayout.CENTER);
@@ -68,5 +68,10 @@ public class BiomorphSurfaceWithTools extends JPanel {
 		}
        
         
+	}
+	
+	public void setBiomorph(Biomorph biomorph)
+	{
+		bS.setBiomorph(biomorph);
 	}
 }
