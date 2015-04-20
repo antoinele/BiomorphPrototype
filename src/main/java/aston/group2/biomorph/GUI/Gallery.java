@@ -8,6 +8,8 @@ import java.awt.Frame;
 
 
 
+
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -19,6 +21,8 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.filechooser.FileNameExtensionFilter;
+
+import com.sun.xml.internal.ws.api.config.management.policy.ManagementAssertion.Setting;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -71,8 +75,24 @@ public class Gallery extends JFrame{
 	private JButton compareBiomorphs;
 	private JButton save;
 	
-	private JButton swap;
-	private JButton clear;
+	private JButton swap1;
+	private JButton clear1;
+	private JButton swap2;
+	private JButton clear2;
+	private JButton swap3;
+	private JButton clear3;
+	private JButton swap4;
+	private JButton clear4;
+	private JButton swap5;
+	private JButton clear5;
+	private JButton swap6;
+	private JButton clear6;
+	private JButton swap7;
+	private JButton clear7;
+	private JButton swap8;
+	private JButton clear8;
+	private JButton swap9;
+	private JButton clear9;
 	
 	private final int fixedWidth = 800;
 	private final int fixedHeight = 600;
@@ -88,7 +108,7 @@ public class Gallery extends JFrame{
 	
 	
 	public Gallery(){
-		 JFrame frame = new JFrame();
+	     frame = new JFrame();
 		 frame.pack();
 		 frame.setResizable(true);
 		
@@ -102,102 +122,27 @@ public class Gallery extends JFrame{
 		 middlePanel = new JPanel();
 		 middlePanel.setLayout(new BorderLayout());
 		
-		 galleryPanel = new JPanel();
-		 galleryPanel.setLayout(new GridLayout(2,10,10,10));
 		 hofPanel = new JPanel();
-	
-		 
+ 
 		 back = new JButton("Back");
 		 exit = new JButton("Exit");
 		 save = new JButton("Save/Export");
 		 compareBiomorphs = new JButton("Compare Biomorphs");
-		 
-		 swap = new JButton("Swap");
-		 clear = new JButton("Clear");
-		
-		//biomorph windows for gallery panel
-		 biomorph1 = new JButton();
-		 biomorph2 = new JButton();
-		 biomorph3 = new JButton();
-		 biomorph4 = new JButton();
-		 biomorph5 = new JButton();
-		 biomorph6 = new JButton();
-		
-		 // sets size of biomorph relative to canvas size
-		 biomorph1.setPreferredSize(new Dimension(boxWidth/4, boxHeight/4));
-		
-	     biomorph2.setPreferredSize(new Dimension(boxWidth/4, boxHeight/4));
-	     biomorph3.setPreferredSize(new Dimension(boxWidth/4, boxHeight/4));
-	     biomorph4.setPreferredSize(new Dimension(boxWidth/4, boxHeight/4));
-	     biomorph5.setPreferredSize(new Dimension(boxWidth/4, boxHeight/4));
-	     biomorph6.setPreferredSize(new Dimension(boxWidth/4, boxHeight/4));
-	    
-	     frame.add(middlePanel);
-	    
-	     galleryPanel.add(biomorph1);
-	     galleryPanel.add(biomorph2);
-	     galleryPanel.add(biomorph3);
-	     galleryPanel.add(biomorph4);
-	     galleryPanel.add(biomorph5);
-	     galleryPanel.add(biomorph6);
-	    
+
 		 panelOne.add(compareBiomorphs);
 		 panelOne.add(save);
 		 panelTwo.add(back, BorderLayout.WEST);
 		 panelTwo.add(exit);
+		 
+		 createBiomorphTiles();
 		
 
-		
+	     frame.add(middlePanel);
+
+	     favouritePanelHF();
+	     createHallOfFamePanel();
 		 
-         
-		 favBio1 = new JLabel("1");
 		 Border border = BorderFactory.createLineBorder(Color.BLACK, 1);
-		 favBio1.setPreferredSize(new Dimension(70, 70));
-		 favBio1.setBorder(border);
-		 favBio2 = new JLabel("2");
-		 //FlowLayout layout = new FlowLayout();
-		 
-		 favBio2.setPreferredSize(new Dimension(70, 70));
-		 favBio2.setBorder(border);
-		 favBio3 = new JLabel("3");
-		 favBio3.setPreferredSize(new Dimension(70, 70));
-		 favBio3.setBorder(border);
-		 favBio4 = new JLabel("4");
-		 favBio4.setPreferredSize(new Dimension(70, 70));
-		 favBio4.setBorder(border);
-		 favBio5 = new JLabel("5");
-		 favBio5.setPreferredSize(new Dimension(70, 70));
-		 favBio5.setBorder(border);
-		 favBio6 = new JLabel("6");
-		 favBio6.setPreferredSize(new Dimension(70, 70));
-		 favBio6.setBorder(border);
-		 favBio7 = new JLabel("7");
-		 favBio7.setPreferredSize(new Dimension(70, 70));
-		 favBio7.setBorder(border);
-		 favBio8 = new JLabel("8");
-		 favBio8.setPreferredSize(new Dimension(70, 70));
-		 favBio8.setBorder(border);
-		 favBio9 = new JLabel("9");
-		 favBio9.setPreferredSize(new Dimension(70, 70));
-		 favBio9.setBorder(border);
-		 
-		 
-		 GridBagLayout layout = new GridBagLayout();
-		
-		 hofPanel.setLayout(layout);
-		 hofPanel.setBorder(border);
-		 
-		 addTiles(favBio1, 0, 0); 
-		 addButtons(swap, 1, 0);
-		 addTiles(favBio2, 0, 1);
-		 addTiles(favBio3, 0, 2); 
-		 addTiles(favBio4, 0, 3); 
-		 addTiles(favBio5, 0, 4); 
-		 addTiles(favBio6, 0, 5);
-		 addTiles(favBio7, 0, 6); 
-		 addTiles(favBio8, 0, 7); 
-		 addTiles(favBio9, 0, 8); 
-		 
 
 		 middlePanel.add(panelTwo, BorderLayout.NORTH);
 		 middlePanel.add(galleryPanel, BorderLayout.WEST);
@@ -205,6 +150,14 @@ public class Gallery extends JFrame{
 		 middlePanel.add(panelOne, BorderLayout.SOUTH);
 		 
 		 add(middlePanel, BorderLayout.WEST);
+		 
+		 back.addActionListener(new ActionListener() {
+			    public void actionPerformed(ActionEvent event) {
+			    	MainWindow mw = new MainWindow();
+					mw.setVisible(false);
+					dispose();
+			  }
+		 });
 
 		 exit.addActionListener(new ActionListener() {
 			    public void actionPerformed(ActionEvent event) {
@@ -231,6 +184,103 @@ public class Gallery extends JFrame{
 		hofPanel.add(button, c);
 	}
 	
+	public void createBiomorphTiles(){
+		 galleryPanel = new JPanel();
+		 galleryPanel.setLayout(new GridLayout(2,10,10,10));
+		 
+		//biomorph windows for gallery panel
+		 biomorph1 = new JButton();
+		 biomorph2 = new JButton();
+		 biomorph3 = new JButton();
+		 biomorph4 = new JButton();
+		 biomorph5 = new JButton();
+		 biomorph6 = new JButton();
+		 
+		 JButton[] biomorphs = {biomorph1, biomorph2, biomorph3, biomorph4, biomorph5, biomorph6};
+		
+		 // sets size of biomorph relative to canvas size
+		 for(int i = 0; i<biomorphs.length; i++){
+	     biomorphs[i].setPreferredSize(new Dimension(boxWidth/4, boxHeight/4));
+	     galleryPanel.add(biomorphs[i]);
+		 }
+	  
+	}
+	
+	public void createHallOfFamePanel(){
+		
+		 swap1 = new JButton("Swap");
+		 clear1 = new JButton("Clear");
+		 swap2 = new JButton("Swap");
+		 clear2 = new JButton("Clear");
+		 swap3 = new JButton("Swap");
+		 clear3 = new JButton("Clear");
+		 swap4 = new JButton("Swap");
+		 clear4 = new JButton("Clear");
+		 swap5 = new JButton("Swap");
+		 clear5 = new JButton("Clear");
+		 swap6 = new JButton("Swap");
+		 clear6 = new JButton("Clear");
+		 swap7 = new JButton("Swap");
+		 clear7 = new JButton("Clear");
+		 swap8 = new JButton("Swap");
+		 clear8 = new JButton("Clear");
+		 swap9 = new JButton("Swap");
+		 clear9 = new JButton("Clear");
+		 
+		 JButton[] swaps = {swap1, swap2, swap3, swap4, swap5, swap6, swap7, swap8, swap9};
+		
+		 int y = 0;
+		 for(JButton swap: swaps){
+		 addButtons(swap, 1, y);
+		 y++;
+		 }
+		 
+		 JButton[] clearbuttons = {clear1, clear2, clear3, clear4, clear5, clear6, clear7, clear8, clear9};
+		 
+		 int cleary = 0;
+		 for(JButton clear: clearbuttons){
+		 addButtons(clear, 2, cleary);
+		 cleary++;
+		 }
+		 
+		
+	}
+	
+	public void favouritePanelHF(){
+		 Border border = BorderFactory.createLineBorder(Color.BLACK, 1);
+		 favBio1 = new JLabel("1");
+		 favBio2 = new JLabel("2");
+		 favBio3 = new JLabel("3");
+		 favBio4 = new JLabel("4");
+		 favBio5 = new JLabel("5");
+		 favBio6 = new JLabel("6");
+		 favBio7 = new JLabel("7");
+		 favBio8 = new JLabel("8");
+		 favBio9 = new JLabel("9");
+		 
+		 JLabel[] favourites = {favBio1, favBio2, favBio3, favBio4, favBio5, favBio6, favBio7, favBio8, favBio9};
+		 
+		 for(JLabel pick: favourites){
+			 pick.setPreferredSize(new Dimension(80, 70));
+			 pick.setBorder(border); 
+		 }
+		 
+		 GridBagLayout layout = new GridBagLayout();
+			
+		 hofPanel.setLayout(layout);
+		 hofPanel.setBorder(border);
+		 
+		 int x = 0;
+		 for(int i = 0; i<favourites.length; i++){
+			addTiles(favourites[i], 0, x);
+			x++;
+		 }
+		 
+		
+		
+		 
+	
+	}
 	
 }
 
