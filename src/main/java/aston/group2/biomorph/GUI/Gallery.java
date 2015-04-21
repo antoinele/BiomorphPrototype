@@ -146,13 +146,12 @@ public class Gallery extends JFrame{
 		  
 		  
 		 
-
-		 panelOne.add(compareBiomorphs);
-		 panelOne.add(save);
 		 panelOne.add(shapes);
 		 panelOne.add(shape);
 		 panelOne.add(colours);
 		 panelOne.add(colour);
+		 panelOne.add(compareBiomorphs);
+		 panelOne.add(save);
 		 panelTwo.add(back, BorderLayout.WEST);
 		 panelTwo.add(exit);
 		 
