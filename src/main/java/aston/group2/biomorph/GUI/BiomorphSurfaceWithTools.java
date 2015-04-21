@@ -74,7 +74,7 @@ public class BiomorphSurfaceWithTools extends JPanel {
 		}
        
         JButton saveButton = new JButton("Save");       
-        header.add(saveButton, BorderLayout.WEST);
+        header.add(saveButton, BorderLayout.EAST);
        
         saveButton.addActionListener(new ActionListener() {
             @Override
