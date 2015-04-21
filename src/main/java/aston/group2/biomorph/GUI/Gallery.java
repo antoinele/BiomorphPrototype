@@ -176,7 +176,18 @@ public class Gallery extends JFrame{
 
 		 exit.addActionListener(new ActionListener() {
 			    public void actionPerformed(ActionEvent event) {
-			     int confirm = JOptionPane.showConfirmDialog(popup, "Are you sure you want to exit?", "Confirm", JOptionPane.YES_NO_OPTION);
+			     int confirm = JOptionPane.showConfirmDialog(popup, "Are you sure you want to exit?", "Confirm", JOptionPane.OK_CANCEL_OPTION);
+			     
+			     
+			     if(confirm == JOptionPane.OK_OPTION){
+			            System.exit(0);
+			        }
+			        else {
+			            popup.setVisible(false);
+			        }
+			     
+			     
+			     
 			  }
 		 });
 		 
