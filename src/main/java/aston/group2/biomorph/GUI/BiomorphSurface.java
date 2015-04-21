@@ -7,44 +7,45 @@ import java.awt.RenderingHints;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 
-import javax.swing.JPanel;
+import javax.swing.*;
 
 import aston.group2.biomorph.Model.Biomorph;
 import aston.group2.biomorph.Model.Genes.Gene;
 
-class BiomorphSurface extends JPanel {
+class BiomorphSurface extends JComponent {
 
 	public boolean CLIPMIRROR = false;
 
 	private final int fixedWidth = 800;
 	private final int fixedHeight = 600;
-	private int newWidth = 0;
-	private int newHeight = 0;
+	private int newWidth = 800;
+	private int newHeight = 600;
 	
 
 	private Biomorph biomorph;
 	private Gene rootGene;
 	
-	// List<Gene> biomorphprerenderables = new ArrayList<Gene>();
-	// List<Renderer> biomorphrenderables = new ArrayList<Renderer>();
+	public BiomorphSurface()
+    {
+        this.setLocation(0,0);
+    }
+    public BiomorphSurface(Biomorph biomorph)
+    {
+        super();
+        setBiomorph(biomorph);
+    }
 
 	private void doDrawing(Graphics2D g) {
 		RenderingHints rh = new RenderingHints(RenderingHints.KEY_ANTIALIASING,
 				RenderingHints.VALUE_ANTIALIAS_ON);
-		// apple PEAR
 
 		g.setRenderingHints(rh);
-		g.setTransform(AffineTransform.getTranslateInstance(newWidth / 2,
-				newHeight / 2));
-		//TODO: Search for Graphics2D Scaling 
-		//Horizontal Scaling is newwidth/oldwidth 
-		//Vertical Scaling is newheight/oldheight
-		//Also fix main window Class
+        g.translate(newWidth / 2, newHeight / 2);
+//		g.setTransform(AffineTransform.getTranslateInstance(newWidth / 2,
+//				newHeight / 2));
+
 		g.scale((double)newWidth/fixedWidth, (double)newHeight/fixedHeight);
-		//scaling added
-		
-		
-		
+
 		g.setColor(Color.black);
 
 		AffineTransform t = g.getTransform(); // Store transform before drawing
@@ -104,7 +105,7 @@ class BiomorphSurface extends JPanel {
 
 	public void setBiomorph(Biomorph biomorph) {
 		this.biomorph = biomorph;
-		biomorph.setOrigin(new Coordinate(0, 0));
+//		biomorph.setOrigin(new Coordinate(0, 0));
 
 		rootGene = biomorph.getRootGene();
 
@@ -120,18 +121,13 @@ class BiomorphSurface extends JPanel {
 
 	@Override
 	public void paintComponent(Graphics g) {
-		
-		super.paintComponent(g);
-		//fetches Canvas Height and Width for Rescaling
-		newWidth = getWidth();
-		newHeight = getHeight();
-		
-		// System.out.println("Draw to image");
-		// doDrawing((Graphics2D) currentFrame.createGraphics());
-		// System.out.println("Draw to window");
-		doDrawing((Graphics2D) g);
-		//TODO: Set Window Width and Window Height
-	}
+        super.paintComponent(g);
+        //fetches Canvas Height and Width for Rescaling
+        newWidth = getWidth();
+        newHeight = getHeight();
+
+        doDrawing((Graphics2D) g);
+    }
 
 	public BufferedImage getFrame() {
 		newWidth = getWidth();

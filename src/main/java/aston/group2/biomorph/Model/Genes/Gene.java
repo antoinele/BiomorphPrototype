@@ -5,6 +5,7 @@ import aston.group2.biomorph.Model.InvalidGeneSequenceException;
 import javax.xml.bind.DatatypeConverter;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * Created by antoine on 29/10/14.
@@ -15,7 +16,7 @@ public abstract class Gene {
     private Gene parent = null;
     private byte[] values;
 
-    public final ArrayList<Gene> subGenes;
+    public final List<Gene> subGenes;
 
     public Gene(char geneCode)
     {
@@ -53,11 +54,26 @@ public abstract class Gene {
 
     public void setValues(byte[] values)
     {
-        assert(values.length == maxValues());
+        assert(values.length >= maxValues());
 
         this.values = Arrays.copyOf(values, maxValues());
 
         parseValues();
+    }
+
+    public void setValues(short[] values)
+    {
+        assert(values.length >= maxValues());
+
+        byte[] newValues = new byte[maxValues()];
+
+        for (int i=0; i<newValues.length; i++)
+        {
+            newValues[i] = (byte)(values[i] & 0xff); // Convert a signed byte into its unsigned value by upgrading its
+            // type
+        }
+
+        setValues(newValues);
     }
 
     public short[] getValues()
@@ -119,9 +135,12 @@ public abstract class Gene {
 
         sb.append(getGeneCode());
 
+        short[] values = getValues();
+        System.err.print("Values: ");
+        System.err.println(Arrays.toString(values));
         for(int i=0; i < maxValues(); i++)
         {
-            sb.append(String.format("%02X", getValues()[i]));
+            sb.append(String.format("%02X", values[i]));
         }
 
         if(getSubGenes().length > 0)
