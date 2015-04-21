@@ -22,7 +22,7 @@ class BiomorphSurface extends JPanel {
 	private int newHeight = 0;
 	
 
-	private Biomorph biomorph;
+	private static Biomorph biomorph;
 	private Gene rootGene;
 	
 	// List<Gene> biomorphprerenderables = new ArrayList<Gene>();
@@ -114,7 +114,7 @@ class BiomorphSurface extends JPanel {
 		// biomorphprerenderables.clear();
 	}
 
-	public Biomorph getBiomorph() {
+	public static Biomorph getBiomorph() {
 		return biomorph;
 	}
 
