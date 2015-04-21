@@ -248,7 +248,7 @@ public class Gallery extends JFrame{
 			 Biomorph bm = new Biomorph("D21F00CSLBEEF00SMCAFEsL123456LFF12F0SLF2430"+i+"s");
 			 
 			 bS.setBiomorph(bm);
-			 //biomorphs[i] = bS;
+			 //biomorphs[i] = biomorphSurface;
 			 bS.setPreferredSize(new Dimension(boxWidth/4, boxHeight/4));
 			 galleryPanel.add(bS);
 		 }

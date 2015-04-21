@@ -1,7 +1,6 @@
 package aston.group2.biomorph.GUI;
 
 import java.awt.BorderLayout;
-import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
@@ -9,20 +8,29 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JPanel;
+import javax.swing.*;
 
 import aston.group2.biomorph.Model.Biomorph;
 
 public class BiomorphSurfaceWithTools extends JPanel {
-	BiomorphSurface bS;
-	
-	public BiomorphSurfaceWithTools() {
-		bS = new BiomorphSurface();
+	public final BiomorphSurface biomorphSurface;
+
+    private JCheckBox checkbox;
+
+    private boolean selectable = false;
+
+    public BiomorphSurfaceWithTools()
+    {
+        this(false);
+    }
+
+	public BiomorphSurfaceWithTools(boolean selectable) {
+        this.selectable = selectable;
+
+		biomorphSurface = new BiomorphSurface();
 
 		this.setLayout(new BorderLayout());
-		this.add(bS, BorderLayout.CENTER);
+		this.add(biomorphSurface, BorderLayout.CENTER);
 		
 		//add footer panel to the bottom of panel
 		JPanel footer = new JPanel();
@@ -55,7 +63,7 @@ public class BiomorphSurfaceWithTools extends JPanel {
 
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					BiomorphPreview biomorphPreview= new BiomorphPreview(bS.getBiomorph());
+					BiomorphPreview biomorphPreview= new BiomorphPreview(biomorphSurface.getBiomorph());
 					biomorphPreview.setVisible(true);
 					
 				}
@@ -66,12 +74,21 @@ public class BiomorphSurfaceWithTools extends JPanel {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-       
-        
+
+        if(selectable)
+        {   //Add a checkbox
+            checkbox = new JCheckBox();
+            header.add(checkbox, BorderLayout.EAST);
+        }
 	}
 	
 	public void setBiomorph(Biomorph biomorph)
 	{
-		bS.setBiomorph(biomorph);
+		biomorphSurface.setBiomorph(biomorph);
 	}
+
+    public boolean selected()
+    {
+        return selectable && checkbox.isSelected();
+    }
 }

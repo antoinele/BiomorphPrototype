@@ -9,6 +9,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 /**
  * Created by antoine on 17/04/15.
@@ -58,7 +59,8 @@ public class MutationTester extends JFrame {
 
     private void initialiseBiomorph()
     {
-        Biomorph bm;
+        Biomorph[] bma;
+
         if(generation == null) {
             mutator = new Mutator();
             mutator.childrenRequired = rows * cols;
@@ -67,16 +69,35 @@ public class MutationTester extends JFrame {
 
             new Species(generation);
 
-            bm = new Biomorph("D21F00CSLBEEF00SMCAFEsL123456LFF12F0SLF24300s");
+            bma = new Biomorph[] {new Biomorph("D21F00CSLBEEF00SMCAFEsL123456LFF12F0SLF24300s")};
         }
         else
         {
-            bm = generation.children[0];
+            ArrayList<Biomorph> selected = new ArrayList<Biomorph>(rows * cols);
+
+            Component[] components = biomorphGrid.getComponents();
+
+            for(Component c : components)
+            {
+                if(c instanceof BiomorphSurfaceWithTools)
+                {
+                    BiomorphSurfaceWithTools bS = (BiomorphSurfaceWithTools)c;
+
+                    if(bS.selected())
+                    {
+                        selected.add(bS.biomorphSurface.getBiomorph());
+                    }
+                }
+            }
+
+            bma = selected.toArray(new Biomorph[selected.size()]);
         }
 
-        Biomorph[] bma = {bm};
+        if(bma.length > 0) {
+            System.out.println(String.format("Mutating %d biomorphs", bma.length));
 
-        generation = mutator.mutateBiomorph(bma);
+            generation = mutator.mutateBiomorph(bma);
+        }
     }
 
     private void refreshGrid()
@@ -85,7 +106,7 @@ public class MutationTester extends JFrame {
 
         for (int i=0; i<Math.min(generation.children.length, rows*cols); i++)
         {
-            BiomorphSurface bs = new BiomorphSurface();
+            BiomorphSurfaceWithTools bs = new BiomorphSurfaceWithTools(true);
             bs.setBiomorph(generation.children[i]);
 
             biomorphGrid.add(bs);

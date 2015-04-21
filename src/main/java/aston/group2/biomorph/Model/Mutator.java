@@ -1,12 +1,13 @@
 package aston.group2.biomorph.Model;
 
-import aston.group2.biomorph.GUI.Coordinate;
 import aston.group2.biomorph.Model.Genes.Gene;
 import aston.group2.biomorph.Model.Genes.RootGene;
 import aston.group2.biomorph.Storage.Generation;
 
 import java.util.Arrays;
+import java.util.Map;
 import java.util.Random;
+import java.util.TreeMap;
 
 /**
  * Created by antoine on 16/03/15.
@@ -15,14 +16,31 @@ public class Mutator {
     public int childrenRequired;
     public Random random;
 
-    public Mutator()
+    public final Map<String, Float> probabilities;
+
+    public Mutator(long seed)
     {
         this.random = new Random(); // TODO: this probably needs changing
 
-        random.setSeed(12345678); // TODO: Really, this needs to be set properly
+        random.setSeed(seed); // TODO: Really, this needs to be set properly
+
+        probabilities = new TreeMap<String, Float>(String.CASE_INSENSITIVE_ORDER);
+
+        probabilities.put("gene_mutate",0.8f);
+        probabilities.put("gene_mutate_value", 0.5f);
     }
 
-    private static Gene mergeGene(Gene g1, Gene g2, Random rng)
+    public Mutator()
+    {
+        this(12345678);
+    }
+
+    private float probability(String probability)
+    {
+        return probabilities.get(probability);
+    }
+
+    private Gene mergeGene(Gene g1, Gene g2, Random rng)
     {
         short[] v1 = g1.getValues(),
                 v2 = g2.getValues();
@@ -51,6 +69,7 @@ public class Mutator {
         char geneCode;
         if(g1.getGeneCode() != g2.getGeneCode())
         {
+            //TODO: this needs a better algorithm
             //Flip a coin?
             if(rng.nextBoolean())
                 geneCode = g1.getGeneCode();
@@ -68,7 +87,7 @@ public class Mutator {
         return newGene;
     }
 
-    private static Gene mergeGenes(Gene rootGene1, Gene rootGene2, Random rng)
+    private Gene mergeGenes(Gene rootGene1, Gene rootGene2, Random rng)
     {
         Gene[] sg1 = rootGene1.getSubGenes(),
                sg2 = rootGene2.getSubGenes();
@@ -91,7 +110,7 @@ public class Mutator {
 
         // Merge additional genes
         for (; i<Math.max(sg1.length,sg2.length); i++)
-        {   // TODO: figure out how to merge additional genes
+        {
             if(sg1.length > sg2.length)
                 newGene[i] = sg1[i];
             else
@@ -132,7 +151,7 @@ public class Mutator {
         return ng;
     }
 
-    private static Gene mergeGenes(Gene[] genes, Random rng)
+    private Gene mergeGenes(Gene[] genes, Random rng)
     {
         Gene mergedGenes = genes[0];
 
@@ -144,7 +163,7 @@ public class Mutator {
         return mergedGenes;
     }
 
-    private static Gene mergeGenes(Biomorph[] biomorphs, Random rng)
+    private Gene mergeGenes(Biomorph[] biomorphs, Random rng)
     {
         Gene mergedGenes = biomorphs[0].getRootGene();
 
@@ -156,7 +175,7 @@ public class Mutator {
         return mergedGenes;
     }
 
-    private static Gene mutateGenes(Gene rootGene, Random rng)
+    private Gene mutateGenes(Gene rootGene, Random rng)
     {
         Gene newRootGene = GeneFactory.getGeneFromCode(rootGene.getGeneCode());
 
@@ -167,10 +186,10 @@ public class Mutator {
 
             short[] values = gene.getValues();
 
-            if(rng.nextBoolean()) {
+            if(rng.nextFloat() <= probability("gene_mutate")) {
                 // Mutate gene values?
                 for (int j = 0; j < values.length; j++) {
-                    if (rng.nextBoolean()) {
+                    if (rng.nextFloat() <= probability("gene_mutate_value")) {
                         values[j] += rng.nextInt(10) - 5;
                     }
                 }
