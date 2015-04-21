@@ -4,11 +4,16 @@ import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.IOException;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import aston.group2.biomorph.Model.Biomorph;
 
@@ -74,6 +79,36 @@ public class BiomorphSurfaceWithTools extends JPanel {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+       
+        JButton saveButton = new JButton("Save");       
+        header.add(saveButton, BorderLayout.EAST);
+       
+        saveButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JFileChooser jf = new JFileChooser();
+                jf.setFileFilter(new FileNameExtensionFilter("Biomorph file","biomorph"));
+
+                int rv = jf.showSaveDialog(getParent());
+
+                if(rv == JFileChooser.APPROVE_OPTION)
+                {
+                    String path = jf.getSelectedFile().getPath();
+
+                    if (!path.endsWith(".biomorph")) {
+                        path += ".biomorph";
+                    }
+
+                    try {
+                        BufferedWriter br = Files.newBufferedWriter(Paths.get(path), Charset.forName("US-ASCII"));
+                        br.write(biomorphSurface.getBiomorph().toString());
+                        br.close();
+                    } catch (IOException e1) {
+                        e1.printStackTrace();
+                    }
+                }
+            }
+        });
 
         if(selectable)
         {   //Add a checkbox
