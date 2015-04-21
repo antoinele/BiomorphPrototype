@@ -30,6 +30,9 @@ public class Gallery extends JFrame{
 
 	private JFrame frame;
 	//bottom panel on the screen
+	private JFrame popup;
+	
+	
 	private JPanel panelOne;
 	//top panel
 	private JPanel panelTwo;
@@ -101,6 +104,10 @@ public class Gallery extends JFrame{
 		 frame.pack();
 		 frame.setResizable(true);
 		
+		 popup = new JFrame();
+		 popup.pack();
+		 popup.setVisible(true);
+		 
 		 //setMinimumSize(new Dimension(boxHeight,boxWidth));
 		 setMinimumSize(new Dimension(900, 800));
 		 panelOne = new JPanel();
@@ -183,7 +190,7 @@ public class Gallery extends JFrame{
 
 		 exit.addActionListener(new ActionListener() {
 			    public void actionPerformed(ActionEvent event) {
-			        System.exit(0);
+			     int confirm = JOptionPane.showConfirmDialog(popup, "Are you sure you want to exit?", "Confirm", JOptionPane.YES_NO_OPTION);
 			  }
 		 });
 		 
@@ -247,7 +254,7 @@ public class Gallery extends JFrame{
 			 Biomorph bm = new Biomorph("D21F00CSLBEEF00SMCAFEsL123456LFF12F0SLF2430"+i+"s");
 			 
 			 bS.setBiomorph(bm);
-			 //biomorphs[i] = biomorphSurface;
+			 //biomorphs[i] = bS;
 			 bS.setPreferredSize(new Dimension(boxWidth/4, boxHeight/4));
 			 galleryPanel.add(bS);
 		 }
@@ -323,7 +330,7 @@ public class Gallery extends JFrame{
 			
 		 hofPanel.setLayout(layout);
 		 hofPanel.setBorder(border);
-		 
+		 hofPanel.setPreferredSize(new Dimension(10, 120));
 		 int x = 0;
 		 for(int i = 0; i<favourites.length; i++){
 			addTiles(favourites[i], 0, x);
