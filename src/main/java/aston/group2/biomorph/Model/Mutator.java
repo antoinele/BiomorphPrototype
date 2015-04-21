@@ -16,6 +16,11 @@ public class Mutator {
     public int childrenRequired;
     public Random random;
 
+    /**
+     * If false, mutations will be recorded in BiomorphHistory
+     */
+    public boolean offTheRecord = true;
+
     public final Map<String, Float> probabilities;
 
     public Mutator(long seed)

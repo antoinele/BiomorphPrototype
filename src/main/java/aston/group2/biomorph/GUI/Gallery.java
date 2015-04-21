@@ -28,13 +28,13 @@ import java.nio.file.Paths;
 
 public class Gallery extends JFrame{
 
-	private JFrame frame;
 	//bottom panel on the screen
+	private JFrame popup;
+	
+	
 	private JPanel panelOne;
 	//top panel
 	private JPanel panelTwo;
-	//parent for halloffame and gallery
-	private JPanel middlePanel;
 	//panel on the left side
 	private JPanel galleryPanel;
 	//panel on the right side
@@ -97,19 +97,18 @@ public class Gallery extends JFrame{
 	private int maxpercent = 100;
 	
 	public Gallery(){
-	     frame = new JFrame();
-		 frame.pack();
-		 frame.setResizable(true);
-		
+		 popup = new JFrame();
+		 popup.pack();
+		 popup.setVisible(true);
+
 		 //setMinimumSize(new Dimension(boxHeight,boxWidth));
 		 setMinimumSize(new Dimension(900, 800));
 		 panelOne = new JPanel();
 		 panelOne.setLayout(new FlowLayout());
 		 panelTwo = new JPanel();
 		 panelTwo.setLayout(new FlowLayout());
-	    
-		 middlePanel = new JPanel();
-		 middlePanel.setLayout(new BorderLayout());
+
+		 setLayout(new BorderLayout());
 		
 		 hofPanel = new JPanel();
  
@@ -154,25 +153,19 @@ public class Gallery extends JFrame{
 		 panelOne.add(save);
 		 panelTwo.add(back, BorderLayout.WEST);
 		 panelTwo.add(exit);
-		 
-		 
-		 createBiomorphTiles();
-		
 
-	     frame.add(middlePanel);
+		 createBiomorphTiles();
 
 	     favouritePanelHF();
 	     createHallOfFamePanel();
 		 
 		 Border border = BorderFactory.createLineBorder(Color.BLACK, 1);
 
-		 middlePanel.add(panelTwo, BorderLayout.NORTH);
-		 middlePanel.add(galleryPanel, BorderLayout.WEST);
-		 middlePanel.add(hofPanel);
-		 middlePanel.add(panelOne, BorderLayout.SOUTH);
-		 
-		 add(middlePanel, BorderLayout.WEST);
-		 
+		 add(panelTwo, BorderLayout.NORTH);
+		 add(galleryPanel, BorderLayout.WEST);
+		 add(hofPanel);
+		 add(panelOne, BorderLayout.SOUTH);
+
 		 back.addActionListener(new ActionListener() {
 			    public void actionPerformed(ActionEvent event) {
 			    	MainWindow mw = new MainWindow();
@@ -183,7 +176,7 @@ public class Gallery extends JFrame{
 
 		 exit.addActionListener(new ActionListener() {
 			    public void actionPerformed(ActionEvent event) {
-			        System.exit(0);
+			     int confirm = JOptionPane.showConfirmDialog(popup, "Are you sure you want to exit?", "Confirm", JOptionPane.YES_NO_OPTION);
 			  }
 		 });
 		 
@@ -238,7 +231,7 @@ public class Gallery extends JFrame{
 	public void createBiomorphTiles(){
 		 galleryPanel = new JPanel();
 		 galleryPanel.setLayout(new GridLayout(2,3,10,10));
-		 
+
 		//biomorph windows for gallery panel
 		 
 		 //JPanel[] biomorphs = new JPanel[6];
@@ -247,7 +240,7 @@ public class Gallery extends JFrame{
 			 Biomorph bm = new Biomorph("D21F00CSLBEEF00SMCAFEsL123456LFF12F0SLF2430"+i+"s");
 			 
 			 bS.setBiomorph(bm);
-			 //biomorphs[i] = biomorphSurface;
+			 //biomorphs[i] = bS;
 			 bS.setPreferredSize(new Dimension(boxWidth/4, boxHeight/4));
 			 galleryPanel.add(bS);
 		 }
@@ -323,7 +316,7 @@ public class Gallery extends JFrame{
 			
 		 hofPanel.setLayout(layout);
 		 hofPanel.setBorder(border);
-		 
+		 hofPanel.setPreferredSize(new Dimension(10, 120));
 		 int x = 0;
 		 for(int i = 0; i<favourites.length; i++){
 			addTiles(favourites[i], 0, x);
