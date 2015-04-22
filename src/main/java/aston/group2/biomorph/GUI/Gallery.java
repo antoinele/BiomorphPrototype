@@ -347,5 +347,3 @@ public class Gallery extends JFrame{
 	}
 	
 }
-
-
