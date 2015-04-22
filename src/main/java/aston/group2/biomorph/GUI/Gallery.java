@@ -13,6 +13,7 @@ import aston.group2.biomorph.Model.Biomorph;
 
 import javax.swing.*;
 import javax.swing.border.Border;
+import javax.swing.border.EmptyBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -159,7 +160,7 @@ public class Gallery extends JFrame{
 	     favouritePanelHF();
 	     createHallOfFamePanel();
 		 
-		 Border border = BorderFactory.createLineBorder(Color.BLACK, 1);
+		 
 
 		 add(panelTwo, BorderLayout.NORTH);
 		 add(galleryPanel, BorderLayout.CENTER);
@@ -240,8 +241,10 @@ public class Gallery extends JFrame{
 	}
 	
 	public void createBiomorphTiles(){
+		 Border border = BorderFactory.createLineBorder(Color.BLACK, 1); 
 		 galleryPanel = new JPanel();
 		 galleryPanel.setLayout(new GridLayout(2,3,10,10));
+		 galleryPanel.setBorder(new EmptyBorder(10, 10, 10, 10) );
 
 		//biomorph windows for gallery panel
 		 
@@ -251,8 +254,7 @@ public class Gallery extends JFrame{
 			 Biomorph bm = new Biomorph("D21F00CSLBEEF00SMCAFEsL123456LFF12F0SLF2430"+i+"s");
 			 
 			 bS.setBiomorph(bm);
-			 //biomorphs[i] = bS;
-			// bS.setPreferredSize(new Dimension(boxWidth/2, boxHeight/2));
+			 bS.setBorder(border);
 			 galleryPanel.add(bS);
 		 }
 		
@@ -326,8 +328,8 @@ public class Gallery extends JFrame{
 		 GridBagLayout layout = new GridBagLayout();
 			
 		 hofPanel.setLayout(layout);
-		 hofPanel.setBorder(border);
 		 hofPanel.setSize(200, -1);
+		 hofPanel.setBorder(new EmptyBorder(10, 10, 10, 10) );
 		 int x = 0;
 		 for(int i = 0; i<favourites.length; i++){
 			addTiles(favourites[i], 0, x);
