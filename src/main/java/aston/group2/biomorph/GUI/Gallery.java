@@ -96,8 +96,10 @@ public class Gallery extends JFrame{
 	private JLabel colours;
 	private int minpercent = 0;
 	private int maxpercent = 100;
+	private int biomorphNumber;
 	
-	public Gallery(){
+	public Gallery(int numberOfBiomorphs){
+		 biomorphNumber = numberOfBiomorphs;
 		 popup = new JFrame();
 		 popup.pack();
 		 popup.setVisible(true);
@@ -118,17 +120,21 @@ public class Gallery extends JFrame{
 		 save = new JButton("Save/Export");
 		 compareBiomorphs = new JButton("Compare Biomorphs");
 		 
-		 shape = new JSlider(JSlider.HORIZONTAL, minpercent, maxpercent, 0);
+		 // temp variable to prevent value snap on sliders
+		 int initShape = 0;
+		 shape = new JSlider(JSlider.HORIZONTAL, minpercent, maxpercent, initShape);
 		 shape.setMajorTickSpacing(10);
 		 shape.setPaintTicks(true);
-
-		 colour = new JSlider(JSlider.HORIZONTAL, minpercent, maxpercent, 0);
+		 
+		 // temp variable to prevent value snap on sliders
+		 int initColour = 0;
+		 colour = new JSlider(JSlider.HORIZONTAL, minpercent, maxpercent, initColour);
 		 colour.setMajorTickSpacing(10);
 		 colour.setPaintTicks(true);
 
-		 shapes = new JLabel("Shape: ");
+		 shapes = new JLabel("Shape " + initShape + " %");
 		 
-		 colours = new JLabel("Colour: ");
+		 colours = new JLabel("Colour " + initColour + " %");
 		 
 		  shape.addChangeListener(new ChangeListener() {
 		      public void stateChanged(ChangeEvent event) {

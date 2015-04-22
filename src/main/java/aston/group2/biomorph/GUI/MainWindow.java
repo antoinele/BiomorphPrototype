@@ -148,8 +148,8 @@ public class MainWindow extends JFrame {
 					@Override
 					public void actionPerformed(ActionEvent e) {
 						// TODO Auto-generated method stub
-						Gallery gallery = new Gallery();
-						gallery.setVisible(true);
+						//Gallery gallery = new Gallery();
+						//gallery.setVisible(true);
 						
 					}
                 	 

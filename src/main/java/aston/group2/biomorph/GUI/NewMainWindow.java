@@ -3,10 +3,13 @@ package aston.group2.biomorph.GUI;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
 import javax.swing.SwingUtilities;
@@ -44,20 +47,33 @@ public class NewMainWindow extends JFrame {
 		bottomPanel.setLayout(new FlowLayout());
 		
 		// Slider for number of biomorphs (increments in 2s)
-		numOfBiomorphs = new JSlider(JSlider.HORIZONTAL, 2, 10, 2);
+		int initialValue = 2;
+		numOfBiomorphs = new JSlider(JSlider.HORIZONTAL, 2, 10, initialValue);
+		numOfBiomorphs.setValue(2);
 		numOfBiomorphs.setMajorTickSpacing(2);
 		numOfBiomorphs.setPaintTicks(true);
+		// only values with ticks (marks) are selectable
+		numOfBiomorphs.setSnapToTicks(true);
 		
 		// label for biomorph slider
-		numOfBiomorph = new JLabel("Number of Biomorphs: ");
+		numOfBiomorph = new JLabel("Number of Biomorphs  " + initialValue);
 		
+		// number of biomorphs slider listener
 		numOfBiomorphs.addChangeListener(new ChangeListener() {
 		      public void stateChanged(ChangeEvent event) {
 		       int numvalue = numOfBiomorphs.getValue();
-		       numOfBiomorph.setText("Number of Biomorphs: " + numvalue);
+		       numOfBiomorph.setText("Number of Biomorphs  " + numvalue);
 		      }
 		    });
 		
+		// passes value from slider into Gallery as a parameter
+		loadBiomorphs.addActionListener(new ActionListener() {
+			    public void actionPerformed(ActionEvent event) {
+			    	Gallery gs = new Gallery(numOfBiomorphs.getValue());
+			         gs.setVisible(true);
+			     
+			  }
+		 });
 		
 		
 		add(topPanel, BorderLayout.NORTH);
