@@ -21,7 +21,7 @@ public class Mutator {
      */
     public boolean offTheRecord = true;
 
-    public final Map<String, Float> probabilities;
+    public final Map<String, Object> settings;
 
     public Mutator(long seed)
     {
@@ -29,10 +29,12 @@ public class Mutator {
 
         random.setSeed(seed); // TODO: Really, this needs to be set properly
 
-        probabilities = new TreeMap<String, Float>(String.CASE_INSENSITIVE_ORDER);
+        settings = new TreeMap<String, Object>(String.CASE_INSENSITIVE_ORDER);
 
-        probabilities.put("gene_mutate",0.8f);
-        probabilities.put("gene_mutate_value", 0.5f);
+        settings.put("gene_mutate_probability", 0.8f);
+        settings.put("gene_mutate_value_probability", 0.5f);
+        settings.put("gene_mutate_value_max_change", 3);
+        
     }
 
     public Mutator()
@@ -42,7 +44,7 @@ public class Mutator {
 
     private float probability(String probability)
     {
-        return probabilities.get(probability);
+        return (Float)settings.get(probability + "_probability");
     }
 
     private Gene mergeGene(Gene g1, Gene g2, Random rng)
@@ -184,10 +186,12 @@ public class Mutator {
     {
         Gene newRootGene = GeneFactory.getGeneFromCode(rootGene.getGeneCode());
 
+        int maxChange = (Integer)settings.get("gene_mutate_value_max_change");
+
         for (int i = 0; i < rootGene.subGenes.size(); i++)
         {
             Gene gene = rootGene.subGenes.get(i);
-            Gene newGene = GeneFactory.getGeneFromCode(gene.getGeneCode());
+            Gene newGene;
 
             short[] values = gene.getValues();
 
@@ -195,7 +199,7 @@ public class Mutator {
                 // Mutate gene values?
                 for (int j = 0; j < values.length; j++) {
                     if (rng.nextFloat() <= probability("gene_mutate_value")) {
-                        values[j] += rng.nextInt(10) - 5;
+                        values[j] += rng.nextInt(maxChange*2) - maxChange;
                     }
                 }
             }

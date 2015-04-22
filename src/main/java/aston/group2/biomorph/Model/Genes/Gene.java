@@ -69,8 +69,7 @@ public abstract class Gene {
 
         for (int i=0; i<newValues.length; i++)
         {
-            newValues[i] = (byte)(values[i] & 0xff); // Convert a signed byte into its unsigned value by upgrading its
-            // type
+            newValues[i] = (byte)(values[i] & 0xff); // Convert a short, representing an unsigned byte into a byte
         }
 
         setValues(newValues);
@@ -83,6 +82,9 @@ public abstract class Gene {
         for (int i = 0; i < values.length; i++) {
             output[i] = (short)(values[i] & 0xff); // Convert a signed byte into its unsigned value by upgrading its
                                                    // type
+
+
+            assert(output[i] >= 0 && output[i] < 256);
         }
 
         return output;
@@ -105,23 +107,7 @@ public abstract class Gene {
 
         String hex = String.valueOf(data, 1, maxValues()*2);
 
-//        System.err.println(hex);
-
         byte[] newvalues = DatatypeConverter.parseHexBinary(hex);
-/*
-        byte[] newvalues = new byte[maxValues()];
-
-        for (int i = 1; i < (maxValues()*2)+1; i+=2) {
-//            if(!hex.matcher(String.valueOf(data[i+1])).matches())
-            char c = data[i];
-            if( ! ( (c >= 'A' && c <= 'Z') || (c >= '0' && c <= '9') ) )
-            {
-                throw new InvalidGeneSequenceException();
-            }
-
-            newvalues[(i-1) / 2] = (byte)((Character.digit(data[i], 16) << 4) + (Character.digit(data[i+1], 16)));
-        }
-*/
 
         setValues(newvalues);
 

@@ -1,5 +1,7 @@
 package aston.group2.biomorph.GUI.Renderers;
 
+import aston.group2.biomorph.GUI.BiomorphRenderer;
+import aston.group2.biomorph.GUI.BiomorphSurface;
 import aston.group2.biomorph.Model.Genes.Dot;
 import aston.group2.biomorph.GUI.Coordinate;
 
@@ -16,7 +18,7 @@ public class DotRenderer extends Renderer<Dot> {
     }
 
     @Override
-    public void draw(Graphics2D g) {
+    public void draw(BiomorphRenderer.RenderState renderState, Graphics2D g) {
         Coordinate origin = getParentAttachPoint();
 
 //        System.err.println(String.format("Drawing oval at (%d,%d) width: %d height: %d", origin.x, origin.y, getGene().width, getGene().height));

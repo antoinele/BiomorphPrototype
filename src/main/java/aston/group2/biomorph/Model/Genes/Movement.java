@@ -1,5 +1,6 @@
 package aston.group2.biomorph.Model.Genes;
 
+import aston.group2.biomorph.GUI.BiomorphRenderer;
 import aston.group2.biomorph.GUI.Processed;
 
 import java.awt.*;
@@ -29,7 +30,7 @@ public class Movement extends Gene implements Processed {
     }
 
     @Override
-    public void process(Graphics g) {
+    public void process(BiomorphRenderer.RenderState renderState, Graphics g) {
 
     }
 }

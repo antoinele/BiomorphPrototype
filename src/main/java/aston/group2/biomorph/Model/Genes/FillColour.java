@@ -1,22 +1,36 @@
 package aston.group2.biomorph.Model.Genes;
 
-public class FillColour extends Gene {
+import aston.group2.biomorph.GUI.BiomorphRenderer;
+import aston.group2.biomorph.GUI.Processed;
+import aston.group2.biomorph.Utilities.ColourHelper;
+
+import java.awt.*;
+
+public class FillColour extends Gene implements Processed {
+
+    private Color colour;
 
 	public FillColour(byte[] values) throws Exception {
-		super('C', values);
-		// TODO Auto-generated constructor stub
+		super('F', values);
 	}
 
 	@Override
 	protected void parseValues() {
-		// TODO Auto-generated method stub
-		
-	}
+        colour = ColourHelper.indexedHSBColour(getValues()[0]);
+    }
 
 	@Override
 	protected int maxValues() {
-		// TODO Auto-generated method stub
-		return 0;
+		return 1;
 	}
 
+    public Color getColour()
+    {
+        return colour;
+    }
+
+    @Override
+    public void process(BiomorphRenderer.RenderState renderState, Graphics g) {
+        renderState.fillColour = colour;
+    }
 }

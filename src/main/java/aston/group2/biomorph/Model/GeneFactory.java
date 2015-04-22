@@ -34,6 +34,11 @@ public class GeneFactory {
                 char code;
                 code = gene.newInstance().getGeneCode();
 
+                if(geneMap.containsKey(code))
+                {
+                    throw new RuntimeException("Conflicting gene code: " + code);
+                }
+
                 geneMap.put(code, gene);
             }
             catch(InstantiationException ie)

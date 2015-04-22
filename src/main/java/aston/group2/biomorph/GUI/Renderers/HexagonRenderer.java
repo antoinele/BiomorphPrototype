@@ -1,5 +1,7 @@
 package aston.group2.biomorph.GUI.Renderers;
 
+import aston.group2.biomorph.GUI.BiomorphRenderer;
+import aston.group2.biomorph.GUI.BiomorphSurface;
 import aston.group2.biomorph.Model.Genes.Hexagon;
 import aston.group2.biomorph.GUI.Coordinate;
 
@@ -15,7 +17,7 @@ public class HexagonRenderer extends Renderer<Hexagon> {
     }
 
     @Override
-    public void draw(Graphics2D g) {
+    public void draw(BiomorphRenderer.RenderState renderState, Graphics2D g) {
         Coordinate origin = getParentAttachPoint();
 
         int sideLength = getGene().sideLength;
