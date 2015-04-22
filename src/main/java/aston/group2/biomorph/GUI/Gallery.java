@@ -162,8 +162,8 @@ public class Gallery extends JFrame{
 		 Border border = BorderFactory.createLineBorder(Color.BLACK, 1);
 
 		 add(panelTwo, BorderLayout.NORTH);
-		 add(galleryPanel, BorderLayout.WEST);
-		 add(hofPanel);
+		 add(galleryPanel, BorderLayout.CENTER);
+		 add(hofPanel, BorderLayout.EAST);
 		 add(panelOne, BorderLayout.SOUTH);
 
 		 back.addActionListener(new ActionListener() {
@@ -247,12 +247,12 @@ public class Gallery extends JFrame{
 		 
 		 //JPanel[] biomorphs = new JPanel[6];
 		 for(int i =0; i<6; i++){
-			 BiomorphSurfaceWithTools bS = new BiomorphSurfaceWithTools();
+			 BiomorphSurfaceWithTools bS = new BiomorphSurfaceWithTools(true);
 			 Biomorph bm = new Biomorph("D21F00CSLBEEF00SMCAFEsL123456LFF12F0SLF2430"+i+"s");
 			 
 			 bS.setBiomorph(bm);
 			 //biomorphs[i] = bS;
-			 bS.setPreferredSize(new Dimension(boxWidth/4, boxHeight/4));
+			// bS.setPreferredSize(new Dimension(boxWidth/2, boxHeight/2));
 			 galleryPanel.add(bS);
 		 }
 		
@@ -327,7 +327,7 @@ public class Gallery extends JFrame{
 			
 		 hofPanel.setLayout(layout);
 		 hofPanel.setBorder(border);
-		 hofPanel.setPreferredSize(new Dimension(10, 120));
+		 hofPanel.setSize(200, -1);
 		 int x = 0;
 		 for(int i = 0; i<favourites.length; i++){
 			addTiles(favourites[i], 0, x);
