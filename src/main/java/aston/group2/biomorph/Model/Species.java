@@ -7,10 +7,33 @@ import aston.group2.biomorph.Storage.Generation;
  */
 public class Species {
     public final Generation firstGeneration;
+    private Generation latestGeneration;
 
     public Species(Generation firstGeneration)
     {
         this.firstGeneration = firstGeneration;
         this.firstGeneration.species = this;
+    }
+
+    private Generation findLatestGeneration(Generation generation)
+    {
+        if(generation.nextGeneration.length > 0)
+        {
+            return findLatestGeneration(generation.nextGeneration[generation.nextGeneration.length - 1]);
+        }
+        else
+        {
+            return generation;
+        }
+    }
+
+    public Generation getLastestGeneration()
+    {
+        return findLatestGeneration(firstGeneration);
+    }
+
+    public void printTree()
+    {
+        firstGeneration.printTree();
     }
 }

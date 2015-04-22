@@ -136,8 +136,6 @@ public abstract class Gene {
         sb.append(getGeneCode());
 
         short[] values = getValues();
-        System.err.print("Values: ");
-        System.err.println(Arrays.toString(values));
         for(int i=0; i < maxValues(); i++)
         {
             sb.append(String.format("%02X", values[i]));
