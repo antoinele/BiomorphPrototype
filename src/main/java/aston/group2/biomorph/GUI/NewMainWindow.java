@@ -5,8 +5,14 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.IOException;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
 
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -15,6 +21,9 @@ import javax.swing.JSlider;
 import javax.swing.SwingUtilities;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import javax.swing.filechooser.FileNameExtensionFilter;
+
+import aston.group2.biomorph.Model.Biomorph;
 
 public class NewMainWindow extends JFrame {
 
@@ -67,14 +76,27 @@ public class NewMainWindow extends JFrame {
 		    });
 		
 		// passes value from slider into Gallery as a parameter
-		loadBiomorphs.addActionListener(new ActionListener() {
+		newBiomorphs.addActionListener(new ActionListener() {
 			    public void actionPerformed(ActionEvent event) {
 			    	Gallery gs = new Gallery(numOfBiomorphs.getValue());
 			         gs.setVisible(true);
 			     
+			         
+			         
 			  }
 		 });
 		
+		loadBiomorphs.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JFileChooser jf = new JFileChooser();
+                jf.setFileFilter(new FileNameExtensionFilter("Biomorph file","biomorph"));
+
+                int rv = jf.showOpenDialog(getParent());
+
+            }
+        });
+
 		
 		add(topPanel, BorderLayout.NORTH);
 		add(bottomPanel, BorderLayout.SOUTH);
