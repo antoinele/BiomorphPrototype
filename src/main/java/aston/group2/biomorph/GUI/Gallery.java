@@ -96,8 +96,10 @@ public class Gallery extends JFrame{
 	private JLabel colours;
 	private int minpercent = 0;
 	private int maxpercent = 100;
+	private int biomorphNum;
 	
-	public Gallery(){
+	public Gallery(int biomorphNum){
+		this.biomorphNum = biomorphNum;
 		 popup = new JFrame();
 		 popup.pack();
 		 popup.setVisible(true);
@@ -249,7 +251,7 @@ public class Gallery extends JFrame{
 		//biomorph windows for gallery panel
 		 
 		 //JPanel[] biomorphs = new JPanel[6];
-		 for(int i =0; i<6; i++){
+		 for(int i =0; i<biomorphNum; i++){
 			 BiomorphSurfaceWithTools bS = new BiomorphSurfaceWithTools(true);
 			 Biomorph bm = new Biomorph("D21F00CSLBEEF00SMCAFEsL123456LFF12F0SLF2430"+i+"s");
 			 
