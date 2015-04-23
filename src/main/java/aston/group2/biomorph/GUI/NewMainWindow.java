@@ -48,13 +48,8 @@ public class NewMainWindow extends JFrame {
 		
 		setMinimumSize(new Dimension(900, 500));
 		
-		
-		Border border = BorderFactory.createLineBorder(Color.RED, 10);
-		
-		
 		topPanel = new JPanel();
 		topPanel.setLayout(null);
-		topPanel.setBorder(border);
 		topPanel.setPreferredSize(new Dimension(900, 400));
 		
 		
@@ -63,8 +58,8 @@ public class NewMainWindow extends JFrame {
 		welcome.setBounds(370, 80, 200, 100);
 	
 		
-		newBiomorphs = new JButton("New Biomorphs");
-		loadBiomorphs = new JButton("Load Biomorphs");
+		newBiomorphs = new JButton("New Biomorph");
+		loadBiomorphs = new JButton("Load Biomorph");
 		
 		newBiomorphs.setBounds(300, 400, 120, 40);
 		loadBiomorphs.setBounds(450, 400, 120, 40);
