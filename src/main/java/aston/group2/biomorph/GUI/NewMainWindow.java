@@ -131,9 +131,11 @@ public class NewMainWindow extends JFrame {
 	        SwingUtilities.invokeLater(new Runnable() {
 	            @Override
 	            public void run() {
-	                JFrame nmw = new NewMainWindow();
+	                NewMainWindow nmw = new NewMainWindow();
 
 	                nmw.setVisible(true);
+	               
+	                nmw.setResizable(false);
 	            }
 	        });
 	    }
