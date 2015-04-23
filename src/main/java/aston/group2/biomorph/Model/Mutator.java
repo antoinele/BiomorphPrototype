@@ -12,8 +12,11 @@ import java.util.TreeMap;
 /**
  * Created by antoine on 16/03/15.
  */
+@SuppressWarnings("WeakerAccess")
 public class Mutator {
-    public int childrenRequired;
+    @SuppressWarnings("WeakerAccess")
+    public int childrenRequired = 1;
+    @SuppressWarnings("CanBeFinal")
     public Random random;
 
     public final Map<String, Float> probabilities;
@@ -28,6 +31,7 @@ public class Mutator {
 
         probabilities.put("gene_mutate",0.8f);
         probabilities.put("gene_mutate_value", 0.5f);
+        probabilities.put("gene_add", 0.5f);
     }
 
     public Mutator()
@@ -182,7 +186,6 @@ public class Mutator {
         for (int i = 0; i < rootGene.subGenes.size(); i++)
         {
             Gene gene = rootGene.subGenes.get(i);
-            Gene newGene = GeneFactory.getGeneFromCode(gene.getGeneCode());
 
             short[] values = gene.getValues();
 
@@ -195,7 +198,7 @@ public class Mutator {
                 }
             }
 
-            newGene = mutateGenes(gene, rng);
+            Gene newGene = mutateGenes(gene, rng);
             newGene.setValues(values);
 
             newRootGene.addSubGene(newGene);
