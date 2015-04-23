@@ -17,7 +17,7 @@ import java.util.ArrayList;
 /**
  * Created by antoine on 17/04/15.
  */
-public class MutationTester extends JFrame {
+public class MutationWindow extends JFrame {
 	JPanel biomorphGrid;
 	Generation generation;
 	Mutator mutator;
@@ -59,7 +59,7 @@ public class MutationTester extends JFrame {
 
 	final int rows = 2, cols = 3;
 
-	public MutationTester() {
+	public MutationWindow() {
 		setLayout(new BorderLayout());
 		setTitle("Mutation Tester");
 		setMinimumSize(new Dimension(900, 800));
@@ -272,7 +272,7 @@ public class MutationTester extends JFrame {
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override
 			public void run() {
-				JFrame mw = new MutationTester();
+				JFrame mw = new MutationWindow();
 
 				mw.setVisible(true);
 			}
