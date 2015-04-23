@@ -103,7 +103,7 @@ public class Gallery extends JFrame{
 		 biomorphNumber = numberOfBiomorphs;
 		 popup = new JFrame();
 		 popup.pack();
-		 popup.setVisible(true);
+		 popup.setVisible(false);
 
 		 //setMinimumSize(new Dimension(boxHeight,boxWidth));
 		 setMinimumSize(new Dimension(900, 800));

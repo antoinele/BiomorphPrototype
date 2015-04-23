@@ -96,8 +96,7 @@ public class NewMainWindow extends JFrame {
 			    public void actionPerformed(ActionEvent event) {
 			    	Gallery gs = new Gallery(numOfBiomorphs.getValue());
 			         gs.setVisible(true);
-			     
-			         
+     
 			         
 			  }
 		 });
@@ -136,6 +135,7 @@ public class NewMainWindow extends JFrame {
 	                nmw.setVisible(true);
 	               
 	                nmw.setResizable(false);
+	                
 	            }
 	        });
 	    }
