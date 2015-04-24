@@ -57,9 +57,12 @@ public class MutationWindow extends JFrame {
 	private JButton swap9;
 	private JButton clear9;
 
-	final int rows = 2, cols = 3;
+	private static int rows = 2;
+	private static int cols = 3;
 
-	public MutationWindow() {
+	public MutationWindow(int cols) {
+		this.cols = cols/2;
+		
 		setLayout(new BorderLayout());
 		setTitle("Mutation Tester");
 		setMinimumSize(new Dimension(900, 800));
@@ -272,7 +275,7 @@ public class MutationWindow extends JFrame {
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override
 			public void run() {
-				JFrame mw = new MutationWindow();
+				JFrame mw = new MutationWindow(cols);
 
 				mw.setVisible(true);
 			}
