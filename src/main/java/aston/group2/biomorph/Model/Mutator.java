@@ -5,7 +5,10 @@ import aston.group2.biomorph.Model.Genes.Gene;
 import aston.group2.biomorph.Model.Genes.RootGene;
 import aston.group2.biomorph.Storage.Generation;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.Map;
+import java.util.Random;
+import java.util.TreeMap;
 
 /**
  * Created by antoine on 16/03/15.
@@ -15,6 +18,10 @@ public class Mutator {
     public Random random;
 
     public final Map<String, Object> settings;
+
+    enum MergeType {
+        MEAN, WEIGHTED
+    }
 
     public Mutator(long seed)
     {
@@ -30,6 +37,7 @@ public class Mutator {
         settings.put("gene_add_probability", 0.2f);
         settings.put("gene_recurse_add_probability", 0.2f);
         settings.put("gene_remove_probability", 0.1f);
+        settings.put("merge_type", MergeType.WEIGHTED);
     }
 
     public Mutator()
@@ -41,6 +49,7 @@ public class Mutator {
     {
         return (Float)settings.get(probability + "_probability");
     }
+    private Object setting(String key) { return settings.get(key); }
 
     private Gene mergeGene(Gene g1, Gene g2, Random rng)
     {
@@ -53,7 +62,16 @@ public class Mutator {
         int i=0;
         for(; i < Math.min(v1.length,v2.length); i++)
         {
-            newValues[i] = (short)((v1[i] + v2[i]) / 2);
+            switch((MergeType)setting("merge_type"))
+            {
+                case MEAN:
+                    newValues[i] = (short)((v1[i] + v2[i]) / 2); //averaged
+                    break;
+                case WEIGHTED:
+                    float weight = rng.nextFloat(); //weighted
+                    newValues[i] = (short)( (v1[i] * weight) + (v2[i] * (1-weight)) );
+                    break;
+            }
         }
 
         for (; i < newValues.length; i++)
