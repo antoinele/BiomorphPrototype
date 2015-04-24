@@ -61,7 +61,7 @@ public class MutationWindow extends JFrame {
 	private static int cols = 3;
 
 	public MutationWindow(int cols) {
-		this.cols = cols/2;
+		this.cols = cols/rows;
 		
 		setLayout(new BorderLayout());
 		setTitle("Mutation Tester");
