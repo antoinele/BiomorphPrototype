@@ -6,9 +6,6 @@ import aston.group2.biomorph.Model.Species;
 import aston.group2.biomorph.Storage.Generation;
 
 import javax.swing.*;
-import javax.swing.border.Border;
-import javax.swing.border.EmptyBorder;
-
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -18,264 +15,115 @@ import java.util.ArrayList;
  * Created by antoine on 17/04/15.
  */
 public class MutationTester extends JFrame {
-	JPanel biomorphGrid;
-	Generation generation;
-	Mutator mutator;
-	private JPanel hofPanel;
-	private JPanel topOfPage;
-	
-	//bottom panel on the screen
-	private JFrame popup;
-	
-	// hall of fame biomorphs
-	private JLabel favBio1;
-	private JLabel favBio2;
-	private JLabel favBio3;
-	private JLabel favBio4;
-	private JLabel favBio5;
-	private JLabel favBio6;
-	private JLabel favBio7;
-	private JLabel favBio8;
-	private JLabel favBio9;
+    JPanel biomorphGrid;
 
-	private JButton swap1;
-	private JButton clear1;
-	private JButton swap2;
-	private JButton clear2;
-	private JButton swap3;
-	private JButton clear3;
-	private JButton swap4;
-	private JButton clear4;
-	private JButton swap5;
-	private JButton clear5;
-	private JButton swap6;
-	private JButton clear6;
-	private JButton swap7;
-	private JButton clear7;
-	private JButton swap8;
-	private JButton clear8;
-	private JButton swap9;
-	private JButton clear9;
+    Generation generation;
+    Mutator mutator;
 
-	final int rows = 2, cols = 3;
+    final int rows = 2, cols = 3;
 
-	public MutationTester() {
-		setLayout(new BorderLayout());
-		setTitle("Mutation Tester");
-		setMinimumSize(new Dimension(900, 800));
+    public MutationTester()
+    {
+        setLayout(new BorderLayout());
+        setTitle("Mutation Tester");
+        setMinimumSize(new Dimension(800, 600));
 
-		biomorphGrid = new JPanel();
-		biomorphGrid.setLayout(new GridLayout(rows, cols));
-		biomorphGrid.setBorder(new EmptyBorder(10, 10, 10, 10) );
-		
-		topOfPage = new JPanel();
-		topOfPage.setLayout(new BorderLayout());
-		
-		popup = new JFrame();
-		popup.pack();
-		popup.setVisible(false);
-		
-		hofPanel = new JPanel();
+        biomorphGrid = new JPanel();
+        biomorphGrid.setLayout(new GridLayout(rows,cols));
 
-		add(biomorphGrid, BorderLayout.CENTER);
-		add(hofPanel, BorderLayout.EAST);
-		add(topOfPage, BorderLayout.NORTH);
-		
-		initialiseBiomorph();
-		createHallOfFamePanel();
-		refreshGrid();
-		
-		{
-			JButton exit = new JButton("Exit");
-			 exit.addActionListener(new ActionListener() {
-				    public void actionPerformed(ActionEvent event) {
-				     int confirm = JOptionPane.showConfirmDialog(popup, "Are you sure you want to exit?", "Confirm", JOptionPane.OK_CANCEL_OPTION);
-				     
-				     
-				     if(confirm == JOptionPane.OK_OPTION){
-				            System.exit(0);
-				        }
-				        else {
-				            popup.setVisible(false);
-				        }
-				     
-				     
-				     
-				  }
-			 });
-			
-			topOfPage.add(exit, BorderLayout.CENTER);
-		}
+        add(biomorphGrid, BorderLayout.CENTER);
 
-		{
-			JButton mutateButton = new JButton("Mutate");
-			mutateButton.addActionListener(new ActionListener() {
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					initialiseBiomorph();
+        initialiseBiomorph();
 
-					refreshGrid();
-				}
-			});
+        refreshGrid();
 
-			add(mutateButton, BorderLayout.SOUTH);
-		}
-	}
+        {
+            JLabel infoLabel = new JLabel("This program takes the top left biomorph and mutates it into 6 children");
+            add(infoLabel, BorderLayout.NORTH);
+        }
 
-	private void initialiseBiomorph() {
-		Biomorph[] bma;
+        {
+            JButton mutateButton = new JButton("Mutate");
+            mutateButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    initialiseBiomorph();
 
-		if (generation == null) {
-			mutator = new Mutator();
-			mutator.childrenRequired = rows * cols;
+                    refreshGrid();
+                }
+            });
 
-			generation = new Generation(mutator);
+            add(mutateButton, BorderLayout.SOUTH);
+        }
+    }
 
-			new Species(generation);
+    private void initialiseBiomorph()
+    {
+        Biomorph[] bma;
 
-			bma = new Biomorph[] { new Biomorph(
-					"D21F00CSLBEEF00SMCAFEsL123456LFF12F0SLF24300s") };
-		} else {
-			ArrayList<Biomorph> selected = new ArrayList<Biomorph>(rows * cols);
+        if(generation == null) {
+            mutator = new Mutator();
+            mutator.childrenRequired = rows * cols;
 
-			Component[] components = biomorphGrid.getComponents();
+            generation = new Generation(mutator);
 
-			for (Component c : components) {
-				if (c instanceof BiomorphSurfaceWithTools) {
-					BiomorphSurfaceWithTools bS = (BiomorphSurfaceWithTools) c;
-					if (bS.selected()) {
-						selected.add(bS.biomorphSurface.getBiomorph());
-					}
-				}
-			}
+            new Species(generation);
 
-			bma = selected.toArray(new Biomorph[selected.size()]);
-		}
+            bma = new Biomorph[] {new Biomorph("D21F00CSLBEEF00SMCAFEsL123456LFF12F0SLF24300s")};
+        }
+        else
+        {
+            ArrayList<Biomorph> selected = new ArrayList<Biomorph>(rows * cols);
 
-		if (bma.length > 0) {
-			System.out.println(String.format("Mutating %d biomorphs",
-					bma.length));
+            Component[] components = biomorphGrid.getComponents();
 
-			generation = mutator.mutateBiomorph(bma);
-		}
-	}
+            for(Component c : components)
+            {
+                if(c instanceof BiomorphSurfaceWithTools)
+                {
+                    BiomorphSurfaceWithTools bS = (BiomorphSurfaceWithTools)c;
 
-	private void refreshGrid() {
-		Border border = BorderFactory.createLineBorder(Color.BLACK, 1);
+                    if(bS.selected())
+                    {
+                        selected.add(bS.biomorphSurface.getBiomorph());
+                    }
+                }
+            }
 
-		
-		biomorphGrid.removeAll();
-		
-		for (int i = 0; i < Math.min(generation.children.length, rows * cols); i++) {
-			BiomorphSurfaceWithTools bs = new BiomorphSurfaceWithTools(true);
-			bs.setBiomorph(generation.children[i]);
-			bs.setBorder(border); 
-			biomorphGrid.add(bs);
-		}
+            bma = selected.toArray(new Biomorph[selected.size()]);
+        }
 
-		biomorphGrid.revalidate();
-	}
+        if(bma.length > 0) {
+            System.out.println(String.format("Mutating %d biomorphs", bma.length));
 
-	// for hall of fame
-	public void addTiles(JLabel l, int gridx, int gridy) {
-		GridBagConstraints c = new GridBagConstraints();
-		c.gridx = gridx;
-		c.gridy = gridy;
-		hofPanel.add(l, c);
-	}
+            generation = mutator.mutateBiomorph(bma);
+        }
+    }
 
-	// for hall of fame
-	public void addButtons(JButton button, int gridx, int gridy) {
-		GridBagConstraints c = new GridBagConstraints();
-		c.gridx = gridx;
-		c.gridy = gridy;
+    private void refreshGrid()
+    {
+        biomorphGrid.removeAll();
 
-		hofPanel.add(button, c);
-	}
+        for (int i=0; i<Math.min(generation.children.length, rows*cols); i++)
+        {
+            BiomorphSurfaceWithTools bs = new BiomorphSurfaceWithTools(true);
+            bs.setBiomorph(generation.children[i]);
 
-	public void createHallOfFamePanel() {
-		favouritePanelHF();
+            biomorphGrid.add(bs);
+        }
 
-		swap1 = new JButton("Swap");
-		clear1 = new JButton("Clear");
-		swap2 = new JButton("Swap");
-		clear2 = new JButton("Clear");
-		swap3 = new JButton("Swap");
-		clear3 = new JButton("Clear");
-		swap4 = new JButton("Swap");
-		clear4 = new JButton("Clear");
-		swap5 = new JButton("Swap");
-		clear5 = new JButton("Clear");
-		swap6 = new JButton("Swap");
-		clear6 = new JButton("Clear");
-		swap7 = new JButton("Swap");
-		clear7 = new JButton("Clear");
-		swap8 = new JButton("Swap");
-		clear8 = new JButton("Clear");
-		swap9 = new JButton("Swap");
-		clear9 = new JButton("Clear");
+        biomorphGrid.revalidate();
+    }
 
-		JButton[] swaps = { swap1, swap2, swap3, swap4, swap5, swap6, swap7,
-				swap8, swap9 };
+    public static void main(String[] args)
+    {
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                JFrame mw = new MutationTester();
 
-		int y = 0;
-		for (JButton swap : swaps) {
-			addButtons(swap, 1, y);
-			y++;
-		}
-
-		JButton[] clearbuttons = { clear1, clear2, clear3, clear4, clear5,
-				clear6, clear7, clear8, clear9 };
-
-		int cleary = 0;
-		for (JButton clear : clearbuttons) {
-			addButtons(clear, 2, cleary);
-			cleary++;
-		}
-
-	}
-
-	public void favouritePanelHF() {
-		Border border = BorderFactory.createLineBorder(Color.BLACK, 1);
-		favBio1 = new JLabel("1");
-		favBio2 = new JLabel("2");
-		favBio3 = new JLabel("3");
-		favBio4 = new JLabel("4");
-		favBio5 = new JLabel("5");
-		favBio6 = new JLabel("6");
-		favBio7 = new JLabel("7");
-		favBio8 = new JLabel("8");
-		favBio9 = new JLabel("9");
-
-		JLabel[] favourites = { favBio1, favBio2, favBio3, favBio4, favBio5,
-				favBio6, favBio7, favBio8, favBio9 };
-
-		for (JLabel pick : favourites) {
-			pick.setPreferredSize(new Dimension(80, 70));
-			pick.setBorder(border);
-		}
-
-		GridBagLayout layout = new GridBagLayout();
-
-		hofPanel.setLayout(layout);
-		hofPanel.setSize(200, -1);
-		hofPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
-		int x = 0;
-		for (int i = 0; i < favourites.length; i++) {
-			addTiles(favourites[i], 0, x);
-			x++;
-		}
-
-	}
-
-	public static void main(String[] args) {
-		SwingUtilities.invokeLater(new Runnable() {
-			@Override
-			public void run() {
-				JFrame mw = new MutationTester();
-
-				mw.setVisible(true);
-			}
-		});
-	}
+                mw.setVisible(true);
+            }
+        });
+    }
 }
