@@ -80,12 +80,13 @@ public class GeneFactory {
 
         Set<Character> cm = geneMap.keySet();
 
-        char[] result = new char[cm.size()];
+        char[] result = new char[cm.size() - 1];
 
         int i=0;
         for(char c : cm)
         {
-            result[i++] = c;
+            if(c != 'X')
+                result[i++] = c;
         }
 
         return result;

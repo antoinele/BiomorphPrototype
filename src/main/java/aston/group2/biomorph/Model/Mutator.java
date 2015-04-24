@@ -1,37 +1,35 @@
 package aston.group2.biomorph.Model;
 
+import aston.group2.biomorph.GUI.Renderable;
 import aston.group2.biomorph.Model.Genes.Gene;
 import aston.group2.biomorph.Model.Genes.RootGene;
 import aston.group2.biomorph.Storage.Generation;
 
-import java.util.Arrays;
-import java.util.Map;
-import java.util.Random;
-import java.util.TreeMap;
+import java.util.*;
 
 /**
  * Created by antoine on 16/03/15.
  */
-@SuppressWarnings("WeakerAccess")
 public class Mutator {
-    @SuppressWarnings("WeakerAccess")
-    public int childrenRequired = 1;
-    @SuppressWarnings("CanBeFinal")
+    public int childrenRequired;
     public Random random;
 
-    public final Map<String, Float> probabilities;
+    public final Map<String, Object> settings;
 
     public Mutator(long seed)
     {
-        this.random = new Random(); // TODO: this probably needs changing
+        random = new Random(); // TODO: this probably needs changing
 
         random.setSeed(seed); // TODO: Really, this needs to be set properly
 
-        probabilities = new TreeMap<String, Float>(String.CASE_INSENSITIVE_ORDER);
+        settings = new TreeMap<String, Object>(String.CASE_INSENSITIVE_ORDER);
 
-        probabilities.put("gene_mutate",0.8f);
-        probabilities.put("gene_mutate_value", 0.5f);
-        probabilities.put("gene_add", 0.5f);
+        settings.put("gene_mutate_probability", 0.8f);
+        settings.put("gene_mutate_value_probability", 0.5f);
+        settings.put("gene_mutate_value_max_change", 3);
+        settings.put("gene_add_probability", 0.2f);
+        settings.put("gene_recurse_add_probability", 0.2f);
+        settings.put("gene_remove_probability", 0.1f);
     }
 
     public Mutator()
@@ -41,7 +39,7 @@ public class Mutator {
 
     private float probability(String probability)
     {
-        return probabilities.get(probability);
+        return (Float)settings.get(probability + "_probability");
     }
 
     private Gene mergeGene(Gene g1, Gene g2, Random rng)
@@ -179,13 +177,52 @@ public class Mutator {
         return mergedGenes;
     }
 
+    private void generateSubGenes(Gene gene, Random rng)
+    {
+        if(! (gene instanceof Renderable) )
+            return;
+
+        char[] genecodes = GeneFactory.geneCodes();
+
+        do {
+            // pick a gene
+            char genecode = genecodes[rng.nextInt(genecodes.length)];
+
+            Gene newGene = GeneFactory.getGeneFromCode(genecode);
+
+            // randomise values
+            short[] newGenes = new short[newGene.maxValues()];
+            for(int i=0; i<newGenes.length; i++)
+            {
+                newGenes[i] = (short)rng.nextInt(256);
+            }
+
+            newGene.setValues(newGenes);
+
+            if(rng.nextFloat() <= probability("gene_recurse_add"))
+            {
+                generateSubGenes(newGene, rng);
+            }
+
+            gene.addSubGene(newGene);
+        }
+        while(rng.nextFloat() <= probability("gene_recurse_add"));
+    }
+
     private Gene mutateGenes(Gene rootGene, Random rng)
     {
         Gene newRootGene = GeneFactory.getGeneFromCode(rootGene.getGeneCode());
 
+        int maxChange = (Integer)settings.get("gene_mutate_value_max_change");
+
         for (int i = 0; i < rootGene.subGenes.size(); i++)
         {
             Gene gene = rootGene.subGenes.get(i);
+
+            if(rng.nextFloat() <= probability("gene_remove"))
+            {
+                continue;
+            }
 
             short[] values = gene.getValues();
 
@@ -193,7 +230,7 @@ public class Mutator {
                 // Mutate gene values?
                 for (int j = 0; j < values.length; j++) {
                     if (rng.nextFloat() <= probability("gene_mutate_value")) {
-                        values[j] += rng.nextInt(10) - 5;
+                        values[j] += rng.nextInt(maxChange*2) - maxChange;
                     }
                 }
             }
@@ -202,6 +239,11 @@ public class Mutator {
             newGene.setValues(values);
 
             newRootGene.addSubGene(newGene);
+
+            if(rng.nextFloat() <= probability("gene_add"))
+            {
+                generateSubGenes(gene, rng);
+            }
         }
 
         return newRootGene;

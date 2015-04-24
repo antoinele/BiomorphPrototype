@@ -34,7 +34,7 @@ public class Dot extends Gene implements Renderable<Dot> {
     }
 
 	@Override
-	protected int maxValues() {
+    public int maxValues() {
 		// TODO Auto-generated method stub
 		return 3;
 	}
