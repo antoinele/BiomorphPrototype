@@ -92,7 +92,7 @@ public class NewMainWindow extends JFrame {
 			    	MutationWindow mw = new MutationWindow(numOfBiomorphs.getValue());
 			         mw.setVisible(true);
      
-			         
+			         NewMainWindow.this.dispose();
 			  }
 		 });
 		

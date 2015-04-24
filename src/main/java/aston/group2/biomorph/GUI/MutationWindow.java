@@ -9,9 +9,13 @@ import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 
+import com.sun.glass.events.WindowEvent;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowListener;
 import java.util.ArrayList;
 
 /**
@@ -23,10 +27,7 @@ public class MutationWindow extends JFrame {
 	Mutator mutator;
 	private JPanel hofPanel;
 	private JPanel topOfPage;
-	
-	//bottom panel on the screen
-	private JFrame popup;
-	
+
 	// hall of fame biomorphs
 	private JLabel favBio1;
 	private JLabel favBio2;
@@ -57,57 +58,85 @@ public class MutationWindow extends JFrame {
 	private JButton swap9;
 	private JButton clear9;
 
-	private static int rows = 2;
-	private static int cols = 3;
+	private int rows = 2;
+	private int cols = 3;
 
-	public MutationWindow(int cols) {
-		this.cols = cols/rows;
-		
+	public MutationWindow(int numberOfBiomorphs) {
+		this.cols = numberOfBiomorphs / rows;
+
 		setLayout(new BorderLayout());
 		setTitle("Mutation Tester");
+		setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 		setMinimumSize(new Dimension(900, 800));
 
 		biomorphGrid = new JPanel();
 		biomorphGrid.setLayout(new GridLayout(rows, cols));
-		biomorphGrid.setBorder(new EmptyBorder(10, 10, 10, 10) );
-		
+		biomorphGrid.setBorder(new EmptyBorder(10, 10, 10, 10));
+
 		topOfPage = new JPanel();
 		topOfPage.setLayout(new BorderLayout());
-		
-		popup = new JFrame();
-		popup.pack();
-		popup.setVisible(false);
-		
+
 		hofPanel = new JPanel();
 
 		add(biomorphGrid, BorderLayout.CENTER);
 		add(hofPanel, BorderLayout.EAST);
 		add(topOfPage, BorderLayout.NORTH);
-		
+
 		initialiseBiomorph();
 		createHallOfFamePanel();
 		refreshGrid();
-		
+
 		{
-			JButton exit = new JButton("Exit");
-			 exit.addActionListener(new ActionListener() {
-				    public void actionPerformed(ActionEvent event) {
-				     int confirm = JOptionPane.showConfirmDialog(popup, "Are you sure you want to exit?", "Confirm", JOptionPane.OK_CANCEL_OPTION);
-				     
-				     
-				     if(confirm == JOptionPane.OK_OPTION){
-				            System.exit(0);
-				        }
-				        else {
-				            popup.setVisible(false);
-				        }
-				     
-				     
-				     
-				  }
-			 });
-			
-			topOfPage.add(exit, BorderLayout.CENTER);
+			addWindowListener(new WindowListener(){
+
+				@Override
+				public void windowActivated(java.awt.event.WindowEvent e) {
+					// TODO Auto-generated method stub
+					
+				}
+
+				@Override
+				public void windowClosed(java.awt.event.WindowEvent e) {
+					// TODO Auto-generated method stub
+					
+				}
+
+				@Override
+				public void windowClosing(java.awt.event.WindowEvent e) {
+					int confirm = JOptionPane.showConfirmDialog(e.getWindow(),
+							"Are you sure you want to exit?", "Confirm",
+							JOptionPane.OK_CANCEL_OPTION);
+
+					if (confirm == JOptionPane.OK_OPTION) {
+						e.getWindow().dispose();
+					}
+				}
+
+				@Override
+				public void windowDeactivated(java.awt.event.WindowEvent e) {
+					// TODO Auto-generated method stub
+					
+				}
+
+				@Override
+				public void windowDeiconified(java.awt.event.WindowEvent e) {
+					// TODO Auto-generated method stub
+					
+				}
+
+				@Override
+				public void windowIconified(java.awt.event.WindowEvent e) {
+					// TODO Auto-generated method stub
+					
+				}
+
+				@Override
+				public void windowOpened(java.awt.event.WindowEvent e) {
+					// TODO Auto-generated method stub
+					
+				}
+				
+			});
 		}
 
 		{
@@ -166,13 +195,12 @@ public class MutationWindow extends JFrame {
 	private void refreshGrid() {
 		Border border = BorderFactory.createLineBorder(Color.BLACK, 1);
 
-		
 		biomorphGrid.removeAll();
-		
+
 		for (int i = 0; i < Math.min(generation.children.length, rows * cols); i++) {
 			BiomorphSurfaceWithTools bs = new BiomorphSurfaceWithTools(true);
 			bs.setBiomorph(generation.children[i]);
-			bs.setBorder(border); 
+			bs.setBorder(border);
 			biomorphGrid.add(bs);
 		}
 
@@ -275,7 +303,7 @@ public class MutationWindow extends JFrame {
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override
 			public void run() {
-				JFrame mw = new MutationWindow(cols);
+				JFrame mw = new MutationWindow(4);
 
 				mw.setVisible(true);
 			}
