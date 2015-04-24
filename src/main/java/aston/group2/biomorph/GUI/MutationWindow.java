@@ -90,18 +90,6 @@ public class MutationWindow extends JFrame {
 			addWindowListener(new WindowListener(){
 
 				@Override
-				public void windowActivated(java.awt.event.WindowEvent e) {
-					// TODO Auto-generated method stub
-					
-				}
-
-				@Override
-				public void windowClosed(java.awt.event.WindowEvent e) {
-					// TODO Auto-generated method stub
-					
-				}
-
-				@Override
 				public void windowClosing(java.awt.event.WindowEvent e) {
 					int confirm = JOptionPane.showConfirmDialog(e.getWindow(),
 							"Are you sure you want to exit?", "Confirm",
@@ -112,29 +100,12 @@ public class MutationWindow extends JFrame {
 					}
 				}
 
-				@Override
-				public void windowDeactivated(java.awt.event.WindowEvent e) {
-					// TODO Auto-generated method stub
-					
-				}
-
-				@Override
-				public void windowDeiconified(java.awt.event.WindowEvent e) {
-					// TODO Auto-generated method stub
-					
-				}
-
-				@Override
-				public void windowIconified(java.awt.event.WindowEvent e) {
-					// TODO Auto-generated method stub
-					
-				}
-
-				@Override
-				public void windowOpened(java.awt.event.WindowEvent e) {
-					// TODO Auto-generated method stub
-					
-				}
+				@Override public void windowActivated(java.awt.event.WindowEvent e) {}
+				@Override public void windowClosed(java.awt.event.WindowEvent e) {}
+				@Override public void windowDeactivated(java.awt.event.WindowEvent e) {}
+				@Override public void windowDeiconified(java.awt.event.WindowEvent e) {}
+				@Override public void windowIconified(java.awt.event.WindowEvent e) {}
+				@Override public void windowOpened(java.awt.event.WindowEvent e) {}
 				
 			});
 		}
