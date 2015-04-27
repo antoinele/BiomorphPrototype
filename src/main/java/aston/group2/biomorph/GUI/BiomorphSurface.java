@@ -11,6 +11,7 @@ import javax.swing.*;
 
 import aston.group2.biomorph.Model.Biomorph;
 import aston.group2.biomorph.Model.Genes.Gene;
+import com.sun.corba.se.impl.orbutil.graph.Graph;
 
 class BiomorphSurface extends JComponent {
 
@@ -79,7 +80,11 @@ class BiomorphSurface extends JComponent {
 		}
 	}
 
-	private void drawGene(Graphics2D g, Gene gene) {
+    private void drawGene(Graphics2D g, Gene gene)
+    {
+        drawGene(g, gene, true);
+    }
+	private void drawGene(Graphics2D g, Gene gene, boolean draw) {
 		Gene[] subGenes = gene.getSubGenes();
 
 		for (Gene sg : subGenes) {
@@ -92,14 +97,14 @@ class BiomorphSurface extends JComponent {
 			((Processed) gene).process(g);
 		}
 
-		if (gene instanceof Renderable) {
+		if (draw && gene instanceof Renderable) {
 			aston.group2.biomorph.GUI.Renderers.Renderer r = ((Renderable) gene)
 					.getRenderer();
 			r.draw(g);
 		}
 
 		for (Gene sg : subGenes) {
-			drawGene(g, sg);
+			drawGene(g, sg, (draw ? gene instanceof Renderable : false));
 		}
 	}
 

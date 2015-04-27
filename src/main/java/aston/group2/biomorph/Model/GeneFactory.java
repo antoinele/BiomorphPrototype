@@ -1,6 +1,7 @@
 package aston.group2.biomorph.Model;
 
 import aston.group2.biomorph.Model.Genes.Gene;
+import com.sun.deploy.util.ArrayUtil;
 import org.reflections.Reflections;
 
 import java.util.HashMap;
@@ -23,7 +24,11 @@ public class GeneFactory {
 
         geneMap = new HashMap<Character, Class<? extends Gene>>();
 
-        Reflections reflections = new Reflections("aston.group2.biomorph.Model.Genes");
+        String geneclass = Gene.class.getCanonicalName();
+
+        geneclass = geneclass.substring(0, geneclass.lastIndexOf('.'));
+
+        Reflections reflections = new Reflections(geneclass);
 
         Set<Class<? extends Gene>> geneTypes = reflections.getSubTypesOf(Gene.class);
 
@@ -67,5 +72,23 @@ public class GeneFactory {
         {
             return null;
         }
+    }
+
+    public static char[] geneCodes()
+    {
+        buildGeneMap();
+
+        Set<Character> cm = geneMap.keySet();
+
+        char[] result = new char[cm.size() - 1];
+
+        int i=0;
+        for(char c : cm)
+        {
+            if(c != 'X')
+                result[i++] = c;
+        }
+
+        return result;
     }
 }

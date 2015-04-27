@@ -39,7 +39,7 @@ public abstract class Gene {
         setValues(values);
     }
 
-    protected abstract int maxValues();
+    public abstract int maxValues();
     protected abstract void parseValues();
 
     public char getGeneCode()

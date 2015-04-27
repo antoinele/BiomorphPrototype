@@ -45,7 +45,7 @@ public class RootGene extends Gene implements Renderable {
     }
 
     @Override
-    protected int maxValues()
+    public int maxValues()
     {
         return 0;
     }
