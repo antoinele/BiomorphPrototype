@@ -164,14 +164,11 @@ public class MutationWindow extends JFrame {
 	}
 
 	private void refreshGrid() {
-		Border border = BorderFactory.createLineBorder(Color.BLACK, 1);
-
 		biomorphGrid.removeAll();
 
 		for (int i = 0; i < Math.min(generation.children.length, rows * cols); i++) {
 			BiomorphSurfaceWithTools bs = new BiomorphSurfaceWithTools(true);
 			bs.setBiomorph(generation.children[i]);
-			bs.setBorder(border);
 			biomorphGrid.add(bs);
 		}
 
