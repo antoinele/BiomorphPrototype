@@ -19,7 +19,7 @@ public class Mutator {
 
     public final Map<String, Object> settings;
 
-    enum MergeType {
+    public static enum MergeType {
         MEAN, WEIGHTED
     }
 
