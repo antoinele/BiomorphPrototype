@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Biomorph Prototype.iml" filepath="$PROJECT_DIR$/Biomorph Prototype.iml" />
+      <module fileurl="file://$PROJECT_DIR$/geneticart-example.iml" filepath="$PROJECT_DIR$/geneticart-example.iml" />
     </modules>
   </component>
 </project>

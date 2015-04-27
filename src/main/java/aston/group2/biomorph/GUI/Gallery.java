@@ -13,6 +13,7 @@ import aston.group2.biomorph.Model.Biomorph;
 
 import javax.swing.*;
 import javax.swing.border.Border;
+import javax.swing.border.EmptyBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -54,7 +55,7 @@ public class Gallery extends JFrame{
 	
 	private JButton back;
 	private JButton exit;
-	private JButton compareBiomorphs;
+	private JButton mutateBiomorphs;
 	private JButton save;
 	
 	private JButton swap1;
@@ -95,11 +96,14 @@ public class Gallery extends JFrame{
 	private JLabel colours;
 	private int minpercent = 0;
 	private int maxpercent = 100;
-	
-	public Gallery(){
+
+	private int biomorphNumber;
+
+	public Gallery(int numberOfBiomorphs){
+		 biomorphNumber = numberOfBiomorphs;
 		 popup = new JFrame();
 		 popup.pack();
-		 popup.setVisible(true);
+		 popup.setVisible(false);
 
 		 //setMinimumSize(new Dimension(boxHeight,boxWidth));
 		 setMinimumSize(new Dimension(900, 800));
@@ -115,19 +119,23 @@ public class Gallery extends JFrame{
 		 back = new JButton("Back");
 		 exit = new JButton("Exit");
 		 save = new JButton("Save/Export");
-		 compareBiomorphs = new JButton("Compare Biomorphs");
+		 mutateBiomorphs = new JButton("Mutate");
 		 
-		 shape = new JSlider(JSlider.HORIZONTAL, minpercent, maxpercent, 0);
+		 // temp variable to prevent value snap on sliders
+		 int initShape = 0;
+		 shape = new JSlider(JSlider.HORIZONTAL, minpercent, maxpercent, initShape);
 		 shape.setMajorTickSpacing(10);
 		 shape.setPaintTicks(true);
-
-		 colour = new JSlider(JSlider.HORIZONTAL, minpercent, maxpercent, 0);
+		 
+		 // temp variable to prevent value snap on sliders
+		 int initColour = 0;
+		 colour = new JSlider(JSlider.HORIZONTAL, minpercent, maxpercent, initColour);
 		 colour.setMajorTickSpacing(10);
 		 colour.setPaintTicks(true);
 
-		 shapes = new JLabel("Shape: ");
+		 shapes = new JLabel("Shape " + initShape + " %");
 		 
-		 colours = new JLabel("Colour: ");
+		 colours = new JLabel("Colour " + initColour + " %");
 		 
 		  shape.addChangeListener(new ChangeListener() {
 		      public void stateChanged(ChangeEvent event) {
@@ -149,7 +157,7 @@ public class Gallery extends JFrame{
 		 panelOne.add(shape);
 		 panelOne.add(colours);
 		 panelOne.add(colour);
-		 panelOne.add(compareBiomorphs);
+		 panelOne.add(mutateBiomorphs);
 		 panelOne.add(save);
 		 panelTwo.add(back, BorderLayout.WEST);
 		 panelTwo.add(exit);
@@ -159,11 +167,11 @@ public class Gallery extends JFrame{
 	     favouritePanelHF();
 	     createHallOfFamePanel();
 		 
-		 Border border = BorderFactory.createLineBorder(Color.BLACK, 1);
+		 
 
 		 add(panelTwo, BorderLayout.NORTH);
-		 add(galleryPanel, BorderLayout.WEST);
-		 add(hofPanel);
+		 add(galleryPanel, BorderLayout.CENTER);
+		 add(hofPanel, BorderLayout.EAST);
 		 add(panelOne, BorderLayout.SOUTH);
 
 		 back.addActionListener(new ActionListener() {
@@ -240,19 +248,20 @@ public class Gallery extends JFrame{
 	}
 	
 	public void createBiomorphTiles(){
+		 Border border = BorderFactory.createLineBorder(Color.BLACK, 1); 
 		 galleryPanel = new JPanel();
 		 galleryPanel.setLayout(new GridLayout(2,3,10,10));
+		 galleryPanel.setBorder(new EmptyBorder(10, 10, 10, 10) );
 
 		//biomorph windows for gallery panel
 		 
 		 //JPanel[] biomorphs = new JPanel[6];
-		 for(int i =0; i<6; i++){
-			 BiomorphSurfaceWithTools bS = new BiomorphSurfaceWithTools();
+		 for(int i =0; i<biomorphNumber; i++){
+			 BiomorphSurfaceWithTools bS = new BiomorphSurfaceWithTools(true);
 			 Biomorph bm = new Biomorph("D21F00CSLBEEF00SMCAFEsL123456LFF12F0SLF2430"+i+"s");
 			 
 			 bS.setBiomorph(bm);
-			 //biomorphs[i] = bS;
-			 bS.setPreferredSize(new Dimension(boxWidth/4, boxHeight/4));
+			 bS.setBorder(border);
 			 galleryPanel.add(bS);
 		 }
 		
@@ -326,8 +335,8 @@ public class Gallery extends JFrame{
 		 GridBagLayout layout = new GridBagLayout();
 			
 		 hofPanel.setLayout(layout);
-		 hofPanel.setBorder(border);
-		 hofPanel.setPreferredSize(new Dimension(10, 120));
+		 hofPanel.setSize(200, -1);
+		 hofPanel.setBorder(new EmptyBorder(10, 10, 10, 10) );
 		 int x = 0;
 		 for(int i = 0; i<favourites.length; i++){
 			addTiles(favourites[i], 0, x);
