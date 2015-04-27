@@ -55,7 +55,7 @@ public class Gallery extends JFrame{
 	
 	private JButton back;
 	private JButton exit;
-	private JButton compareBiomorphs;
+	private JButton mutateBiomorphs;
 	private JButton save;
 	
 	private JButton swap1;
@@ -103,7 +103,7 @@ public class Gallery extends JFrame{
 		 biomorphNumber = numberOfBiomorphs;
 		 popup = new JFrame();
 		 popup.pack();
-		 popup.setVisible(true);
+		 popup.setVisible(false);
 
 		 //setMinimumSize(new Dimension(boxHeight,boxWidth));
 		 setMinimumSize(new Dimension(900, 800));
@@ -119,7 +119,7 @@ public class Gallery extends JFrame{
 		 back = new JButton("Back");
 		 exit = new JButton("Exit");
 		 save = new JButton("Save/Export");
-		 compareBiomorphs = new JButton("Compare Biomorphs");
+		 mutateBiomorphs = new JButton("Mutate");
 		 
 		 // temp variable to prevent value snap on sliders
 		 int initShape = 0;
@@ -157,7 +157,7 @@ public class Gallery extends JFrame{
 		 panelOne.add(shape);
 		 panelOne.add(colours);
 		 panelOne.add(colour);
-		 panelOne.add(compareBiomorphs);
+		 panelOne.add(mutateBiomorphs);
 		 panelOne.add(save);
 		 panelTwo.add(back, BorderLayout.WEST);
 		 panelTwo.add(exit);
