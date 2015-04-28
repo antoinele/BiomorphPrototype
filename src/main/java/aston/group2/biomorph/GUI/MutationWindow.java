@@ -30,35 +30,7 @@ public class MutationWindow extends JFrame {
 	private JPanel hofPanel;
 	private JPanel topOfPage;
 
-	// hall of fame biomorphs
-	private JLabel favBio1;
-	private JLabel favBio2;
-	private JLabel favBio3;
-	private JLabel favBio4;
-	private JLabel favBio5;
-	private JLabel favBio6;
-	private JLabel favBio7;
-	private JLabel favBio8;
-	private JLabel favBio9;
-
-	private JButton swap1;
-	private JButton clear1;
-	private JButton swap2;
-	private JButton clear2;
-	private JButton swap3;
-	private JButton clear3;
-	private JButton swap4;
-	private JButton clear4;
-	private JButton swap5;
-	private JButton clear5;
-	private JButton swap6;
-	private JButton clear6;
-	private JButton swap7;
-	private JButton clear7;
-	private JButton swap8;
-	private JButton clear8;
-	private JButton swap9;
-	private JButton clear9;
+    private final int hofEntries = 10;
 
 	private int rows = 2;
 	private int cols = 3;
@@ -79,12 +51,6 @@ public class MutationWindow extends JFrame {
 
 		topOfPage = new JPanel();
 		topOfPage.setLayout(new BorderLayout());
-
-		hofPanel = new JPanel();
-
-		add(biomorphGrid, BorderLayout.CENTER);
-		add(hofPanel, BorderLayout.EAST);
-		add(topOfPage, BorderLayout.NORTH);
 
 		initialiseBiomorph();
 		createHallOfFamePanel();
@@ -127,6 +93,10 @@ public class MutationWindow extends JFrame {
 
 			add(mutateButton, BorderLayout.SOUTH);
 		}
+
+        add(biomorphGrid, BorderLayout.CENTER);
+        add(hofPanel, BorderLayout.EAST);
+        add(topOfPage, BorderLayout.NORTH);
 	}
 
     private void initialiseBiomorph()
@@ -202,77 +172,37 @@ public class MutationWindow extends JFrame {
 	}
 
 	public void createHallOfFamePanel() {
-		favouritePanelHF();
+        if(hofPanel == null) {
+            hofPanel = new JPanel();
+            hofPanel.setLayout(new GridLayout(0, 2));
+            hofPanel.setSize(200,0);
+            hofPanel.setBorder(new EmptyBorder(10,10,10,10));
+        }
+        else {
+            hofPanel.removeAll();
+        }
 
-		swap1 = new JButton("Swap");
-		clear1 = new JButton("Clear");
-		swap2 = new JButton("Swap");
-		clear2 = new JButton("Clear");
-		swap3 = new JButton("Swap");
-		clear3 = new JButton("Clear");
-		swap4 = new JButton("Swap");
-		clear4 = new JButton("Clear");
-		swap5 = new JButton("Swap");
-		clear5 = new JButton("Clear");
-		swap6 = new JButton("Swap");
-		clear6 = new JButton("Clear");
-		swap7 = new JButton("Swap");
-		clear7 = new JButton("Clear");
-		swap8 = new JButton("Swap");
-		clear8 = new JButton("Clear");
-		swap9 = new JButton("Swap");
-		clear9 = new JButton("Clear");
+        for(int i=0; i<hofEntries; i++)
+        {
+            JComponent biomorph = new JLabel(String.format("BM:%d", i));
 
-		JButton[] swaps = { swap1, swap2, swap3, swap4, swap5, swap6, swap7,
-				swap8, swap9 };
+            {
+                biomorph.setPreferredSize(new Dimension(80, 60));
+                biomorph.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
+            }
 
-		int y = 0;
-		for (JButton swap : swaps) {
-			addButtons(swap, 1, y);
-			y++;
-		}
+            JPanel buttonPanel = new JPanel();
+            buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.PAGE_AXIS));
 
-		JButton[] clearbuttons = { clear1, clear2, clear3, clear4, clear5,
-				clear6, clear7, clear8, clear9 };
+            JButton swap = new JButton("Swap");
+            JButton clear = new JButton("Clear");
 
-		int cleary = 0;
-		for (JButton clear : clearbuttons) {
-			addButtons(clear, 2, cleary);
-			cleary++;
-		}
+            buttonPanel.add(swap);
+            buttonPanel.add(clear);
 
-	}
-
-	public void favouritePanelHF() {
-		Border border = BorderFactory.createLineBorder(Color.BLACK, 1);
-		favBio1 = new JLabel("1");
-		favBio2 = new JLabel("2");
-		favBio3 = new JLabel("3");
-		favBio4 = new JLabel("4");
-		favBio5 = new JLabel("5");
-		favBio6 = new JLabel("6");
-		favBio7 = new JLabel("7");
-		favBio8 = new JLabel("8");
-		favBio9 = new JLabel("9");
-
-		JLabel[] favourites = { favBio1, favBio2, favBio3, favBio4, favBio5,
-				favBio6, favBio7, favBio8, favBio9 };
-
-		for (JLabel pick : favourites) {
-			pick.setPreferredSize(new Dimension(80, 70));
-			pick.setBorder(border);
-		}
-
-		GridBagLayout layout = new GridBagLayout();
-
-		hofPanel.setLayout(layout);
-		hofPanel.setSize(200, -1);
-		hofPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
-
-		for (int i = 0; i < favourites.length; i++) {
-			addTiles(favourites[i], 0, i);
-		}
-
+            hofPanel.add(biomorph);
+            hofPanel.add(buttonPanel);
+        }
 	}
 
 	public static void main(String[] args) {
