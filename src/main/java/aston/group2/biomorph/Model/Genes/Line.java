@@ -17,7 +17,7 @@ public class Line extends Gene implements Renderable<Line> {
     }
 
     @Override
-    protected int maxValues()
+    public int maxValues()
     {
         return 3;
     }

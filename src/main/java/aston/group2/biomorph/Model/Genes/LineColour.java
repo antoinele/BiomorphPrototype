@@ -10,7 +10,7 @@ public class LineColour extends Gene{
 	}
 
 	@Override
-	protected int maxValues() {
+    public int maxValues() {
 		// TODO Auto-generated method stub
 		return 0;
 	}

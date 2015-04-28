@@ -15,7 +15,7 @@ import java.util.Stack;
  * Created by antoine on 29/10/14.
  */
 public class Biomorph {
-    public final Generation generation;
+    public Generation generation;
 
     private Coordinate origin;
 

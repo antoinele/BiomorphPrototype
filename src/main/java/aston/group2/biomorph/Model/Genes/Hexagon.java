@@ -16,7 +16,7 @@ public class Hexagon extends Gene implements Renderable<Hexagon> {
     }
 
     @Override
-    protected int maxValues() { return 2; }
+    public int maxValues() { return 2; }
 
     @Override
     protected void parseValues() {
