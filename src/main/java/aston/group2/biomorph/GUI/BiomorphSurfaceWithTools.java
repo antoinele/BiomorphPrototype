@@ -182,10 +182,10 @@ public class BiomorphSurfaceWithTools extends JPanel {
 	}
 	public void impressBiomorphWindow(){
 		if(selected){
-			Border border = BorderFactory.createLineBorder(Color.RED, 10);
+			Border border = BorderFactory.createLineBorder(new Color(104, 175, 232), 5);
 			setBorder(border);
 		}else{
-			setBorder(new EmptyBorder(10, 10, 10, 10) );
+			setBorder(new EmptyBorder(5, 5, 5, 5) );
 		}
 	}
 

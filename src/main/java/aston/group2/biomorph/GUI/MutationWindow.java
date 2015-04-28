@@ -4,6 +4,7 @@ import aston.group2.biomorph.Model.Biomorph;
 import aston.group2.biomorph.Model.Mutator;
 import aston.group2.biomorph.Model.Species;
 import aston.group2.biomorph.Storage.Generation;
+import aston.group2.biomorph.Storage.HallOfFame;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -60,8 +61,10 @@ public class MutationWindow extends JFrame {
 
 	private int rows = 2;
 	private int cols = 3;
+	
 
 	public MutationWindow(int numberOfBiomorphs) {
+		
 		this.cols = numberOfBiomorphs / rows;
 
 		setLayout(new BorderLayout());
@@ -259,10 +262,9 @@ public class MutationWindow extends JFrame {
 		hofPanel.setLayout(layout);
 		hofPanel.setSize(200, -1);
 		hofPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
-		int x = 0;
+
 		for (int i = 0; i < favourites.length; i++) {
-			addTiles(favourites[i], 0, x);
-			x++;
+			addTiles(favourites[i], 0, i);
 		}
 
 	}
