@@ -38,7 +38,21 @@ public class MutationWindow extends JFrame {
 
 	private int rows = 2;
 	private int cols = 3;
-	
+
+    private JButton makeButton(String icon, String tooltip)
+    {
+        try {
+            BufferedImage iconImg = ImageIO.read(new File("resources/icons/" + icon + ".png"));
+            JButton button = new JButton(new ImageIcon(iconImg));
+            button.setToolTipText(tooltip);
+            return button;
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            return null;
+        }
+    }
+
 
 	public MutationWindow(int numberOfBiomorphs) {
 		
@@ -64,17 +78,8 @@ public class MutationWindow extends JFrame {
 		header.setLayout(new BorderLayout());
 		add(header, BorderLayout.NORTH);
 
-		BufferedImage refreshIcon;
-		try {
-		    refreshIcon = ImageIO.read(new File("resources/icons/table_refresh.png"));
-			JButton refreshButton = new JButton(new ImageIcon(refreshIcon));
-			refreshButton.setToolTipText("Refresh");
-			header.add(refreshButton, BorderLayout.WEST);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
+		header.add(makeButton("table_refresh", "Refresh"), BorderLayout.WEST);
+
 		BufferedImage backIcon;
 		try {
 		    backIcon = ImageIO.read(new File("resources/icons/arrow_left.png"));
