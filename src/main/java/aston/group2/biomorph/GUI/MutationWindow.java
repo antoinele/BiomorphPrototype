@@ -12,8 +12,6 @@ import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 
-import com.sun.glass.events.WindowEvent;
-
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -77,36 +75,20 @@ public class MutationWindow extends JFrame {
 		JPanel header = new JPanel();
 		header.setLayout(new BorderLayout());
 		add(header, BorderLayout.NORTH);
-
-		header.add(makeButton("table_refresh", "Refresh"), BorderLayout.WEST);
-
-		BufferedImage backIcon;
-		try {
-		    backIcon = ImageIO.read(new File("resources/icons/arrow_left.png"));
-			JButton backButton = new JButton(new ImageIcon(backIcon));
-			backButton.setToolTipText("Refresh");
-			header.add(backButton, BorderLayout.EAST);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		
 		JPanel footer = new JPanel();
 		Border border = BorderFactory.createLineBorder(Color.BLACK, 1); 
 		footer.setLayout(new BorderLayout());
 		footer.setBorder(border);
 		add(footer, BorderLayout.SOUTH);
-		BufferedImage settingsIcon;
-		try {
-			settingsIcon = ImageIO.read(new File("resources/icons/table_gear.png"));
-			JButton settingsButton = new JButton(new ImageIcon(settingsIcon));
-			settingsButton.setToolTipText("Settings");
-			footer.add(settingsButton, BorderLayout.EAST);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 
+		JPanel buttonPanel = new JPanel();
+		buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.LINE_AXIS));
+		footer.add(buttonPanel, BorderLayout.EAST);
+		
+		buttonPanel.add(makeButton("table_refresh", "Refresh"));
+		buttonPanel.add(makeButton("arrow_left", "Undo"));
+		buttonPanel.add(makeButton("table_gear", "Settings"));
 		
 		{
 			addWindowListener(new WindowListener(){
@@ -255,19 +237,5 @@ public class MutationWindow extends JFrame {
             hofPanel.add(biomorph);
             hofPanel.add(buttonPanel);
         }
-	}
-	
-	
-
-	public static void main(String[] args) {
-		SwingUtilities.invokeLater(new Runnable() {
-			@Override
-			public void run() {
-				JFrame mw = new MutationWindow(4);
-
-				mw.setVisible(true);
-			}
-		});
-	}
-	
+	}	
 }
