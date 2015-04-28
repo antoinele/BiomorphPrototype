@@ -7,6 +7,7 @@ import aston.group2.biomorph.Model.Species;
 import aston.group2.biomorph.Storage.Generation;
 import aston.group2.biomorph.Storage.HallOfFame;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
@@ -18,6 +19,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -89,7 +93,50 @@ public class MutationWindow extends JFrame {
 		initialiseBiomorph();
 		createHallOfFamePanel();
 		refreshGrid();
+		
+		JPanel header = new JPanel();
+		header.setLayout(new BorderLayout());
+		add(header, BorderLayout.NORTH);
 
+		BufferedImage refreshIcon;
+		try {
+		    refreshIcon = ImageIO.read(new File("resources/icons/table_refresh.png"));
+			JButton refreshButton = new JButton(new ImageIcon(refreshIcon));
+			refreshButton.setToolTipText("Refresh");
+			header.add(refreshButton, BorderLayout.WEST);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		BufferedImage backIcon;
+		try {
+		    backIcon = ImageIO.read(new File("resources/icons/arrow_left.png"));
+			JButton backButton = new JButton(new ImageIcon(backIcon));
+			backButton.setToolTipText("Refresh");
+			header.add(backButton, BorderLayout.EAST);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		JPanel footer = new JPanel();
+		Border border = BorderFactory.createLineBorder(Color.BLACK, 1); 
+		footer.setLayout(new BorderLayout());
+		footer.setBorder(border);
+		add(footer, BorderLayout.SOUTH);
+		BufferedImage settingsIcon;
+		try {
+			settingsIcon = ImageIO.read(new File("resources/icons/table_gear.png"));
+			JButton settingsButton = new JButton(new ImageIcon(settingsIcon));
+			settingsButton.setToolTipText("Settings");
+			footer.add(settingsButton, BorderLayout.EAST);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		
 		{
 			addWindowListener(new WindowListener(){
 
@@ -125,7 +172,7 @@ public class MutationWindow extends JFrame {
 				}
 			});
 
-			add(mutateButton, BorderLayout.SOUTH);
+			footer.add(mutateButton, BorderLayout.CENTER);
 		}
 	}
 
@@ -274,6 +321,8 @@ public class MutationWindow extends JFrame {
 		}
 
 	}
+	
+	
 
 	public static void main(String[] args) {
 		SwingUtilities.invokeLater(new Runnable() {
@@ -285,4 +334,5 @@ public class MutationWindow extends JFrame {
 			}
 		});
 	}
+	
 }
