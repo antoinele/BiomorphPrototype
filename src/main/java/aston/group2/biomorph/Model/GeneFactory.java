@@ -1,7 +1,6 @@
 package aston.group2.biomorph.Model;
 
 import aston.group2.biomorph.Model.Genes.Gene;
-import com.sun.deploy.util.ArrayUtil;
 import org.reflections.Reflections;
 
 import java.util.HashMap;

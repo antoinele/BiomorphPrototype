@@ -86,7 +86,7 @@ public class NewMainWindow extends JFrame {
 		      }
 		    });
 		
-		// passes value from slider into Gallery as a parameter
+		// passes value from slider into MutationWindow as a parameter
 		newBiomorphs.addActionListener(new ActionListener() {
 			    public void actionPerformed(ActionEvent event) {
 			    	MutationWindow mw = new MutationWindow(numOfBiomorphs.getValue());

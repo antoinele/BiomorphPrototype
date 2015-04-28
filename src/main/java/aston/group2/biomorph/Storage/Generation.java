@@ -4,8 +4,6 @@ import aston.group2.biomorph.Model.Biomorph;
 import aston.group2.biomorph.Model.IncompatibleSpeciesException;
 import aston.group2.biomorph.Model.Mutator;
 import aston.group2.biomorph.Model.Species;
-import com.sun.deploy.util.ArrayUtil;
-
 import java.io.Serializable;
 import java.util.Arrays;
 
