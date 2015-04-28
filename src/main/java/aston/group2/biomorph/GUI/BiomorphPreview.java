@@ -3,6 +3,8 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -19,13 +21,14 @@ public class BiomorphPreview extends JFrame{
 		JPanel bottomPanel = new JPanel();
 		JSlider zoomSlider = new JSlider();
 		JLabel zoomSliderLabel = new JLabel();
+		BiomorphSurface bs = new BiomorphSurface();
 		
 	public BiomorphPreview(Biomorph biomorph){
 		
 		setMinimumSize(new Dimension(800,600));
 		setLayout(new BorderLayout());
 		
-		BiomorphSurface bs = new BiomorphSurface();
+		
 		bs.setBiomorph(biomorph);
 		
 		{int initialValue = 500;
@@ -48,20 +51,48 @@ public class BiomorphPreview extends JFrame{
 		      }
 		    });
 		
-		/*// passes value from slider into MutationWindow as a parameter
-		newBiomorphs.addActionListener(new ActionListener() {
-			    public void actionPerformed(ActionEvent event) {
-			    	MutationWindow mw = new MutationWindow(zoomSlider.getValue());
-			         mw.setVisible(true);
-     
-			         NewMainWindow.this.dispose();
-			  }
-		 });*/}
+		// passes value from slider into BiomorphSurface 
+		zoomSlider.addMouseListener(new ZoomMouseListener()); 
 		bottomPanel.add(zoomSlider, BorderLayout.CENTER);
 		bottomPanel.add(zoomSliderLabel, BorderLayout.SOUTH);
 		add(bs, BorderLayout.CENTER);
 		add(bottomPanel, BorderLayout.SOUTH);
 	}
+	
+	
 }
+	class ZoomMouseListener implements MouseListener{
 
+		@Override
+		public void mouseClicked(MouseEvent arg0) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void mouseEntered(MouseEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void mouseExited(MouseEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void mousePressed(MouseEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void mouseReleased(MouseEvent e) {
+			bs.setScaleFactor(zoomSlider.getValue());
+		}
+		
+		
+	}
+	}
 
