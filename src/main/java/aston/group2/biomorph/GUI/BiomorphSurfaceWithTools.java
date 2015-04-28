@@ -1,8 +1,14 @@
 package aston.group2.biomorph.GUI;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -13,6 +19,8 @@ import java.nio.file.Paths;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.border.Border;
+import javax.swing.border.EmptyBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import aston.group2.biomorph.Model.Biomorph;
@@ -21,15 +29,51 @@ public class BiomorphSurfaceWithTools extends JPanel {
 	public final BiomorphSurface biomorphSurface;
 
 	private JCheckBox checkbox;
-
 	private boolean selectable = false;
+	private boolean selected = false;
 
 	public BiomorphSurfaceWithTools()
 	{
 		this(false);
+
 	}
 
 	public BiomorphSurfaceWithTools(boolean selectable) {
+		if(selectable){
+		addMouseListener(new MouseListener() {
+
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				selected = !checkbox.isSelected();
+				checkbox.setSelected(selected);
+				impressBiomorphWindow();
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mouseExited(MouseEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mousePressed(MouseEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mouseReleased(MouseEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+		});};
 		this.selectable = selectable;
 
 		biomorphSurface = new BiomorphSurface();
@@ -120,7 +164,28 @@ public class BiomorphSurfaceWithTools extends JPanel {
 		if(selectable)
 		{   //Add a checkbox
 			checkbox = new JCheckBox();
+			checkbox.addItemListener(new ItemListener(){
+
+				@Override
+				public void itemStateChanged(ItemEvent e) {
+					// TODO Auto-generated method stub
+					selected = checkbox.isSelected();
+					impressBiomorphWindow();
+				}
+				
+			});
 		    header.add(checkbox, BorderLayout.EAST);
+		    
+		}
+		
+		impressBiomorphWindow();
+	}
+	public void impressBiomorphWindow(){
+		if(selected){
+			Border border = BorderFactory.createLineBorder(new Color(104, 175, 232), 5);
+			setBorder(border);
+		}else{
+			setBorder(new EmptyBorder(5, 5, 5, 5) );
 		}
 	}
 
