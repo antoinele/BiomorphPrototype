@@ -1,6 +1,7 @@
 package aston.group2.biomorph.GUI;
 
 import aston.group2.biomorph.Model.Biomorph;
+import aston.group2.biomorph.Model.EvolutionHelper;
 import aston.group2.biomorph.Model.Mutator;
 import aston.group2.biomorph.Model.Species;
 import aston.group2.biomorph.Storage.Generation;
@@ -125,43 +126,48 @@ public class MutationWindow extends JFrame {
 		}
 	}
 
-	private void initialiseBiomorph() {
-		Biomorph[] bma;
+    private void initialiseBiomorph()
+    {
+        if(generation == null)
+        {
+            mutator = new Mutator();
+            mutator.childrenRequired = rows * cols;
 
-		if (generation == null) {
-			mutator = new Mutator();
-			mutator.childrenRequired = rows * cols;
+            generation = EvolutionHelper.generateSpecies(mutator).getLastestGeneration();
+        }
+        else
+        {
+            Biomorph[] bma;
 
-			generation = new Generation(mutator);
+            ArrayList<Biomorph> selected = new ArrayList<Biomorph>(rows * cols);
 
-			new Species(generation);
+            Component[] components = biomorphGrid.getComponents();
 
-			bma = new Biomorph[] { new Biomorph(
-					"D21F00CSLBEEF00SMCAFEsL123456LFF12F0SLF24300s") };
-		} else {
-			ArrayList<Biomorph> selected = new ArrayList<Biomorph>(rows * cols);
+            for(Component c : components)
+            {
+                if(c instanceof BiomorphSurfaceWithTools)
+                {
+                    BiomorphSurfaceWithTools bS = (BiomorphSurfaceWithTools)c;
 
-			Component[] components = biomorphGrid.getComponents();
+                    if(bS.selected())
+                    {
+                        selected.add(bS.biomorphSurface.getBiomorph());
+                    }
+                }
+            }
 
-			for (Component c : components) {
-				if (c instanceof BiomorphSurfaceWithTools) {
-					BiomorphSurfaceWithTools bS = (BiomorphSurfaceWithTools) c;
-					if (bS.selected()) {
-						selected.add(bS.biomorphSurface.getBiomorph());
-					}
-				}
-			}
+            bma = selected.toArray(new Biomorph[selected.size()]);
 
-			bma = selected.toArray(new Biomorph[selected.size()]);
-		}
+            if(bma.length > 0) {
+                System.out.println(String.format("Mutating %d biomorphs", bma.length));
 
-		if (bma.length > 0) {
-			System.out.println(String.format("Mutating %d biomorphs",
-					bma.length));
+//                generation = mutator.mutateBiomorph(bma);
+                generation = EvolutionHelper.mutate(bma, mutator);
 
-			generation = mutator.mutateBiomorph(bma);
-		}
-	}
+//                generation.species.printTree();
+            }
+        }
+    }
 
 	private void refreshGrid() {
 		Border border = BorderFactory.createLineBorder(Color.BLACK, 1);
