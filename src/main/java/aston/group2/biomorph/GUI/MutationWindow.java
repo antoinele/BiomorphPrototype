@@ -85,7 +85,7 @@ public class MutationWindow extends JFrame {
 		add(hofPanel, BorderLayout.EAST);
 		add(topOfPage, BorderLayout.NORTH);
 
-		initialiseBiomorph();
+		initialiseBiomorph(numberOfBiomorphs);
 		createHallOfFamePanel();
 		refreshGrid();
 
@@ -118,7 +118,7 @@ public class MutationWindow extends JFrame {
 			mutateButton.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					initialiseBiomorph();
+					initialiseBiomorph(0);
 
 					refreshGrid();
 				}
@@ -128,12 +128,15 @@ public class MutationWindow extends JFrame {
 		}
 	}
 
-	private void initialiseBiomorph() {
+	private void initialiseBiomorph(int childrenRequired) {
 		Biomorph[] bma;
 
+		if(childrenRequired == 0)
+			childrenRequired = mutator.childrenRequired;
+		
 		if (generation == null) {
 			mutator = new Mutator();
-			mutator.childrenRequired = rows * cols;
+			mutator.childrenRequired = childrenRequired;
 
 			generation = new Generation(mutator);
 
@@ -169,7 +172,7 @@ public class MutationWindow extends JFrame {
 	private void refreshGrid() {
 		biomorphGrid.removeAll();
 
-		for (int i = 0; i < Math.min(generation.children.length, rows * cols); i++) {
+		for (int i = 0; i < Math.min(generation.children.length, mutator.childrenRequired); i++) {
 			BiomorphSurfaceWithTools bs = new BiomorphSurfaceWithTools(true);
 			bs.setBiomorph(generation.children[i]);
 			biomorphGrid.add(bs);

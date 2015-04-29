@@ -125,8 +125,8 @@ class BiomorphSurface extends JComponent {
 		return biomorph;
 	}
 	
-	public void setScaleFactor(int scaleFactor){
-		this.scaleFactor= scaleFactor/(100);
+	public void setScaleFactor(float scaleFactor){
+		this.scaleFactor= scaleFactor;
 		repaint();
 	}
 

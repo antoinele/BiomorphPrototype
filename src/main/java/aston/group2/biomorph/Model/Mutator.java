@@ -267,6 +267,23 @@ public class Mutator {
         return newRootGene;
     }
 
+    private Biomorph mutateBiomorph_internal(Generation newGeneration, Biomorph[] biomorphs)
+    {
+        Biomorph newBiomorph = new Biomorph(newGeneration);
+
+        Gene newGenes = mergeGenes(biomorphs, random);
+        newGenes = mutateGenes(newGenes, random);
+
+        //set genes
+        Gene rg = newBiomorph.getRootGene();
+        for (Gene gene : newGenes.getSubGenes())
+        {
+            rg.addSubGene(gene);
+        }
+        
+        return newBiomorph;
+    }
+    
     public Generation mutateBiomorph(Biomorph[] biomorphs)
     {
         return mutateBiomorph(biomorphs, new Gene[0]);
@@ -286,23 +303,24 @@ public class Mutator {
         newGeneration.children = new Biomorph[childrenRequired];
         newGeneration.parents = biomorphs;
 
-        for (int i=0; i<childrenRequired; i++)
-        {
-            Biomorph newBiomorph = new Biomorph(newGeneration);
+//        for (int i=0; i<childrenRequired; i++)
+//        {
+//        	newGeneration.children[i] = mutateBiomorph_internal(newGeneration, biomorphs);
+//        }
+        
+    	for(int i=0; i<childrenRequired; i++)
+    	{
+    		Biomorph bm = newGeneration.children[i];
+    		
+    		while(bm == null || bm.getRootGene().getSubGenes().length == 0)
+    		{
+    			bm = newGeneration.children[i] = mutateBiomorph_internal(newGeneration, biomorphs);
 
-            Gene newGenes = mergeGenes(biomorphs, random);
-            newGenes = mutateGenes(newGenes, random);
-
-            //set genes
-            Gene rg = newBiomorph.getRootGene();
-            for (Gene gene : newGenes.getSubGenes())
-            {
-                rg.addSubGene(gene);
-            }
-
-            newGeneration.children[i] = newBiomorph;
-        }
-
+    		}
+    		
+    	}
+    
+	        
         return newGeneration;
     }
 }
