@@ -3,10 +3,8 @@ package aston.group2.biomorph.GUI;
 import aston.group2.biomorph.Model.Biomorph;
 import aston.group2.biomorph.Model.EvolutionHelper;
 import aston.group2.biomorph.Model.Mutator;
-import aston.group2.biomorph.Model.Species;
 import aston.group2.biomorph.Storage.BiomorphHistoryLoader;
 import aston.group2.biomorph.Storage.Generation;
-import aston.group2.biomorph.Storage.HallOfFame;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -14,20 +12,13 @@ import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-import javax.swing.filechooser.FileNameExtensionFilter;
-
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
 import java.awt.event.WindowListener;
 import java.awt.image.BufferedImage;
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.IOException;
-import java.nio.charset.Charset;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 
 /**
@@ -41,8 +32,7 @@ public class MutationWindow extends JFrame {
 	private JPanel topOfPage;
 	private JFrame frame;
 	private JPanel mainPanel;
-	
-	private int totalBiomorphs;
+
 	private JSlider numberOfBios;
 	private JSlider slider1;
 	private JSlider slider2;
@@ -246,7 +236,7 @@ public class MutationWindow extends JFrame {
         {
             Biomorph[] bma;
 
-            ArrayList<Biomorph> selected = new ArrayList<Biomorph>(rows * cols);
+            ArrayList<Biomorph> selected = new ArrayList<>(rows * cols);
 
             Component[] components = biomorphGrid.getComponents();
 
@@ -291,7 +281,7 @@ public class MutationWindow extends JFrame {
 	public void createHallOfFamePanel() {
         if(hofPanel == null) {
             hofPanel = new JPanel();
-            hofPanel.setLayout(new GridLayout(0, 2));
+            hofPanel.setLayout(new GridBagLayout());
             hofPanel.setSize(200,0);
             hofPanel.setBorder(new EmptyBorder(10,10,10,10));
         }
@@ -308,17 +298,31 @@ public class MutationWindow extends JFrame {
             biomorph.setPreferredSize(new Dimension(80, 60));
             biomorph.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
 
-            JPanel buttonPanel = new JPanel();
-            buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.PAGE_AXIS));
+            JButton swap = makeButton("arrow_switch", "Swap");
+            JButton clear = makeButton("cancel", "Clear");
 
-            JButton swap = new JButton("Swap");
-            JButton clear = new JButton("Clear");
+            GridBagConstraints c = new GridBagConstraints();
 
-            buttonPanel.add(swap);
-            buttonPanel.add(clear);
+            c.fill = GridBagConstraints.HORIZONTAL | GridBagConstraints.VERTICAL;
 
-            hofPanel.add(biomorph);
-            hofPanel.add(buttonPanel);
+            {
+                c.gridx = 0;
+                c.gridy = 2*i;
+                c.gridheight = 2;
+                hofPanel.add(biomorph, c);
+            }
+
+            {
+                c.gridx = 1;
+                c.gridy = 2*i;
+                c.gridheight = 1;
+                c.weighty = 0.5;
+
+                hofPanel.add(swap, c);
+
+                c.gridy = 2*i + 1;
+                hofPanel.add(clear, c);
+            }
         }
 	}	
 }
