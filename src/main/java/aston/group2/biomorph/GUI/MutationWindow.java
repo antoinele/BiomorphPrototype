@@ -4,6 +4,7 @@ import aston.group2.biomorph.Model.Biomorph;
 import aston.group2.biomorph.Model.EvolutionHelper;
 import aston.group2.biomorph.Model.Mutator;
 import aston.group2.biomorph.Model.Species;
+import aston.group2.biomorph.Storage.BiomorphHistoryLoader;
 import aston.group2.biomorph.Storage.Generation;
 import aston.group2.biomorph.Storage.HallOfFame;
 
@@ -49,8 +50,6 @@ public class MutationWindow extends JFrame {
 	private JLabel slider1l;
 	private JLabel slider2l;
 
-    private final int hofEntries = 10;
-
 	private int rows = 2;
 	private int cols = 3;
 
@@ -70,8 +69,7 @@ public class MutationWindow extends JFrame {
 
 
 	public MutationWindow(int numberOfBiomorphs) {
-		totalBiomorphs = numberOfBiomorphs;
-		this.cols = totalBiomorphs / rows;
+		this.cols = numberOfBiomorphs / rows;
 
 		setLayout(new BorderLayout());
 		setTitle("Mutation Tester");
@@ -193,29 +191,28 @@ public class MutationWindow extends JFrame {
 			});
 		}
 		
-		{
-			addWindowListener(new WindowListener(){
+        addWindowListener(new WindowListener(){
 
-				@Override
-				public void windowClosing(java.awt.event.WindowEvent e) {
-					int confirm = JOptionPane.showConfirmDialog(e.getWindow(),
-							"Are you sure you want to exit?", "Confirm",
-							JOptionPane.OK_CANCEL_OPTION);
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent e) {
+                int confirm = JOptionPane.showConfirmDialog(e.getWindow(),
+                        "Are you sure you want to exit?", "Confirm",
+                        JOptionPane.OK_CANCEL_OPTION);
 
-					if (confirm == JOptionPane.OK_OPTION) {
-						e.getWindow().dispose();
-					}
-				}
+                if (confirm == JOptionPane.OK_OPTION) {
+                    BiomorphHistoryLoader.save();
+                    e.getWindow().dispose();
+                }
+            }
 
-				@Override public void windowActivated(java.awt.event.WindowEvent e) {}
-				@Override public void windowClosed(java.awt.event.WindowEvent e) {}
-				@Override public void windowDeactivated(java.awt.event.WindowEvent e) {}
-				@Override public void windowDeiconified(java.awt.event.WindowEvent e) {}
-				@Override public void windowIconified(java.awt.event.WindowEvent e) {}
-				@Override public void windowOpened(java.awt.event.WindowEvent e) {}
-				
-			});
-		}
+            @Override public void windowActivated(java.awt.event.WindowEvent e) {}
+            @Override public void windowClosed(java.awt.event.WindowEvent e) {}
+            @Override public void windowDeactivated(java.awt.event.WindowEvent e) {}
+            @Override public void windowDeiconified(java.awt.event.WindowEvent e) {}
+            @Override public void windowIconified(java.awt.event.WindowEvent e) {}
+            @Override public void windowOpened(java.awt.event.WindowEvent e) {}
+
+        });
 
 		{
 			JButton mutateButton = new JButton("Mutate");
@@ -291,23 +288,6 @@ public class MutationWindow extends JFrame {
 		biomorphGrid.revalidate();
 	}
 
-	// for hall of fame
-	public void addTiles(JLabel l, int gridx, int gridy) {
-		GridBagConstraints c = new GridBagConstraints();
-		c.gridx = gridx;
-		c.gridy = gridy;
-		hofPanel.add(l, c);
-	}
-
-	// for hall of fame
-	public void addButtons(JButton button, int gridx, int gridy) {
-		GridBagConstraints c = new GridBagConstraints();
-		c.gridx = gridx;
-		c.gridy = gridy;
-
-		hofPanel.add(button, c);
-	}
-
 	public void createHallOfFamePanel() {
         if(hofPanel == null) {
             hofPanel = new JPanel();
@@ -319,14 +299,14 @@ public class MutationWindow extends JFrame {
             hofPanel.removeAll();
         }
 
-        for(int i=0; i<hofEntries; i++)
+        for(int i=0; i<BiomorphHistoryLoader.hallOfFame.hallOfFame.length; i++)
         {
-            JComponent biomorph = new JLabel(String.format("BM:%d", i));
+            JComponent biomorph = (BiomorphHistoryLoader.hallOfFame.hallOfFame[i] != null ?
+                                        new BiomorphSurface(BiomorphHistoryLoader.hallOfFame.hallOfFame[i]) :
+                                        new JLabel("None") );
 
-            {
-                biomorph.setPreferredSize(new Dimension(80, 60));
-                biomorph.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
-            }
+            biomorph.setPreferredSize(new Dimension(80, 60));
+            biomorph.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
 
             JPanel buttonPanel = new JPanel();
             buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.PAGE_AXIS));

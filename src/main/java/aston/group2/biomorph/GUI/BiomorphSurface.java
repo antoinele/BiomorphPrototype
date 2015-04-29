@@ -31,7 +31,7 @@ class BiomorphSurface extends JComponent {
     }
     public BiomorphSurface(Biomorph biomorph)
     {
-        super();
+        this();
         setBiomorph(biomorph);
     }
 
