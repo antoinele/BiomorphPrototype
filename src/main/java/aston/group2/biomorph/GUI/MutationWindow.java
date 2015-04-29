@@ -28,7 +28,7 @@ public class MutationWindow extends JFrame {
 	JPanel biomorphGrid;
 	Generation generation;
 	Mutator mutator;
-	private JPanel hofPanel;
+	private JPanel hofPanel = null;
 	private JPanel topOfPage;
 	private JFrame frame;
 	private JPanel mainPanel;
@@ -223,9 +223,42 @@ public class MutationWindow extends JFrame {
         add(topOfPage, BorderLayout.NORTH);
 	}
 
-    private void swapClick(Biomorph biomorph)
+    private void swapClick(int slot)
     {
+        BiomorphSurfaceWithTools selected = null;
 
+        Component[] components = biomorphGrid.getComponents();
+
+        for(Component c : components)
+        {
+            if(c instanceof BiomorphSurfaceWithTools)
+            {
+                BiomorphSurfaceWithTools bS = (BiomorphSurfaceWithTools)c;
+
+                if(bS.selected())
+                {
+                    selected = bS;
+                    break; // we only swap the first one anyway
+                }
+            }
+        }
+
+        if(selected != null)
+        {
+            Biomorph biomorph = BiomorphHistoryLoader.hallOfFame.hallOfFame[slot];
+
+            if(biomorph != null)
+            {
+                Biomorph oldSelectedBM = selected.biomorphSurface.getBiomorph();
+                selected.setBiomorph(biomorph);
+
+                BiomorphHistoryLoader.hallOfFame.hallOfFame[slot] = oldSelectedBM;
+            }
+            else
+            {
+                BiomorphHistoryLoader.hallOfFame.hallOfFame[slot] = selected.biomorphSurface.getBiomorph();
+            }
+        }
     }
 
     private void initialiseBiomorph()
@@ -239,8 +272,6 @@ public class MutationWindow extends JFrame {
         }
         else
         {
-            Biomorph[] bma;
-
             ArrayList<Biomorph> selected = new ArrayList<>(rows * cols);
 
             Component[] components = biomorphGrid.getComponents();
@@ -258,7 +289,7 @@ public class MutationWindow extends JFrame {
                 }
             }
 
-            bma = selected.toArray(new Biomorph[selected.size()]);
+            Biomorph[] bma = selected.toArray(new Biomorph[selected.size()]);
 
             if(bma.length > 0) {
                 System.out.println(String.format("Mutating %d biomorphs", bma.length));
@@ -283,6 +314,15 @@ public class MutationWindow extends JFrame {
 		biomorphGrid.revalidate();
 	}
 
+    private JComponent createHallOfFameSlot(int i)
+    {
+        JComponent biomorph = (BiomorphHistoryLoader.hallOfFame.hallOfFame[i] != null ?
+                new BiomorphSurface(BiomorphHistoryLoader.hallOfFame.hallOfFame[i]) :
+                new JLabel("None") );
+
+        return biomorph;
+    }
+
 	private void createHallOfFamePanel() {
         if(hofPanel == null) {
             hofPanel = new JPanel();
@@ -296,22 +336,33 @@ public class MutationWindow extends JFrame {
 
         for(int i=0; i<BiomorphHistoryLoader.hallOfFame.hallOfFame.length; i++)
         {
-            JComponent biomorph = (BiomorphHistoryLoader.hallOfFame.hallOfFame[i] != null ?
-                                        new BiomorphSurface(BiomorphHistoryLoader.hallOfFame.hallOfFame[i]) :
-                                        new JLabel("None") );
+            final JPanel biomorphHolder = new JPanel();
+            biomorphHolder.setLayout(new BorderLayout());
+            biomorphHolder.add(createHallOfFameSlot(i));
 
 //            biomorph.setPreferredSize(new Dimension(80, 60));
-            biomorph.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
+            biomorphHolder.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
 
             JButton swap = makeButton("arrow_switch", "Swap");
             JButton clear = makeButton("cancel", "Clear");
 
             swap.addActionListener(new ActionListener() {
+                private int slot;
+
                 @Override
                 public void actionPerformed(ActionEvent e) {
-
+                    swapClick(slot);
+                    biomorphHolder.removeAll();
+                    biomorphHolder.add(createHallOfFameSlot(slot));
+                    biomorphHolder.revalidate();
                 }
-            });
+
+                public ActionListener init(int slot)
+                {
+                    this.slot = slot;
+                    return this;
+                }
+            }.init(i));
 
             {
                 Dimension d = new Dimension(22,22);
@@ -333,7 +384,7 @@ public class MutationWindow extends JFrame {
                 c.gridheight = 2;
                 c.weightx = 1;
 
-                hofPanel.add(biomorph, c);
+                hofPanel.add(biomorphHolder, c);
             }
 
             {
