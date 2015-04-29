@@ -65,9 +65,9 @@ public class NewMainWindow extends JFrame {
 		loadBiomorphs.setBounds(450, 400, 120, 40);
 		
 		// Slider for number of biomorphs (increments in 2s)
-		int initialValue = 2;
+		int initialValue = 6;
 		numOfBiomorphs = new JSlider(JSlider.HORIZONTAL, 2, 10, initialValue);
-		numOfBiomorphs.setValue(2);
+		numOfBiomorphs.setValue(6);
 		numOfBiomorphs.setMajorTickSpacing(2);
 		numOfBiomorphs.setPaintTicks(true);
 		// only values with ticks (marks) are selectable
