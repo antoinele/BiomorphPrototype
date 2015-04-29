@@ -43,7 +43,7 @@ public class MutationWindow extends JFrame {
 	private int rows = 2;
 	private int cols = 3;
 
-    private JButton makeButton(String icon, String tooltip)
+    private static JButton makeButton(String icon, String tooltip)
     {
         try {
             BufferedImage iconImg = ImageIO.read(new File("resources/icons/" + icon + ".png"));
@@ -223,6 +223,11 @@ public class MutationWindow extends JFrame {
         add(topOfPage, BorderLayout.NORTH);
 	}
 
+    private void swapClick(Biomorph biomorph)
+    {
+
+    }
+
     private void initialiseBiomorph()
     {
         if(generation == null)
@@ -278,12 +283,12 @@ public class MutationWindow extends JFrame {
 		biomorphGrid.revalidate();
 	}
 
-	public void createHallOfFamePanel() {
+	private void createHallOfFamePanel() {
         if(hofPanel == null) {
             hofPanel = new JPanel();
             hofPanel.setLayout(new GridBagLayout());
-            hofPanel.setSize(200,0);
-            hofPanel.setBorder(new EmptyBorder(10,10,10,10));
+            hofPanel.setPreferredSize(new Dimension(150,0));
+            hofPanel.setBorder(BorderFactory.createEmptyBorder(10,0,10,10));
         }
         else {
             hofPanel.removeAll();
@@ -295,27 +300,49 @@ public class MutationWindow extends JFrame {
                                         new BiomorphSurface(BiomorphHistoryLoader.hallOfFame.hallOfFame[i]) :
                                         new JLabel("None") );
 
-            biomorph.setPreferredSize(new Dimension(80, 60));
+//            biomorph.setPreferredSize(new Dimension(80, 60));
             biomorph.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
 
             JButton swap = makeButton("arrow_switch", "Swap");
             JButton clear = makeButton("cancel", "Clear");
 
-            GridBagConstraints c = new GridBagConstraints();
+            swap.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
 
-            c.fill = GridBagConstraints.HORIZONTAL | GridBagConstraints.VERTICAL;
+                }
+            });
 
             {
+                Dimension d = new Dimension(22,22);
+                swap.setPreferredSize(d);
+                clear.setPreferredSize(d);
+            }
+
+            GridBagConstraints c = new GridBagConstraints();
+
+            Insets is = new Insets(5, 10, 0, 0);
+
+            c.insets = is;
+
+            {
+                c.fill = GridBagConstraints.BOTH;
+
                 c.gridx = 0;
                 c.gridy = 2*i;
                 c.gridheight = 2;
+                c.weightx = 1;
+
                 hofPanel.add(biomorph, c);
             }
 
             {
+                c.fill = GridBagConstraints.NONE;
+
                 c.gridx = 1;
                 c.gridy = 2*i;
                 c.gridheight = 1;
+                c.weightx = 0;
                 c.weighty = 0.5;
 
                 hofPanel.add(swap, c);
