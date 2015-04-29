@@ -10,10 +10,5 @@ import java.util.List;
  * Created by antoine on 12/03/15.
  */
 public class HallOfFame implements Serializable {
-    private List<Biomorph> hallOfFame;
-
-    public HallOfFame()
-    {
-        hallOfFame = new ArrayList<Biomorph>();
-    }
+    public final Biomorph[] hallOfFame = new Biomorph[10];
 }
