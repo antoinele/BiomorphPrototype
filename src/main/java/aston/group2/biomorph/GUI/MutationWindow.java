@@ -373,7 +373,24 @@ public class MutationWindow extends JFrame {
 					return this;
 				}
 			}.init(i));
+			
+			clear.addActionListener(new ActionListener() {
+				private int slot;
 
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					BiomorphHistoryLoader.hallOfFame.hallOfFame[slot]=null;
+					biomorphHolder.removeAll();
+					biomorphHolder.add(createHallOfFameSlot(slot));
+					biomorphHolder.revalidate();
+				}
+
+				public ActionListener init(int slot) {
+					this.slot = slot;
+					return this;
+				}
+			}.init(i));
+			
 			{
 				Dimension d = new Dimension(22, 22);
 				swap.setPreferredSize(d);
