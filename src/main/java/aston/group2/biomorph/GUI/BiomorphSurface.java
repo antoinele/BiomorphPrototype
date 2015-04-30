@@ -12,7 +12,7 @@ import javax.swing.*;
 import aston.group2.biomorph.Model.Biomorph;
 import aston.group2.biomorph.Model.Genes.Gene;
 
-class BiomorphSurface extends JComponent {
+public class BiomorphSurface extends JComponent {
 
 	public boolean CLIPMIRROR = false;
 
