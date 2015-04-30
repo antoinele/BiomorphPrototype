@@ -11,7 +11,6 @@ import javax.swing.*;
 
 import aston.group2.biomorph.Model.Biomorph;
 import aston.group2.biomorph.Model.Genes.Gene;
-import com.sun.corba.se.impl.orbutil.graph.Graph;
 
 class BiomorphSurface extends JComponent {
 
@@ -32,7 +31,7 @@ class BiomorphSurface extends JComponent {
     }
     public BiomorphSurface(Biomorph biomorph)
     {
-        super();
+        this();
         setBiomorph(biomorph);
     }
 
