@@ -1,8 +1,6 @@
 package aston.group2.biomorph.Utilities;
 
 import java.awt.Image;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.IOException;
@@ -13,7 +11,6 @@ import java.nio.file.Paths;
 import javax.imageio.ImageIO;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
-import aston.group2.biomorph.GUI.BiomorphSurfaceWithTools;
 import aston.group2.biomorph.GUI.BiomorphSurface;
 import aston.group2.biomorph.Model.Biomorph;
 
@@ -41,43 +38,33 @@ public class Exporter {
 		} 
 
 	}
-	
+
 	public static void exportPNG(Biomorph biomorph){
-		
+
 		BiomorphSurface biomorphSurface = new BiomorphSurface(biomorph);
-		
+
 		biomorphSurface.setSize(1000, 1000);
-		
+
 		Image img = biomorphSurface.getFrame();
-		
-        JFileChooser jf = new JFileChooser();
-        jf.setFileFilter(new FileNameExtensionFilter("PNG file", "png"));
-        int rv = jf.showSaveDialog(null);
 
-        if (rv == JFileChooser.APPROVE_OPTION) {
+		JFileChooser jf = new JFileChooser();
+		jf.setFileFilter(new FileNameExtensionFilter("PNG file", "png"));
+		int rv = jf.showSaveDialog(null);
 
-            String path = jf.getSelectedFile().getPath();
+		if (rv == JFileChooser.APPROVE_OPTION) {
 
-            if (!path.endsWith(".png")) {
-                path += ".png";
-            }
+			String path = jf.getSelectedFile().getPath();
 
-            File of = new File(path);
-            try {
-                ImageIO.write((java.awt.image.RenderedImage) img, "png", of);
-            } catch (IOException e2) {
-                e2.printStackTrace();
-            }
-        }
-    
-		
-		
-		
-		
+			if (!path.endsWith(".png")) {
+				path += ".png";
+			}
+
+			File of = new File(path);
+			try {
+				ImageIO.write((java.awt.image.RenderedImage) img, "png", of);
+			} catch (IOException e2) {
+				e2.printStackTrace();
+			}
+		}
 	}
-	
-	
-	
-	
-	
 }
