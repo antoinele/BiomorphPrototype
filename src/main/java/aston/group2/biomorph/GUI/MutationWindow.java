@@ -1,11 +1,13 @@
 package aston.group2.biomorph.GUI;
 
 import aston.group2.biomorph.Model.Biomorph;
+import aston.group2.biomorph.Model.EvolutionHelper;
 import aston.group2.biomorph.Model.Mutator;
 import aston.group2.biomorph.Model.Species;
 import aston.group2.biomorph.Storage.Generation;
 import aston.group2.biomorph.Storage.HallOfFame;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
@@ -17,6 +19,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -88,7 +93,50 @@ public class MutationWindow extends JFrame {
 		initialiseBiomorph(numberOfBiomorphs);
 		createHallOfFamePanel();
 		refreshGrid();
+		
+		JPanel header = new JPanel();
+		header.setLayout(new BorderLayout());
+		add(header, BorderLayout.NORTH);
 
+		BufferedImage refreshIcon;
+		try {
+		    refreshIcon = ImageIO.read(new File("resources/icons/table_refresh.png"));
+			JButton refreshButton = new JButton(new ImageIcon(refreshIcon));
+			refreshButton.setToolTipText("Refresh");
+			header.add(refreshButton, BorderLayout.WEST);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		BufferedImage backIcon;
+		try {
+		    backIcon = ImageIO.read(new File("resources/icons/arrow_left.png"));
+			JButton backButton = new JButton(new ImageIcon(backIcon));
+			backButton.setToolTipText("Refresh");
+			header.add(backButton, BorderLayout.EAST);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		JPanel footer = new JPanel();
+		Border border = BorderFactory.createLineBorder(Color.BLACK, 1); 
+		footer.setLayout(new BorderLayout());
+		footer.setBorder(border);
+		add(footer, BorderLayout.SOUTH);
+		BufferedImage settingsIcon;
+		try {
+			settingsIcon = ImageIO.read(new File("resources/icons/table_gear.png"));
+			JButton settingsButton = new JButton(new ImageIcon(settingsIcon));
+			settingsButton.setToolTipText("Settings");
+			footer.add(settingsButton, BorderLayout.EAST);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		
 		{
 			addWindowListener(new WindowListener(){
 
@@ -124,13 +172,13 @@ public class MutationWindow extends JFrame {
 				}
 			});
 
-			add(mutateButton, BorderLayout.SOUTH);
+			footer.add(mutateButton, BorderLayout.CENTER);
 		}
 	}
 
-	private void initialiseBiomorph(int childrenRequired) {
-		Biomorph[] bma;
 
+	private void initialiseBiomorph(int childrenRequired) {
+		
 		if(childrenRequired == 0)
 			childrenRequired = mutator.childrenRequired;
 		
@@ -138,36 +186,41 @@ public class MutationWindow extends JFrame {
 			mutator = new Mutator();
 			mutator.childrenRequired = childrenRequired;
 
-			generation = new Generation(mutator);
+            generation = EvolutionHelper.generateSpecies(mutator).getLastestGeneration();
+        }
+        else
+        {
+            Biomorph[] bma;
 
-			new Species(generation);
+            ArrayList<Biomorph> selected = new ArrayList<Biomorph>(rows * cols);
 
-			bma = new Biomorph[] { new Biomorph(
-					"D21F00CSLBEEF00SMCAFEsL123456LFF12F0SLF24300s") };
-		} else {
-			ArrayList<Biomorph> selected = new ArrayList<Biomorph>(rows * cols);
+            Component[] components = biomorphGrid.getComponents();
 
-			Component[] components = biomorphGrid.getComponents();
+            for(Component c : components)
+            {
+                if(c instanceof BiomorphSurfaceWithTools)
+                {
+                    BiomorphSurfaceWithTools bS = (BiomorphSurfaceWithTools)c;
 
-			for (Component c : components) {
-				if (c instanceof BiomorphSurfaceWithTools) {
-					BiomorphSurfaceWithTools bS = (BiomorphSurfaceWithTools) c;
-					if (bS.selected()) {
-						selected.add(bS.biomorphSurface.getBiomorph());
-					}
-				}
-			}
+                    if(bS.selected())
+                    {
+                        selected.add(bS.biomorphSurface.getBiomorph());
+                    }
+                }
+            }
 
-			bma = selected.toArray(new Biomorph[selected.size()]);
-		}
+            bma = selected.toArray(new Biomorph[selected.size()]);
 
-		if (bma.length > 0) {
-			System.out.println(String.format("Mutating %d biomorphs",
-					bma.length));
+            if(bma.length > 0) {
+                System.out.println(String.format("Mutating %d biomorphs", bma.length));
 
-			generation = mutator.mutateBiomorph(bma);
-		}
-	}
+//                generation = mutator.mutateBiomorph(bma);
+                generation = EvolutionHelper.mutate(bma, mutator);
+
+//                generation.species.printTree();
+            }
+        }
+    }
 
 	private void refreshGrid() {
 		biomorphGrid.removeAll();
@@ -271,6 +324,8 @@ public class MutationWindow extends JFrame {
 		}
 
 	}
+	
+	
 
 	public static void main(String[] args) {
 		SwingUtilities.invokeLater(new Runnable() {
@@ -282,4 +337,5 @@ public class MutationWindow extends JFrame {
 			}
 		});
 	}
+	
 }

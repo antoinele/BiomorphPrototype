@@ -11,6 +11,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
+import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -27,32 +28,28 @@ import javax.swing.event.ChangeListener;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import aston.group2.biomorph.Model.Biomorph;
+import aston.group2.biomorph.Model.Species;
+import aston.group2.biomorph.Storage.BiomorphHistory;
+import aston.group2.biomorph.Storage.BiomorphHistoryLoader;
 
 public class NewMainWindow extends JFrame {
 
-	private JFrame frame;
 	private JLabel welcome;
 	
 	private JButton newBiomorphs;
 	private JButton loadBiomorphs;
-	
-	private JPanel topPanel;
-	private JPanel bottomPanel;
-	
+
 	// slider for number of biomorphs, increments in 2s
 	private JSlider numOfBiomorphs;
 	private JLabel numOfBiomorph;
 	
 	public NewMainWindow(){
-		
+		initHistory();
 		
 		setMinimumSize(new Dimension(900, 500));
-		
-		topPanel = new JPanel();
-		topPanel.setLayout(null);
-		topPanel.setPreferredSize(new Dimension(900, 400));
-		
-		
+
+        setLayout(null);
+
 		welcome = new JLabel("Welcome");
 		welcome.setFont (welcome.getFont ().deriveFont (40.0f));
 		welcome.setBounds(370, 80, 200, 100);
@@ -107,34 +104,55 @@ public class NewMainWindow extends JFrame {
             }
         });
 
-		topPanel.add(welcome);
-		topPanel.add(newBiomorphs);
-		topPanel.add(loadBiomorphs);
-		topPanel.add(numOfBiomorph);
-		topPanel.add(numOfBiomorphs);
-		
-		add(topPanel, BorderLayout.CENTER);
-		
-		
-		
-
+		add(welcome);
+		add(newBiomorphs);
+		add(loadBiomorphs);
+		add(numOfBiomorph);
+		add(numOfBiomorphs);
 	}
-	
-	 public static void main(String[] args)
-	    {
-	        SwingUtilities.invokeLater(new Runnable() {
-	            @Override
-	            public void run() {
-	                NewMainWindow nmw = new NewMainWindow();
 
-	                nmw.setVisible(true);
-	               
-	                nmw.setResizable(false);
-	                
-	            }
-	        });
-	    }
-	
-	
+    private void initHistory() {
+        if(!BiomorphHistoryLoader.load())
+        {
+            int result = JOptionPane.showConfirmDialog(this,
+                    String.format("Biomorph History file not found or inaccessible. Create a new one?%n" +
+                                  "Note: This will delete any existing biomorph history files"),
+                    "Biomorph History not found",
+                    JOptionPane.OK_CANCEL_OPTION);
+
+            if(result == JOptionPane.OK_OPTION)
+            {
+                BiomorphHistoryLoader.create();
+            }
+            else {
+                System.exit(0);
+            }
+        }
+
+        {
+            List<Species> species = BiomorphHistoryLoader.biomorphHistory.get();
+            for(int i=0; i<species.size(); i++)
+            {
+                System.out.println(String.format("Species %d",i));
+                species.get(i).printTree();
+            }
+        }
+    }
+
+	public static void main(String[] args) {
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                NewMainWindow nmw = new NewMainWindow();
+
+                nmw.setVisible(true);
+
+                nmw.setResizable(false);
+
+            }
+        });
+    }
+
+
 
 }

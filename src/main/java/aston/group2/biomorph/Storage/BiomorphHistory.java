@@ -8,17 +8,17 @@ import aston.group2.biomorph.Model.*;
  * Created by antoine on 12/03/15.
  */
 public class BiomorphHistory implements Serializable {
-	private static List<Species> biomorphList;
+	private List<Species> biomorphList;
 	
-	static {
+	public BiomorphHistory() {
 		biomorphList = new ArrayList<Species>();
 	}
 	
-	public static void add(Species species){
+	public void add(Species species){
 		biomorphList.add(species);	
 	}
 	
-	public static List<Species> get(){
+	public List<Species> get(){
 		return biomorphList;	
 	}
 }
