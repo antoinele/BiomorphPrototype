@@ -20,7 +20,7 @@ class BiomorphSurface extends JComponent {
 	private final int fixedHeight = 600;
 	private int newWidth = 800;
 	private int newHeight = 600;
-	
+	private float scaleFactor = 1;
 
 	private Biomorph biomorph;
 	private Gene rootGene;
@@ -41,8 +41,7 @@ class BiomorphSurface extends JComponent {
 
 		g.setRenderingHints(rh);
         g.translate(newWidth / 2, newHeight / 2);
-//		g.setTransform(AffineTransform.getTranslateInstance(newWidth / 2,
-//				newHeight / 2));
+        g.scale(scaleFactor, scaleFactor);
 
 		g.scale((double)newWidth/fixedWidth, (double)newHeight/fixedHeight);
 
@@ -123,6 +122,11 @@ class BiomorphSurface extends JComponent {
 		return biomorph;
 	}
 
+	public void setScaleFactor(float scaleFactor){
+		this.scaleFactor = scaleFactor;
+		repaint();
+	}
+	
 	@Override
 	public void paintComponent(Graphics g) {
         super.paintComponent(g);
