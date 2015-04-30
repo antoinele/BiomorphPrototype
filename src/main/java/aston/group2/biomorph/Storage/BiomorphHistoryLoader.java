@@ -72,11 +72,6 @@ public class BiomorphHistoryLoader {
 
             status = true;
         }
-        catch(NotSerializableException e)
-        {
-            System.err.println(e.toString());
-            status = false;
-        }
         catch(IOException e)
         {
             e.printStackTrace();

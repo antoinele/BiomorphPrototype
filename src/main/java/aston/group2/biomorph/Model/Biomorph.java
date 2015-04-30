@@ -8,14 +8,13 @@ import aston.group2.biomorph.Model.Genes.RootGene;
 import aston.group2.biomorph.Storage.Generation;
 
 import java.awt.*;
-import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Stack;
 
 /**
  * Created by antoine on 29/10/14.
  */
-public class Biomorph implements Serializable {
+public class Biomorph {
     public Generation generation;
 
     private Coordinate origin;

@@ -24,7 +24,7 @@ public class Dot extends Gene implements Renderable<Dot> {
         angle  = values[2];
     }
 
-    private transient DotRenderer r = null;
+    private DotRenderer r = null;
 
     @Override
     public DotRenderer getRenderer()

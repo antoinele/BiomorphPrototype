@@ -30,7 +30,7 @@ public class Line extends Gene implements Renderable<Line> {
         angle     = values[2];
     }
 
-    private transient LineRenderer r = null;
+    private LineRenderer r = null;
 
     @Override
     public LineRenderer getRenderer()

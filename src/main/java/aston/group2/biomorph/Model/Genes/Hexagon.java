@@ -25,7 +25,7 @@ public class Hexagon extends Gene implements Renderable<Hexagon> {
         angle      = values[1];
     }
 
-    private transient HexagonRenderer r = null;
+    private HexagonRenderer r = null;
 
     @Override
     public Renderer<Hexagon> getRenderer() {

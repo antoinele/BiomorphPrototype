@@ -1,7 +1,6 @@
 package aston.group2.biomorph.Model;
 
 import aston.group2.biomorph.Storage.BiomorphHistory;
-import aston.group2.biomorph.Storage.BiomorphHistoryLoader;
 import aston.group2.biomorph.Storage.Generation;
 
 /**
@@ -30,8 +29,6 @@ public class EvolutionHelper {
             return null;
         }
 
-        BiomorphHistoryLoader.save();
-
         return generation;
     }
 
@@ -50,9 +47,7 @@ public class EvolutionHelper {
 
         mutate(bma, mutator);
 
-        BiomorphHistoryLoader.biomorphHistory.add(species);
-
-        BiomorphHistoryLoader.save();
+        BiomorphHistory.add(species);
 
         return species;
     }

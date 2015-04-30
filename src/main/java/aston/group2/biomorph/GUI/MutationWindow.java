@@ -91,6 +91,8 @@ public class MutationWindow extends JFrame {
 		add(topOfPage, BorderLayout.NORTH);
 
 		initialiseBiomorph(numberOfBiomorphs);
+
+		initialiseBiomorph();
 		createHallOfFamePanel();
 		refreshGrid();
 		

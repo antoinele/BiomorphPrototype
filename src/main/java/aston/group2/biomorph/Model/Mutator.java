@@ -5,6 +5,7 @@ import aston.group2.biomorph.Model.Genes.Gene;
 import aston.group2.biomorph.Model.Genes.RootGene;
 import aston.group2.biomorph.Storage.Generation;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Map;
 import java.util.Random;
@@ -13,7 +14,7 @@ import java.util.TreeMap;
 /**
  * Created by antoine on 16/03/15.
  */
-public class Mutator {
+public class Mutator implements Serializable {
     public int childrenRequired;
     public Random random;
 
