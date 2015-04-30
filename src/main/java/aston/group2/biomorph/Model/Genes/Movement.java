@@ -17,7 +17,7 @@ public class Movement extends Gene implements Processed {
     }
 
     @Override
-    protected int maxValues() {
+    public int maxValues() {
         return 2;
     }
 

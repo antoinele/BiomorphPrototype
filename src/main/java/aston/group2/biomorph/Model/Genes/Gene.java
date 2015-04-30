@@ -3,6 +3,7 @@ package aston.group2.biomorph.Model.Genes;
 import aston.group2.biomorph.Model.InvalidGeneSequenceException;
 
 import javax.xml.bind.DatatypeConverter;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -10,7 +11,7 @@ import java.util.List;
 /**
  * Created by antoine on 29/10/14.
  */
-public abstract class Gene {
+public abstract class Gene implements Serializable {
 //    public static final byte MAX_VALUES = 3;
     public final char geneCode;
     private Gene parent = null;
@@ -39,7 +40,7 @@ public abstract class Gene {
         setValues(values);
     }
 
-    protected abstract int maxValues();
+    public abstract int maxValues();
     protected abstract void parseValues();
 
     public char getGeneCode()
@@ -136,8 +137,6 @@ public abstract class Gene {
         sb.append(getGeneCode());
 
         short[] values = getValues();
-        System.err.print("Values: ");
-        System.err.println(Arrays.toString(values));
         for(int i=0; i < maxValues(); i++)
         {
             sb.append(String.format("%02X", values[i]));

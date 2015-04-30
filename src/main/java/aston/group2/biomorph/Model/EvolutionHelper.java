@@ -1,5 +1,7 @@
 package aston.group2.biomorph.Model;
 
+import aston.group2.biomorph.Storage.BiomorphHistory;
+import aston.group2.biomorph.Storage.BiomorphHistoryLoader;
 import aston.group2.biomorph.Storage.Generation;
 
 /**
@@ -28,7 +30,31 @@ public class EvolutionHelper {
             return null;
         }
 
+        BiomorphHistoryLoader.save();
+
         return generation;
+    }
+
+    public static Species generateSpecies(Mutator mutator)
+    {
+        // TODO: I guess this is where "intelligent first generation" would go?
+        Generation generation = new Generation(mutator);
+
+        Species species = new Species(generation);
+
+        Biomorph[] bma = {new Biomorph("D21F00CSLBEEF00SMCAFEsL123456LFF12F0SLF24300s")};
+
+        bma[0].generation = generation;
+
+        generation.children = bma;
+
+        mutate(bma, mutator);
+
+        BiomorphHistoryLoader.biomorphHistory.add(species);
+
+        BiomorphHistoryLoader.save();
+
+        return species;
     }
 
 }
