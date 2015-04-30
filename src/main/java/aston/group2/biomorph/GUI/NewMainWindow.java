@@ -15,6 +15,7 @@ import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -42,6 +43,8 @@ public class NewMainWindow extends JFrame {
 	// slider for number of biomorphs, increments in 2s
 	private JSlider numOfBiomorphs;
 	private JLabel numOfBiomorph;
+	
+	private JCheckBox intelligentgen;
 	
 	public NewMainWindow(){
 		initHistory();
@@ -75,6 +78,11 @@ public class NewMainWindow extends JFrame {
 		numOfBiomorph.setFont (welcome.getFont ().deriveFont (20.0f));
 		numOfBiomorph.setBounds(320, 250, 300, 50);
 		
+		intelligentgen = new JCheckBox("Intelligent First Generation");
+		intelligentgen.setFont(intelligentgen.getFont().deriveFont(15.0f));
+		intelligentgen.setBounds(630, 370, 300, 100);
+		
+		
 		// number of biomorphs slider listener
 		numOfBiomorphs.addChangeListener(new ChangeListener() {
 		      public void stateChanged(ChangeEvent event) {
@@ -104,6 +112,7 @@ public class NewMainWindow extends JFrame {
             }
         });
 
+		add(intelligentgen);
 		add(welcome);
 		add(newBiomorphs);
 		add(loadBiomorphs);

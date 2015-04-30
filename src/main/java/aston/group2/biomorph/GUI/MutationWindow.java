@@ -309,6 +309,7 @@ public class MutationWindow extends JFrame {
 			BiomorphSurfaceWithTools bs = new BiomorphSurfaceWithTools(true);
 			bs.setBiomorph(generation.children[i]);
 			biomorphGrid.add(bs);
+			
 		}
 
 		biomorphGrid.revalidate();
