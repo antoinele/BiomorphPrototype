@@ -10,8 +10,6 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -28,17 +26,8 @@ public class MutationWindow extends JFrame {
 	JPanel biomorphGrid;
 	Generation generation;
 	Mutator mutator;
-	private JPanel hofPanel = null;
-	private JPanel topOfPage;
-	private JFrame frame;
-	private JPanel mainPanel;
 
-	private JSlider numberOfBios;
-	private JSlider slider1;
-	private JSlider slider2;
-	private JLabel numOfBios;
-	private JLabel slider1l;
-	private JLabel slider2l;
+	private JPanel hofPanel = null;
 
 	private int rows = 2;
 	private int cols = 3;
@@ -69,7 +58,7 @@ public class MutationWindow extends JFrame {
 		biomorphGrid.setLayout(new GridLayout(rows, cols));
 		biomorphGrid.setBorder(new EmptyBorder(10, 10, 10, 10));
 
-		topOfPage = new JPanel();
+		JPanel topOfPage = new JPanel();
 		topOfPage.setLayout(new BorderLayout());
 
 		initialiseBiomorph();
@@ -100,76 +89,20 @@ public class MutationWindow extends JFrame {
 			settings.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					frame = new JFrame("Settings");
-					mainPanel = new JPanel();
-
-					frame.pack();
-					frame.setVisible(true);
-					frame.setMinimumSize(new Dimension(380, 340));
-					frame.setResizable(false);
-
-					mainPanel.setLayout(null);
-
-					frame.add(mainPanel, BorderLayout.CENTER);
-
-					numOfBios = new JLabel("Number of Biomorphs " + 2);
-					numberOfBios = new JSlider(JSlider.HORIZONTAL, 2, 10, 2);
-					numberOfBios.setValue(2);
-					numberOfBios.setMajorTickSpacing(2);
-					numberOfBios.setPaintTicks(true);
-					numberOfBios.setSnapToTicks(true);
-
-					// mainPanel.setBounds(x, y, width, height);
-					numberOfBios.setBounds(80, 70, 200, 20);
-					numOfBios.setBounds(105, 50, 500, 20);
-					mainPanel.add(numberOfBios);
-					mainPanel.add(numOfBios);
-
-					slider1l = new JLabel("Slider 1");
-					slider1 = new JSlider(JSlider.HORIZONTAL, 2, 10, 2);
-					slider1.setValue(1);
-					slider1.setMajorTickSpacing(2);
-					slider1.setPaintTicks(true);
-
-					// mainPanel.setBounds(x, y, width, height);
-					slider1l.setBounds(150, 100, 500, 20);
-					slider1.setBounds(80, 120, 200, 20);
-					mainPanel.add(slider1l);
-					mainPanel.add(slider1);
-
-					slider2l = new JLabel("Slider 2");
-					slider2 = new JSlider(JSlider.HORIZONTAL, 2, 10, 2);
-					slider2.setValue(1);
-					slider2.setMajorTickSpacing(2);
-					slider2.setPaintTicks(true);
-
-					// mainPanel.setBounds(x, y, width, height);
-					slider2l.setBounds(150, 150, 500, 20);
-					slider2.setBounds(80, 170, 200, 20);
-					mainPanel.add(slider2l);
-					mainPanel.add(slider2);
-
-					numberOfBios.addChangeListener(new ChangeListener() {
-						public void stateChanged(ChangeEvent event) {
-							int numvalue = numberOfBios.getValue();
-							numOfBios
-									.setText("Number of Biomorphs " + numvalue);
-						}
-					});
-
-					JButton ok = new JButton("OK");
-					ok.setBounds(150, 250, 80, 20);
-					mainPanel.add(ok);
-
-					ok.addActionListener(new ActionListener() {
-						@Override
-						public void actionPerformed(ActionEvent e) {
-							frame.dispose();
-						}
-					});
-
+                    JFrame settingsF = new MutationSettings();
+                    settingsF.setVisible(true);
 				}
 			});
+
+            undo.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    if(generation.prevGeneration != null) {
+                        generation = generation.prevGeneration;
+                        refreshGrid();
+                    }
+                }
+            });
 		}
 
 		addWindowListener(new WindowListener() {
@@ -268,12 +201,22 @@ public class MutationWindow extends JFrame {
 
 			if (biomorph != null) {
 				Biomorph oldSelectedBM = selected.biomorphSurface.getBiomorph();
+
+                biomorph.generation = generation;
+
+                for(int i=0; i<generation.children.length; i++) {
+                    if(generation.children[i] == oldSelectedBM)
+                    {
+                        generation.children[i] = biomorph;
+                        break;
+                    }
+                }
+
 				selected.setBiomorph(biomorph);
 
 				BiomorphHistoryLoader.hallOfFame.hallOfFame[slot] = oldSelectedBM;
 			} else {
-				BiomorphHistoryLoader.hallOfFame.hallOfFame[slot] = selected.biomorphSurface
-						.getBiomorph();
+				BiomorphHistoryLoader.hallOfFame.hallOfFame[slot] = selected.biomorphSurface.getBiomorph();
 			}
 		}
 	}
@@ -325,6 +268,7 @@ public class MutationWindow extends JFrame {
 		}
 
 		biomorphGrid.revalidate();
+        biomorphGrid.repaint();
 	}
 
 	private JComponent createHallOfFameSlot(int i) {

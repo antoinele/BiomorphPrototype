@@ -30,7 +30,7 @@ public class Mutator implements Serializable {
 
         random.setSeed(seed); // TODO: Really, this needs to be set properly
 
-        settings = new TreeMap<String, Object>(String.CASE_INSENSITIVE_ORDER);
+        settings = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
 
         settings.put("gene_mutate_probability", 0.8f);
         settings.put("gene_mutate_value_probability", 0.5f);
@@ -302,11 +302,6 @@ public class Mutator implements Serializable {
 
         newGeneration.children = new Biomorph[childrenRequired];
         newGeneration.parents = biomorphs;
-
- //       for (int i=0; i<childrenRequired; i++)
-//          {
-//          	newGeneration.children[i] = mutateBiomorph_internal(newGeneration, biomorphs);
-//          }
           
       	for(int i=0; i<childrenRequired; i++)
       	{
@@ -319,7 +314,6 @@ public class Mutator implements Serializable {
       		}
       		
       	}
-      
 
         return newGeneration;
     }

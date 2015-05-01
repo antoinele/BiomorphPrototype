@@ -1,8 +1,9 @@
 package aston.group2.biomorph.Model;
 
-import aston.group2.biomorph.Storage.BiomorphHistory;
 import aston.group2.biomorph.Storage.BiomorphHistoryLoader;
 import aston.group2.biomorph.Storage.Generation;
+
+import java.util.Calendar;
 
 /**
  * Created by antoine on 16/03/15.
@@ -40,7 +41,9 @@ public class EvolutionHelper {
         // TODO: I guess this is where "intelligent first generation" would go?
         Generation generation = new Generation(mutator);
 
-        Species species = new Species(generation);
+        Calendar creationDate = Calendar.getInstance();
+
+        Species species = new Species(generation, creationDate);
 
         Biomorph[] bma = {new Biomorph("D21F00CSLBEEF00SMCAFEsL123456LFF12F0SLF24300s")};
 
@@ -48,7 +51,11 @@ public class EvolutionHelper {
 
         generation.children = bma;
 
-        mutate(bma, mutator);
+        Generation newGeneration = mutate(bma, mutator);
+
+        // rewrite the first generation
+        newGeneration.prevGeneration = null;
+        species.firstGeneration = newGeneration;
 
         BiomorphHistoryLoader.biomorphHistory.add(species);
 

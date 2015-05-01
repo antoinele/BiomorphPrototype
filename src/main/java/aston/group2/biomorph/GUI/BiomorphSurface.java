@@ -1,16 +1,12 @@
 package aston.group2.biomorph.GUI;
 
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.RenderingHints;
-import java.awt.geom.AffineTransform;
-import java.awt.image.BufferedImage;
-
-import javax.swing.*;
-
 import aston.group2.biomorph.Model.Biomorph;
 import aston.group2.biomorph.Model.Genes.Gene;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.geom.AffineTransform;
+import java.awt.image.BufferedImage;
 
 public class BiomorphSurface extends JComponent {
 
@@ -102,7 +98,7 @@ public class BiomorphSurface extends JComponent {
 		}
 
 		for (Gene sg : subGenes) {
-			drawGene(g, sg, (draw ? gene instanceof Renderable : false));
+			drawGene(g, sg, draw && gene instanceof Renderable);
 		}
 	}
 
