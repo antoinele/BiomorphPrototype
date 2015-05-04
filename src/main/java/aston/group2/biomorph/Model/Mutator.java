@@ -6,10 +6,7 @@ import aston.group2.biomorph.Model.Genes.RootGene;
 import aston.group2.biomorph.Storage.Generation;
 
 import java.io.Serializable;
-import java.util.Arrays;
-import java.util.Map;
-import java.util.Random;
-import java.util.TreeMap;
+import java.util.*;
 
 /**
  * Created by antoine on 16/03/15.
@@ -18,41 +15,92 @@ public class Mutator implements Serializable {
     public int childrenRequired;
     public Random random;
 
-    public final Map<String, Object> settings;
+    public final Map<String, Setting> settings;
 
     public static enum MergeType {
         MEAN, WEIGHTED
+    }
+
+    public static class Setting implements Serializable {
+        public enum Type {
+            UNKNOWN, INT, DOUBLE, STRING, MERGETYPE
+        }
+        public String name;
+        public Object value;
+        public double min;
+        public double max;
+        public int precision;
+        public Type type;
+
+        public Setting(String name, Object value)
+        {
+            this.name = name;
+            this.value = value;
+            this.type = Type.UNKNOWN;
+        }
+
+        public Setting(String name, double value)
+        {
+            this(name, value, 0d, 1d, 3);
+        }
+        public Setting(String name, double value, double min, double max, int precision)
+        {
+            this.name = name;
+            this.value = value;
+            this.min = min;
+            this.max = max;
+            this.precision = precision;
+
+            this.type = Type.DOUBLE;
+        }
+
+        public Setting(String name, int value)
+        {
+            this(name, value, -1, -1);
+        }
+
+        public Setting(String name, int value, int min, int max)
+        {
+            this.name = name;
+            this.value = value;
+            this.min = min;
+            this.max = max;
+
+            this.type = Type.INT;
+        }
+
+        public Setting(String name, String value)
+        {
+            this.name = name;
+            this.value = value;
+
+            this.type = Type.STRING;
+        }
     }
 
     public Mutator(long seed)
     {
         random = new Random(); // TODO: this probably needs changing
 
-        random.setSeed(seed); // TODO: Really, this needs to be set properly
-
         settings = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
 
-        settings.put("gene_mutate_probability", 0.8f);
-        settings.put("gene_mutate_value_probability", 0.5f);
-        settings.put("gene_mutate_value_max_change", 3);
-        settings.put("gene_add_probability", 0.2f);
-        settings.put("gene_recurse_add_probability", 0.2f);
-        settings.put("gene_remove_probability", 0.1f);
-        settings.put("merge_type", MergeType.WEIGHTED);
+        settings.put("gene_mutate_probability", new Setting("Gene Mutation probability", 0.8));
+        settings.put("gene_mutate_value_probability", new Setting("Gene value mutation probability", 0.5));
+        settings.put("gene_mutate_value_max_change", new Setting("Maximum mutation value change", 3, 0, 255));
+        settings.put("gene_add_probability", new Setting("Gene addition probability", 0.2));
+        settings.put("gene_recurse_add_probability", new Setting("Recursive gene addition probability", 0.2));
+        settings.put("gene_remove_probability", new Setting("Gene removal probability", 0.1));
+        settings.put("merge_type", new Setting("Merge type", MergeType.WEIGHTED));
+        settings.put("seed", new Setting("Seed", seed));
     }
 
-    public Mutator()
+    private double probability(String probability)
     {
-        this(12345678);
+        return (double) settings.get(probability + "_probability").value;
     }
+    private Setting setting(String key) { return settings.get(key); }
 
-    private float probability(String probability)
-    {
-        return (Float)settings.get(probability + "_probability");
-    }
-    private Object setting(String key) { return settings.get(key); }
-
-    private Gene mergeGene(Gene g1, Gene g2, Random rng)
+    private Gene mergeGene(final Gene g1, final Gene g2, final Random rng)
     {
         short[] v1 = g1.getValues(),
                 v2 = g2.getValues();
@@ -63,7 +111,7 @@ public class Mutator implements Serializable {
         int i=0;
         for(; i < Math.min(v1.length,v2.length); i++)
         {
-            switch((MergeType)setting("merge_type"))
+            switch((MergeType)setting("merge_type").value)
             {
                 case MEAN:
                     newValues[i] = (short)((v1[i] + v2[i]) / 2); //averaged
@@ -108,7 +156,7 @@ public class Mutator implements Serializable {
         return newGene;
     }
 
-    private Gene mergeGenes(Gene rootGene1, Gene rootGene2, Random rng)
+    private Gene mergeGenes(final Gene rootGene1, final Gene rootGene2, final Random rng)
     {
         Gene[] sg1 = rootGene1.getSubGenes(),
                sg2 = rootGene2.getSubGenes();
@@ -172,7 +220,7 @@ public class Mutator implements Serializable {
         return ng;
     }
 
-    private Gene mergeGenes(Gene[] genes, Random rng)
+    private Gene mergeGenes(final Gene[] genes, final Random rng)
     {
         Gene mergedGenes = genes[0];
 
@@ -184,7 +232,7 @@ public class Mutator implements Serializable {
         return mergedGenes;
     }
 
-    private Gene mergeGenes(Biomorph[] biomorphs, Random rng)
+    private Gene mergeGenes(final Biomorph[] biomorphs, final Random rng)
     {
         Gene mergedGenes = biomorphs[0].getRootGene();
 
@@ -196,7 +244,7 @@ public class Mutator implements Serializable {
         return mergedGenes;
     }
 
-    private void generateSubGenes(Gene gene, Random rng)
+    private void generateSubGenes(final Gene gene, final Random rng)
     {
         if(! (gene instanceof Renderable) )
             return;
@@ -228,11 +276,11 @@ public class Mutator implements Serializable {
         while(rng.nextFloat() <= probability("gene_recurse_add"));
     }
 
-    private Gene mutateGenes(Gene rootGene, Random rng)
+    private Gene mutateGenes(final Gene rootGene, final Random rng)
     {
         Gene newRootGene = GeneFactory.getGeneFromCode(rootGene.getGeneCode());
 
-        int maxChange = (Integer)settings.get("gene_mutate_value_max_change");
+        int maxChange = (Integer)settings.get("gene_mutate_value_max_change").value;
 
         for (int i = 0; i < rootGene.subGenes.size(); i++)
         {
@@ -267,7 +315,7 @@ public class Mutator implements Serializable {
 
         return newRootGene;
     }
-    private Biomorph mutateBiomorph_internal(Generation newGeneration, Biomorph[] biomorphs)
+    private Biomorph mutateBiomorph_internal(Generation newGeneration, final Biomorph[] biomorphs)
     {
         Biomorph newBiomorph = new Biomorph(newGeneration);
 
@@ -284,14 +332,16 @@ public class Mutator implements Serializable {
         return newBiomorph;
     }
     
-    public Generation mutateBiomorph(Biomorph[] biomorphs)
+    public Generation mutateBiomorph(final Biomorph[] biomorphs)
     {
         return mutateBiomorph(biomorphs, new Gene[0]);
     }
-    public Generation mutateBiomorph(Biomorph[] biomorphs, Gene[] protectedParts) {
+    public Generation mutateBiomorph(final Biomorph[] biomorphs, Gene[] protectedParts) {
         if (biomorphs.length == 0) {
             throw new IllegalArgumentException("Not enough arguments");
         }
+
+        random.setSeed(settings.get("seed").value.hashCode()); // Reset seed to ensure consistent reuse
 
         Generation newGeneration;
 
@@ -310,9 +360,7 @@ public class Mutator implements Serializable {
       		while(bm == null || bm.getRootGene().getSubGenes().length == 0)
       		{
       			bm = newGeneration.children[i] = mutateBiomorph_internal(newGeneration, biomorphs);
-
       		}
-      		
       	}
 
         return newGeneration;

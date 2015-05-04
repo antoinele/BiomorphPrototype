@@ -18,6 +18,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 /**
  * Created by antoine on 17/04/15.
@@ -25,7 +26,7 @@ import java.util.ArrayList;
 public class MutationWindow extends JFrame {
 	JPanel biomorphGrid;
 	Generation generation;
-	Mutator mutator;
+	Mutator newMutator;
 
 	private JPanel hofPanel = null;
 
@@ -61,7 +62,7 @@ public class MutationWindow extends JFrame {
 		JPanel topOfPage = new JPanel();
 		topOfPage.setLayout(new BorderLayout());
 
-		initialiseBiomorph();
+		initialiseBiomorph(numberOfBiomorphs);
 		createHallOfFamePanel();
 		refreshGrid();
 
@@ -89,7 +90,12 @@ public class MutationWindow extends JFrame {
 			settings.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
-                    JFrame settingsF = new MutationSettings();
+                    if(newMutator == null)
+                    {
+                        newMutator = generation.mutator;
+                    }
+
+                    JDialog settingsF = new MutationSettings(MutationWindow.this, newMutator);
                     settingsF.setVisible(true);
 				}
 			});
@@ -97,10 +103,14 @@ public class MutationWindow extends JFrame {
             undo.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    if(generation.prevGeneration != null) {
-                        generation = generation.prevGeneration;
-                        refreshGrid();
-                    }
+                    undoMutation();
+                }
+            });
+
+            refresh.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    regenerateBiomorphs();
                 }
             });
 		}
@@ -165,8 +175,9 @@ public class MutationWindow extends JFrame {
 							}
 						}
 					}
+
 					if (selected) {
-						initialiseBiomorph();
+						mutateBiomorphs();
 						refreshGrid();
 					}
 				}
@@ -221,50 +232,100 @@ public class MutationWindow extends JFrame {
 		}
 	}
 
-	private void initialiseBiomorph() {
-		if (generation == null) {
-			mutator = new Mutator();
-			mutator.childrenRequired = rows * cols;
+    private void initialiseBiomorph() {
+        initialiseBiomorph(0);
+    }
 
-			generation = EvolutionHelper.generateSpecies(mutator)
-					.getLastestGeneration();
-		} else {
-			ArrayList<Biomorph> selected = new ArrayList<>(rows * cols);
+	private void initialiseBiomorph(int childrenRequired) {
+        if(childrenRequired <= 0)
+        {
+            childrenRequired = rows * cols;
+        }
 
-			Component[] components = biomorphGrid.getComponents();
+        Mutator mutator = new Mutator(Calendar.getInstance().getTimeInMillis());
 
-			for (Component c : components) {
-				if (c instanceof BiomorphSurfaceWithTools) {
-					BiomorphSurfaceWithTools bS = (BiomorphSurfaceWithTools) c;
+        mutator.childrenRequired = childrenRequired;
 
-					if (bS.selected()) {
-						selected.add(bS.biomorphSurface.getBiomorph());
-					}
-				}
-			}
+        generation = EvolutionHelper.generateSpecies(mutator)
+                .getLastestGeneration();
 
-			Biomorph[] bma = selected.toArray(new Biomorph[selected.size()]);
+    }
 
-			if (bma.length > 0) {
-				System.out.println(String.format("Mutating %d biomorphs",
-						bma.length));
+    private void mutateBiomorphs() {
+        ArrayList<Biomorph> selected = new ArrayList<>(rows * cols);
 
-				// generation = mutator.mutateBiomorph(bma);
-				generation = EvolutionHelper.mutate(bma, mutator);
+        Component[] components = biomorphGrid.getComponents();
 
-				// generation.species.printTree();
-			}
-		}
-	}
+        for (Component c : components) {
+            if (c instanceof BiomorphSurfaceWithTools) {
+                BiomorphSurfaceWithTools bS = (BiomorphSurfaceWithTools) c;
+
+                if (bS.selected()) {
+                    selected.add(bS.biomorphSurface.getBiomorph());
+                }
+            }
+        }
+
+        Biomorph[] bma = selected.toArray(new Biomorph[selected.size()]);
+
+        if (bma.length > 0) {
+            Mutator mutator;
+            if(newMutator != null)
+            {
+                mutator = newMutator;
+            }
+            else
+            {
+                mutator = generation.mutator;
+            }
+
+            generation = EvolutionHelper.mutate(bma, mutator);
+
+            newMutator = null;
+        }
+    }
+
+    private void regenerateBiomorphs() {
+        Biomorph[] bma = generation.parents;
+        Mutator mutator;
+
+        if(newMutator != null)
+        {
+            mutator = newMutator;
+        }
+        else
+        {
+            mutator = generation.mutator;
+        }
+
+        generation = EvolutionHelper.mutate(bma, mutator);
+
+        newMutator = null;
+
+        refreshGrid();
+    }
+
+    private void undoMutation()
+    {
+        if(generation.prevGeneration != null) {
+            generation = generation.prevGeneration;
+        }
+
+        newMutator = null;
+
+        refreshGrid();
+    }
 
 	private void refreshGrid() {
 		biomorphGrid.removeAll();
 
+        System.out.println("Generation: " + generation.hashCode());
+
 		for (int i = 0; i < Math.min(generation.children.length, rows * cols); i++) {
+            System.out.println("    Biomorph: " + generation.children[i].toString());
 			BiomorphSurfaceWithTools bs = new BiomorphSurfaceWithTools(true);
 			bs.setBiomorph(generation.children[i]);
 			biomorphGrid.add(bs);
-
 		}
 
 		biomorphGrid.revalidate();
@@ -366,6 +427,8 @@ public class MutationWindow extends JFrame {
 				c.gridheight = 1;
 				c.weightx = 0;
 				c.weighty = 0.5;
+
+                c.anchor = GridBagConstraints.CENTER;
 
 				hofPanel.add(swap, c);
 

@@ -1,7 +1,5 @@
 package aston.group2.biomorph.Storage;
 
-import aston.group2.biomorph.Model.Biomorph;
-
 import java.io.*;
 
 /**
@@ -48,7 +46,6 @@ public class BiomorphHistoryLoader {
         }
         catch(IOException|ClassCastException|ClassNotFoundException e)
         {
-            e.printStackTrace();
             status = false;
         }
 
