@@ -248,9 +248,10 @@ public class Mutator implements Serializable {
         public static GeneFactory.GeneWeight[] geneWeights;
         public static float totalWeight = 0f;
 
-        {
+        static  {
             geneWeights = GeneFactory.geneWeights();
             totalWeight = 0f;
+
 
             for (GeneFactory.GeneWeight gw : geneWeights)
             {
@@ -261,10 +262,12 @@ public class Mutator implements Serializable {
         public static Gene pickGene(Random rng) {
             double weightCount = rng.nextDouble() * totalWeight;
 
-            Class<? extends Gene> gene;
+            Class<? extends Gene> gene = null;
 
             for (GeneFactory.GeneWeight gw : geneWeights)
             {
+                assert(gw.geneCode != 'X');
+
                 weightCount -= gw.weight;
 
                 if(weightCount <= 0)
@@ -273,6 +276,20 @@ public class Mutator implements Serializable {
                     break;
                 }
             }
+
+            assert(gene != null);
+
+            try {
+                return gene.newInstance();
+            } catch (InstantiationException e) {
+                e.printStackTrace();
+                System.exit(1);
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+                System.exit(1);
+            }
+
+            return null;
         }
     }
 
@@ -288,6 +305,10 @@ public class Mutator implements Serializable {
 //            char genecode = genecodes[rng.nextInt(genecodes.length)];
 
 //            Gene newGene = GeneFactory.getGeneFromCode(genecode);
+
+            Gene newGene = GenePicker.pickGene(rng);
+
+            System.out.println("Gene Selected: " + newGene.getGeneCode());
 
             // randomise values
             short[] newGenes = new short[newGene.maxValues()];

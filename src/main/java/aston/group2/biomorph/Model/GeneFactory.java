@@ -16,10 +16,12 @@ public class GeneFactory {
     }
 
     public static class GeneWeight {
+        public final char geneCode;
         public final Class<? extends Gene> gene;
         public final float weight;
 
-        public GeneWeight(Class<? extends Gene> gene, float weight) {
+        public GeneWeight(char geneCode, Class<? extends Gene> gene, float weight) {
+            this.geneCode = geneCode;
             this.gene = gene;
             this.weight = weight;
         }
@@ -47,7 +49,7 @@ public class GeneFactory {
             {
                 Gene ng = gene.newInstance();
 
-                geneMap.put(ng.getGeneCode(), new GeneWeight(gene, ng.getWeight()));
+                geneMap.put(ng.getGeneCode(), new GeneWeight(ng.getGeneCode(), gene, ng.getWeight()));
             }
             catch(InstantiationException ie)
             {
@@ -104,6 +106,18 @@ public class GeneFactory {
     {
         buildGeneMap();
 
-        return geneMap.entrySet().toArray(new GeneWeight[geneMap.size()]);
+        GeneWeight[] result = new GeneWeight[geneMap.size() - 1];
+
+        int i=0;
+        for(GeneWeight gw : geneMap.values())
+        {
+            if(gw.geneCode != 'X')
+            {
+                System.out.println("Gene: " + gw.geneCode);
+                result[i++] = gw;
+            }
+        }
+
+        return result;
     }
 }

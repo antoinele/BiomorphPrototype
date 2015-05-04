@@ -12,7 +12,7 @@ public class Hexagon extends Gene implements Renderable<Hexagon> {
     public short angle;
 
     public Hexagon() {
-        super('H');
+        super('H', 0.4f);
     }
 
     @Override
