@@ -30,7 +30,7 @@ public class MutationWindow extends JFrame {
 	private int rows = 2;
 	private int cols = 3;
 
-	public MutationWindow(int numberOfBiomorphs) {
+	public MutationWindow(int numberOfBiomorphs, boolean IFG) {
 		this.cols = numberOfBiomorphs / rows;
 
 		setLayout(new BorderLayout());
@@ -45,7 +45,7 @@ public class MutationWindow extends JFrame {
 		JPanel topOfPage = new JPanel();
 		topOfPage.setLayout(new BorderLayout());
 
-		initialiseBiomorph(numberOfBiomorphs);
+		initialiseBiomorph(numberOfBiomorphs, IFG);
 		createHallOfFamePanel();
 		refreshGrid();
 
@@ -216,10 +216,10 @@ public class MutationWindow extends JFrame {
 	}
 
     private void initialiseBiomorph() {
-        initialiseBiomorph(0);
+        initialiseBiomorph(0, false);
     }
 
-	private void initialiseBiomorph(int childrenRequired) {
+	private void initialiseBiomorph(int childrenRequired, boolean IFG) {
         if(childrenRequired <= 0)
         {
             childrenRequired = rows * cols;
@@ -229,7 +229,7 @@ public class MutationWindow extends JFrame {
 
         mutator.childrenRequired = childrenRequired;
 
-        generation = EvolutionHelper.generateSpecies(mutator)
+        generation = EvolutionHelper.generateSpecies(mutator, IFG)
                 .getLastestGeneration();
 
     }

@@ -45,6 +45,7 @@ public class NewMainWindow extends JFrame {
 	private JLabel numOfBiomorph;
 	
 	private JCheckBox intelligentgen;
+	private boolean isIntelligentFirst;
 	
 	public NewMainWindow(){
 		initHistory();
@@ -81,7 +82,21 @@ public class NewMainWindow extends JFrame {
 		intelligentgen = new JCheckBox("Intelligent First Generation");
 		intelligentgen.setFont(intelligentgen.getFont().deriveFont(15.0f));
 		intelligentgen.setBounds(630, 370, 300, 100);
+
+		isIntelligentFirst = intelligentgen.isSelected();
 		
+		intelligentgen.addChangeListener(new ChangeListener() {
+
+			@Override
+			public void stateChanged(ChangeEvent arg0) {
+				// TODO Auto-generated method stub
+
+				isIntelligentFirst = intelligentgen.isSelected();
+				
+			}
+			
+			
+		});
 		
 		// number of biomorphs slider listener
 		numOfBiomorphs.addChangeListener(new ChangeListener() {
@@ -94,7 +109,7 @@ public class NewMainWindow extends JFrame {
 		// passes value from slider into MutationWindow as a parameter
 		newBiomorphs.addActionListener(new ActionListener() {
 			    public void actionPerformed(ActionEvent event) {
-			    	MutationWindow mw = new MutationWindow(numOfBiomorphs.getValue());
+			    	MutationWindow mw = new MutationWindow(numOfBiomorphs.getValue(), isIntelligentFirst);
 			         mw.setVisible(true);
 			     
 			         

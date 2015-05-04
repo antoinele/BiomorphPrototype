@@ -14,7 +14,7 @@ public class EvolutionHelper {
     private static final int IFG_MIN_PICK = 6;
     private static final int IFG_MAX_PICK = 20;
 
-    private static final boolean IFG_ENABLE = true;
+    private static boolean IFG_ENABLE = false;
 
     public static Generation mutate()
     {
@@ -102,18 +102,20 @@ public class EvolutionHelper {
         return resultBM;
     }
 
-    public static Species generateSpecies(Mutator mutator)
+    public static Species generateSpecies(Mutator mutator, boolean IFG)
     {
         // TODO: I guess this is where "intelligent first generation" would go?
-        Generation generation = new Generation(mutator);
+       
+    	
+    	Generation generation = new Generation(mutator);
 
         Calendar creationDate = Calendar.getInstance();
 
         Species species = new Species(generation, creationDate);
 
-        Biomorph[] bma;
+        Biomorph[] bma = null;
 
-        if(IFG_ENABLE)
+        if(IFG)
         {
             bma = intelligentFirstGenerationMagic();
         }
@@ -136,8 +138,9 @@ public class EvolutionHelper {
         BiomorphHistoryLoader.biomorphHistory.add(species);
 
         BiomorphHistoryLoader.save();
-
+        
         return species;
     }
+    
 
 }
