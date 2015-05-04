@@ -30,7 +30,7 @@ public class MainWindow extends JFrame {
         final JTextField genomeField;
 
         setTitle("Biomorph Example");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
 
         setMinimumSize(new Dimension(WINDOW_WIDTH,WINDOW_HEIGHT));

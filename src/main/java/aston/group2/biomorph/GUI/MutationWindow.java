@@ -5,8 +5,8 @@ import aston.group2.biomorph.Model.EvolutionHelper;
 import aston.group2.biomorph.Model.Mutator;
 import aston.group2.biomorph.Storage.BiomorphHistoryLoader;
 import aston.group2.biomorph.Storage.Generation;
+import aston.group2.biomorph.Utilities.IconHelper;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
@@ -14,9 +14,6 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowListener;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -32,20 +29,6 @@ public class MutationWindow extends JFrame {
 
 	private int rows = 2;
 	private int cols = 3;
-
-	private static JButton makeButton(String icon, String tooltip) {
-		try {
-			BufferedImage iconImg = ImageIO.read(new File("resources/icons/"
-					+ icon + ".png"));
-			JButton button = new JButton(new ImageIcon(iconImg));
-			button.setToolTipText(tooltip);
-			return button;
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return null;
-		}
-	}
 
 	public MutationWindow(int numberOfBiomorphs) {
 		this.cols = numberOfBiomorphs / rows;
@@ -83,9 +66,9 @@ public class MutationWindow extends JFrame {
 		{
 			JButton refresh, undo, settings;
 
-			buttonPanel.add(refresh = makeButton("table_refresh", "Refresh"));
-			buttonPanel.add(undo = makeButton("arrow_left", "Undo"));
-			buttonPanel.add(settings = makeButton("table_gear", "Settings"));
+			buttonPanel.add(refresh = IconHelper.makeButton("table_refresh", "Refresh"));
+			buttonPanel.add(undo = IconHelper.makeButton("arrow_left", "Undo"));
+			buttonPanel.add(settings = IconHelper.makeButton("table_gear", "Settings"));
 
 			settings.addActionListener(new ActionListener() {
 				@Override
@@ -208,7 +191,7 @@ public class MutationWindow extends JFrame {
 		}
 
 		if (selected != null) {
-			Biomorph biomorph = BiomorphHistoryLoader.hallOfFame.hallOfFame[slot];
+			Biomorph biomorph = BiomorphHistoryLoader.hallOfFame.get(slot);
 
 			if (biomorph != null) {
 				Biomorph oldSelectedBM = selected.biomorphSurface.getBiomorph();
@@ -225,9 +208,9 @@ public class MutationWindow extends JFrame {
 
 				selected.setBiomorph(biomorph);
 
-				BiomorphHistoryLoader.hallOfFame.hallOfFame[slot] = oldSelectedBM;
+				BiomorphHistoryLoader.hallOfFame.set(oldSelectedBM, slot);
 			} else {
-				BiomorphHistoryLoader.hallOfFame.hallOfFame[slot] = selected.biomorphSurface.getBiomorph();
+				BiomorphHistoryLoader.hallOfFame.set(selected.biomorphSurface.getBiomorph(), slot);
 			}
 		}
 	}
@@ -287,6 +270,11 @@ public class MutationWindow extends JFrame {
 
     private void regenerateBiomorphs() {
         Biomorph[] bma = generation.parents;
+        if(bma == null || bma.length == 0)
+        {
+            return;
+        }
+
         Mutator mutator;
 
         if(newMutator != null)
@@ -333,8 +321,8 @@ public class MutationWindow extends JFrame {
 	}
 
 	private JComponent createHallOfFameSlot(int i) {
-		JComponent biomorph = (BiomorphHistoryLoader.hallOfFame.hallOfFame[i] != null ? new BiomorphSurface(
-				BiomorphHistoryLoader.hallOfFame.hallOfFame[i]) : new JLabel(
+		JComponent biomorph = (BiomorphHistoryLoader.hallOfFame.get(i) != null ? new BiomorphSurface(
+				BiomorphHistoryLoader.hallOfFame.get(i)) : new JLabel(
 				"None"));
 
 		return biomorph;
@@ -346,11 +334,20 @@ public class MutationWindow extends JFrame {
 			hofPanel.setLayout(new GridBagLayout());
 			hofPanel.setPreferredSize(new Dimension(150, 0));
 			hofPanel.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 10));
+
+            BiomorphHistoryLoader.hallOfFame.addUpdateListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    createHallOfFamePanel();
+                    hofPanel.revalidate();
+                    hofPanel.repaint();
+                }
+            });
 		} else {
 			hofPanel.removeAll();
 		}
 
-		for (int i = 0; i < BiomorphHistoryLoader.hallOfFame.hallOfFame.length; i++) {
+		for (int i = 0; i < BiomorphHistoryLoader.hallOfFame.maxSize(); i++) {
 			final JPanel biomorphHolder = new JPanel();
 			biomorphHolder.setLayout(new BorderLayout());
 			biomorphHolder.add(createHallOfFameSlot(i));
@@ -359,8 +356,8 @@ public class MutationWindow extends JFrame {
 			biomorphHolder.setBorder(BorderFactory.createLineBorder(
 					Color.BLACK, 1));
 
-			JButton swap = makeButton("arrow_switch", "Swap");
-			JButton clear = makeButton("cancel", "Clear");
+			JButton swap = IconHelper.makeButton("arrow_switch", "Swap");
+			JButton clear = IconHelper.makeButton("cancel", "Clear");
 
 			swap.addActionListener(new ActionListener() {
 				private int slot;
@@ -384,7 +381,7 @@ public class MutationWindow extends JFrame {
 
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					BiomorphHistoryLoader.hallOfFame.hallOfFame[slot]=null;
+					BiomorphHistoryLoader.hallOfFame.remove(slot);
 					biomorphHolder.removeAll();
 					biomorphHolder.add(createHallOfFameSlot(slot));
 					biomorphHolder.revalidate();

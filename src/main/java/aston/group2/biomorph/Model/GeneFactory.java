@@ -15,13 +15,23 @@ public class GeneFactory {
         buildGeneMap();
     }
 
-    private static HashMap<Character, Class<? extends Gene>> geneMap = null;
+    public static class GeneWeight {
+        public final Class<? extends Gene> gene;
+        public final float weight;
+
+        public GeneWeight(Class<? extends Gene> gene, float weight) {
+            this.gene = gene;
+            this.weight = weight;
+        }
+    }
+
+    private static HashMap<Character, GeneWeight> geneMap = null;
 
     private static void buildGeneMap()
     {
         if(geneMap != null) return;
 
-        geneMap = new HashMap<Character, Class<? extends Gene>>();
+        geneMap = new HashMap<>();
 
         String geneclass = Gene.class.getCanonicalName();
 
@@ -35,10 +45,9 @@ public class GeneFactory {
         {
             try
             {
-                char code;
-                code = gene.newInstance().getGeneCode();
+                Gene ng = gene.newInstance();
 
-                geneMap.put(code, gene);
+                geneMap.put(ng.getGeneCode(), new GeneWeight(gene, ng.getWeight()));
             }
             catch(InstantiationException ie)
             {
@@ -61,7 +70,7 @@ public class GeneFactory {
 
         try
         {
-            return geneMap.get(code).newInstance();
+            return geneMap.get(code).gene.newInstance();
         }
         catch(InstantiationException ie)
         {
@@ -89,5 +98,12 @@ public class GeneFactory {
         }
 
         return result;
+    }
+
+    public static GeneWeight[] geneWeights()
+    {
+        buildGeneMap();
+
+        return geneMap.entrySet().toArray(new GeneWeight[geneMap.size()]);
     }
 }

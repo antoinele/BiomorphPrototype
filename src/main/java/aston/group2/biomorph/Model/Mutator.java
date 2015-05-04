@@ -244,18 +244,50 @@ public class Mutator implements Serializable {
         return mergedGenes;
     }
 
+    private static class GenePicker {
+        public static GeneFactory.GeneWeight[] geneWeights;
+        public static float totalWeight = 0f;
+
+        {
+            geneWeights = GeneFactory.geneWeights();
+            totalWeight = 0f;
+
+            for (GeneFactory.GeneWeight gw : geneWeights)
+            {
+                totalWeight += gw.weight;
+            }
+        }
+
+        public static Gene pickGene(Random rng) {
+            double weightCount = rng.nextDouble() * totalWeight;
+
+            Class<? extends Gene> gene;
+
+            for (GeneFactory.GeneWeight gw : geneWeights)
+            {
+                weightCount -= gw.weight;
+
+                if(weightCount <= 0)
+                {
+                    gene = gw.gene;
+                    break;
+                }
+            }
+        }
+    }
+
     private void generateSubGenes(final Gene gene, final Random rng)
     {
         if(! (gene instanceof Renderable) )
             return;
 
-        char[] genecodes = GeneFactory.geneCodes();
+//        char[] genecodes = GeneFactory.geneCodes();
 
         do {
             // pick a gene
-            char genecode = genecodes[rng.nextInt(genecodes.length)];
+//            char genecode = genecodes[rng.nextInt(genecodes.length)];
 
-            Gene newGene = GeneFactory.getGeneFromCode(genecode);
+//            Gene newGene = GeneFactory.getGeneFromCode(genecode);
 
             // randomise values
             short[] newGenes = new short[newGene.maxValues()];
@@ -332,15 +364,15 @@ public class Mutator implements Serializable {
         return newBiomorph;
     }
     
-    public Generation mutateBiomorph(final Biomorph[] biomorphs)
-    {
+    public Generation mutateBiomorph(final Biomorph[] biomorphs) throws IncompatibleSpeciesException {
         return mutateBiomorph(biomorphs, new Gene[0]);
     }
-    public Generation mutateBiomorph(final Biomorph[] biomorphs, Gene[] protectedParts) {
+    public Generation mutateBiomorph(final Biomorph[] biomorphs, Gene[] protectedParts) throws IncompatibleSpeciesException {
         if (biomorphs.length == 0) {
             throw new IllegalArgumentException("Not enough arguments");
         }
 
+        random = new Random();
         random.setSeed(settings.get("seed").value.hashCode()); // Reset seed to ensure consistent reuse
 
         Generation newGeneration;
@@ -362,6 +394,8 @@ public class Mutator implements Serializable {
       			bm = newGeneration.children[i] = mutateBiomorph_internal(newGeneration, biomorphs);
       		}
       	}
+
+        biomorphs[0].generation.addNextGeneration(newGeneration);
 
         return newGeneration;
     }

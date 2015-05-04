@@ -16,6 +16,7 @@ public abstract class Gene implements Serializable {
     public final char geneCode;
     private Gene parent = null;
     private byte[] values;
+    private final float generateWeight;
 
     public final List<Gene> subGenes;
 
@@ -25,7 +26,9 @@ public abstract class Gene implements Serializable {
 
         this.values = new byte[0];
 
-        subGenes = new ArrayList<Gene>();
+        subGenes = new ArrayList<>();
+
+        generateWeight = 1f;
     }
 
     /**
@@ -40,6 +43,29 @@ public abstract class Gene implements Serializable {
         setValues(values);
     }
 
+    /**
+     * Create a gene with a generation weight
+     * @param geneCode a unique char identifying the class of the gene
+     * @param weight 1 is normal probability
+     */
+    public Gene(char geneCode, float weight)
+    {
+        generateWeight = weight;
+
+        this.geneCode = geneCode;
+
+        this.values = new byte[0];
+
+        subGenes = new ArrayList<>();
+    }
+
+    public Gene(char geneCode, float weight, byte[] values)
+    {
+        this(geneCode, weight);
+
+        setValues(values);
+    }
+
     public abstract int maxValues();
     protected abstract void parseValues();
 
@@ -47,6 +73,7 @@ public abstract class Gene implements Serializable {
     {
         return geneCode;
     }
+    public float getWeight() { return generateWeight; }
 
     public Gene getParent()
     {
@@ -106,23 +133,7 @@ public abstract class Gene implements Serializable {
 
         String hex = String.valueOf(data, 1, maxValues()*2);
 
-//        System.err.println(hex);
-
         byte[] newvalues = DatatypeConverter.parseHexBinary(hex);
-/*
-        byte[] newvalues = new byte[maxValues()];
-
-        for (int i = 1; i < (maxValues()*2)+1; i+=2) {
-//            if(!hex.matcher(String.valueOf(data[i+1])).matches())
-            char c = data[i];
-            if( ! ( (c >= 'A' && c <= 'Z') || (c >= '0' && c <= '9') ) )
-            {
-                throw new InvalidGeneSequenceException();
-            }
-
-            newvalues[(i-1) / 2] = (byte)((Character.digit(data[i], 16) << 4) + (Character.digit(data[i+1], 16)));
-        }
-*/
 
         setValues(newvalues);
 
