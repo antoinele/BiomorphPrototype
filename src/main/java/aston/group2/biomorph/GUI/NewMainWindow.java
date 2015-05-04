@@ -135,6 +135,7 @@ public class NewMainWindow extends JFrame {
                         Biomorph bm = Biomorph.deserialise(sb.toString());
                         
                         Mutator mutator = new Mutator();
+                        mutator.childrenRequired = numOfBiomorphs.getValue();
 
                         Biomorph[] bma = {bm};
 

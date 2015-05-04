@@ -65,7 +65,11 @@ public class MutationWindow extends JFrame {
 	}
 
 	public MutationWindow(int numberOfBiomorphs, Species species) {
-		generation = species.getLastestGeneration();
+		if(species != null)
+		{
+			generation = species.getLastestGeneration();
+			mutator = generation.mutator;
+		}
 		
 		this.cols = numberOfBiomorphs / rows;
 
