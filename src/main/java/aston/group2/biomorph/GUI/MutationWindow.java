@@ -3,6 +3,7 @@ package aston.group2.biomorph.GUI;
 import aston.group2.biomorph.Model.Biomorph;
 import aston.group2.biomorph.Model.EvolutionHelper;
 import aston.group2.biomorph.Model.Mutator;
+import aston.group2.biomorph.Model.Species;
 import aston.group2.biomorph.Storage.BiomorphHistoryLoader;
 import aston.group2.biomorph.Storage.Generation;
 
@@ -12,6 +13,7 @@ import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -56,8 +58,15 @@ public class MutationWindow extends JFrame {
 			return null;
 		}
 	}
+	
+	public MutationWindow(int numberOfBiomorph){
+		this(numberOfBiomorph, null);
+		
+	}
 
-	public MutationWindow(int numberOfBiomorphs) {
+	public MutationWindow(int numberOfBiomorphs, Species species) {
+		generation = species.getLastestGeneration();
+		
 		this.cols = numberOfBiomorphs / rows;
 
 		setLayout(new BorderLayout());
@@ -283,8 +292,7 @@ public class MutationWindow extends JFrame {
 			mutator = new Mutator();
 			mutator.childrenRequired = rows * cols;
 
-			generation = EvolutionHelper.generateSpecies(mutator)
-					.getLastestGeneration();
+			generation = EvolutionHelper.generateSpecies(mutator).getLastestGeneration();
 		} else {
 			ArrayList<Biomorph> selected = new ArrayList<>(rows * cols);
 

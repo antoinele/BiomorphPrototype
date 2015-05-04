@@ -37,18 +37,22 @@ public class EvolutionHelper {
 
     public static Species generateSpecies(Mutator mutator)
     {
+    	Biomorph[] bma = {new Biomorph("D21F00CSLBEEF00SMCAFEsL123456LFF12F0SLF24300s")};
+    	
+    	return generateSpecies(mutator, bma);
+    }
+    public static Species generateSpecies(Mutator mutator, Biomorph[] seedBiomorphs)
+    {
         // TODO: I guess this is where "intelligent first generation" would go?
         Generation generation = new Generation(mutator);
 
         Species species = new Species(generation);
 
-        Biomorph[] bma = {new Biomorph("D21F00CSLBEEF00SMCAFEsL123456LFF12F0SLF24300s")};
+        seedBiomorphs[0].generation = generation;
 
-        bma[0].generation = generation;
+        generation.children = seedBiomorphs;
 
-        generation.children = bma;
-
-        mutate(bma, mutator);
+        mutate(seedBiomorphs, mutator);
 
         BiomorphHistoryLoader.biomorphHistory.add(species);
 
