@@ -12,6 +12,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 
+import aston.group2.biomorph.Model.Biomorph;
+import aston.group2.biomorph.Model.EvolutionHelper;
+import aston.group2.biomorph.Model.Mutator;
+import aston.group2.biomorph.Model.Species;
+import aston.group2.biomorph.Storage.BiomorphHistory;
+import aston.group2.biomorph.Storage.BiomorphHistoryLoader;
+import aston.group2.biomorph.Storage.Generation;
+
 public class NewMainWindow extends JFrame {
 
 	private JLabel welcome;
@@ -103,6 +111,42 @@ public class NewMainWindow extends JFrame {
                 jf.setFileFilter(new FileNameExtensionFilter("Biomorph file","biomorph"));
 
                 int rv = jf.showOpenDialog(getParent());
+
+                if(rv == JFileChooser.APPROVE_OPTION)
+                {
+                    File file = jf.getSelectedFile();
+
+                    try {
+                        BufferedReader br = Files.newBufferedReader(file.toPath(), Charset.forName("US-ASCII"));
+
+                        StringBuilder sb = new StringBuilder();
+
+                        String line;
+                        while((line = br.readLine()) != null)
+                        {
+//                            if(!line.startsWith("#"))
+//                            {
+                                sb.append(line);
+//                            }
+                        }
+
+                      //  genomeField.setText(sb.toString());
+                        Biomorph bm = Biomorph.deserialise(sb.toString());
+                        
+                        Mutator mutator = new Mutator();
+                        mutator.childrenRequired = numOfBiomorphs.getValue();
+
+                        Biomorph[] bma = {bm};
+
+                        Species loadedSpecies = EvolutionHelper.generateSpecies(mutator, bma);
+                        MutationWindow mw = new MutationWindow(numOfBiomorphs.getValue(), loadedSpecies);
+                        mw.setVisible(true);
+                        NewMainWindow.this.dispose();
+                        
+                    } catch (IOException e1) {
+                        e1.printStackTrace();
+                    }
+                }
 
             }
         });
