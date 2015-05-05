@@ -3,6 +3,7 @@ package aston.group2.biomorph.Model.Genes;
 import aston.group2.biomorph.Model.InvalidGeneSequenceException;
 
 import javax.xml.bind.DatatypeConverter;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -10,11 +11,12 @@ import java.util.List;
 /**
  * Created by antoine on 29/10/14.
  */
-public abstract class Gene {
+public abstract class Gene implements Serializable {
 //    public static final byte MAX_VALUES = 3;
     public final char geneCode;
     private Gene parent = null;
     private byte[] values;
+    private final float generateWeight;
 
     public final List<Gene> subGenes;
 
@@ -24,7 +26,9 @@ public abstract class Gene {
 
         this.values = new byte[0];
 
-        subGenes = new ArrayList<Gene>();
+        subGenes = new ArrayList<>();
+
+        generateWeight = 1f;
     }
 
     /**
@@ -39,13 +43,37 @@ public abstract class Gene {
         setValues(values);
     }
 
-    protected abstract int maxValues();
+    /**
+     * Create a gene with a generation weight
+     * @param geneCode a unique char identifying the class of the gene
+     * @param weight 1 is normal probability
+     */
+    public Gene(char geneCode, float weight)
+    {
+        generateWeight = weight;
+
+        this.geneCode = geneCode;
+
+        this.values = new byte[0];
+
+        subGenes = new ArrayList<>();
+    }
+
+    public Gene(char geneCode, float weight, byte[] values)
+    {
+        this(geneCode, weight);
+
+        setValues(values);
+    }
+
+    public abstract int maxValues();
     protected abstract void parseValues();
 
     public char getGeneCode()
     {
         return geneCode;
     }
+    public float getWeight() { return generateWeight; }
 
     public Gene getParent()
     {
@@ -122,8 +150,6 @@ public abstract class Gene {
         sb.append(getGeneCode());
 
         short[] values = getValues();
-        System.err.print("Values: ");
-        System.err.println(Arrays.toString(values));
         for(int i=0; i < maxValues(); i++)
         {
             sb.append(String.format("%02X", values[i]));

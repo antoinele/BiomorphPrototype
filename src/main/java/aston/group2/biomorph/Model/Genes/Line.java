@@ -17,7 +17,7 @@ public class Line extends Gene implements Renderable<Line> {
     }
 
     @Override
-    protected int maxValues()
+    public int maxValues()
     {
         return 3;
     }
@@ -30,7 +30,7 @@ public class Line extends Gene implements Renderable<Line> {
         angle     = values[2];
     }
 
-    private LineRenderer r = null;
+    private transient LineRenderer r = null;
 
     @Override
     public LineRenderer getRenderer()

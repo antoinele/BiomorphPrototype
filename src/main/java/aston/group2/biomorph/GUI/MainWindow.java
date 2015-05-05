@@ -30,7 +30,7 @@ public class MainWindow extends JFrame {
         final JTextField genomeField;
 
         setTitle("Biomorph Example");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
 
         setMinimumSize(new Dimension(WINDOW_WIDTH,WINDOW_HEIGHT));
@@ -148,8 +148,8 @@ public class MainWindow extends JFrame {
 					@Override
 					public void actionPerformed(ActionEvent e) {
 						// TODO Auto-generated method stub
-						Gallery gallery = new Gallery();
-						gallery.setVisible(true);
+						//Gallery gallery = new Gallery();
+						//gallery.setVisible(true);
 						
 					}
                 	 

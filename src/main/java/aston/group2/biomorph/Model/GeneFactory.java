@@ -15,15 +15,31 @@ public class GeneFactory {
         buildGeneMap();
     }
 
-    private static HashMap<Character, Class<? extends Gene>> geneMap = null;
+    public static class GeneWeight {
+        public final char geneCode;
+        public final Class<? extends Gene> gene;
+        public final float weight;
+
+        public GeneWeight(char geneCode, Class<? extends Gene> gene, float weight) {
+            this.geneCode = geneCode;
+            this.gene = gene;
+            this.weight = weight;
+        }
+    }
+
+    private static HashMap<Character, GeneWeight> geneMap = null;
 
     private static void buildGeneMap()
     {
         if(geneMap != null) return;
 
-        geneMap = new HashMap<Character, Class<? extends Gene>>();
+        geneMap = new HashMap<>();
 
-        Reflections reflections = new Reflections("aston.group2.biomorph.Model.Genes");
+        String geneclass = Gene.class.getCanonicalName();
+
+        geneclass = geneclass.substring(0, geneclass.lastIndexOf('.'));
+
+        Reflections reflections = new Reflections(geneclass);
 
         Set<Class<? extends Gene>> geneTypes = reflections.getSubTypesOf(Gene.class);
 
@@ -31,15 +47,9 @@ public class GeneFactory {
         {
             try
             {
-                char code;
-                code = gene.newInstance().getGeneCode();
+                Gene ng = gene.newInstance();
 
-                if(geneMap.containsKey(code))
-                {
-                    throw new RuntimeException("Conflicting gene code: " + code);
-                }
-
-                geneMap.put(code, gene);
+                geneMap.put(ng.getGeneCode(), new GeneWeight(ng.getGeneCode(), gene, ng.getWeight()));
             }
             catch(InstantiationException ie)
             {
@@ -62,7 +72,7 @@ public class GeneFactory {
 
         try
         {
-            return geneMap.get(code).newInstance();
+            return geneMap.get(code).gene.newInstance();
         }
         catch(InstantiationException ie)
         {
@@ -72,5 +82,42 @@ public class GeneFactory {
         {
             return null;
         }
+    }
+
+    public static char[] geneCodes()
+    {
+        buildGeneMap();
+
+        Set<Character> cm = geneMap.keySet();
+
+        char[] result = new char[cm.size() - 1];
+
+        int i=0;
+        for(char c : cm)
+        {
+            if(c != 'X')
+                result[i++] = c;
+        }
+
+        return result;
+    }
+
+    public static GeneWeight[] geneWeights()
+    {
+        buildGeneMap();
+
+        GeneWeight[] result = new GeneWeight[geneMap.size() - 1];
+
+        int i=0;
+        for(GeneWeight gw : geneMap.values())
+        {
+            if(gw.geneCode != 'X')
+            {
+                System.out.println("Gene: " + gw.geneCode);
+                result[i++] = gw;
+            }
+        }
+
+        return result;
     }
 }

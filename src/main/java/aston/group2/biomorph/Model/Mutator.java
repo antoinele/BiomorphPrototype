@@ -1,53 +1,114 @@
 package aston.group2.biomorph.Model;
 
+import aston.group2.biomorph.GUI.Renderable;
 import aston.group2.biomorph.Model.Genes.Gene;
 import aston.group2.biomorph.Model.Genes.RootGene;
 import aston.group2.biomorph.Storage.Generation;
 
+import java.io.Serializable;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
-import java.util.TreeMap;
 
 /**
  * Created by antoine on 16/03/15.
  */
-public class Mutator {
-    public int childrenRequired;
+public class Mutator implements Serializable {
     public Random random;
 
-    /**
-     * If false, mutations will be recorded in BiomorphHistory
-     */
-    public boolean offTheRecord = true;
+    public final Map<String, Setting> settings;
 
-    public final Map<String, Object> settings;
+    public enum MergeType {
+        MEAN, WEIGHTED
+    }
+
+    public static class Setting implements Serializable {
+        public enum Type {
+            UNKNOWN, INT, DOUBLE, STRING, MERGETYPE
+        }
+        public String name;
+        public Object value;
+        public double min;
+        public double max;
+        public int precision;
+        public Type type;
+
+        public Setting(String name, Object value)
+        {
+            this.name = name;
+            this.value = value;
+            this.type = Type.UNKNOWN;
+        }
+
+        public Setting(String name, double value)
+        {
+            this(name, value, 0d, 1d, 3);
+        }
+        public Setting(String name, double value, double min, double max, int precision)
+        {
+            this.name = name;
+            this.value = value;
+            this.min = min;
+            this.max = max;
+            this.precision = precision;
+
+            this.type = Type.DOUBLE;
+        }
+
+        public Setting(String name, int value)
+        {
+            this(name, value, -1, -1);
+        }
+
+        public Setting(String name, int value, int min, int max)
+        {
+            this.name = name;
+            this.value = value;
+            this.min = min;
+            this.max = max;
+
+            this.type = Type.INT;
+        }
+
+        public Setting(String name, String value)
+        {
+            this.name = name;
+            this.value = value;
+
+            this.type = Type.STRING;
+        }
+    }
 
     public Mutator(long seed)
     {
-        this.random = new Random(); // TODO: this probably needs changing
+        random = new Random(); // TODO: this probably needs changing
 
-        random.setSeed(seed); // TODO: Really, this needs to be set properly
+        settings = new HashMap<>();
 
-        settings = new TreeMap<String, Object>(String.CASE_INSENSITIVE_ORDER);
-
-        settings.put("gene_mutate_probability", 0.8f);
-        settings.put("gene_mutate_value_probability", 0.5f);
-        settings.put("gene_mutate_value_max_change", 3);
-        
+        settings.put("required_children", new Setting("Required Children", 0, 2, 10));
+        settings.put("gene_mutate_probability", new Setting("Gene Mutation probability", 0.8));
+        settings.put("gene_mutate_value_probability", new Setting("Gene value mutation probability", 0.5));
+        settings.put("gene_mutate_value_max_change", new Setting("Maximum mutation value change", 3, 1, 255));
+        settings.put("gene_add_probability", new Setting("Gene addition probability", 0.2));
+        settings.put("gene_recurse_add_probability", new Setting("Recursive gene addition probability", 0.2));
+        settings.put("gene_remove_probability", new Setting("Gene removal probability", 0.1));
+        settings.put("merge_type", new Setting("Merge type", MergeType.WEIGHTED));
+        settings.put("seed", new Setting("Seed", String.valueOf(seed)));
     }
 
-    public Mutator()
+    public int childrenRequired()
     {
-        this(12345678);
+        return (Integer)setting("required_children").value;
     }
 
-    private float probability(String probability)
+    private double probability(String probability)
     {
-        return (Float)settings.get(probability + "_probability");
+        return (Double)settings.get(probability + "_probability").value;
     }
+    public Setting setting(String key) { return settings.get(key); }
 
-    private Gene mergeGene(Gene g1, Gene g2, Random rng)
+    private Gene mergeGene(final Gene g1, final Gene g2, final Random rng)
     {
         short[] v1 = g1.getValues(),
                 v2 = g2.getValues();
@@ -58,7 +119,16 @@ public class Mutator {
         int i=0;
         for(; i < Math.min(v1.length,v2.length); i++)
         {
-            newValues[i] = (short)((v1[i] + v2[i]) / 2);
+            switch((MergeType)setting("merge_type").value)
+            {
+                case MEAN:
+                    newValues[i] = (short)((v1[i] + v2[i]) / 2); //averaged
+                    break;
+                case WEIGHTED:
+                    float weight = rng.nextFloat(); //weighted
+                    newValues[i] = (short)( (v1[i] * weight) + (v2[i] * (1-weight)) );
+                    break;
+            }
         }
 
         for (; i < newValues.length; i++)
@@ -94,7 +164,7 @@ public class Mutator {
         return newGene;
     }
 
-    private Gene mergeGenes(Gene rootGene1, Gene rootGene2, Random rng)
+    private Gene mergeGenes(final Gene rootGene1, final Gene rootGene2, final Random rng)
     {
         Gene[] sg1 = rootGene1.getSubGenes(),
                sg2 = rootGene2.getSubGenes();
@@ -158,7 +228,7 @@ public class Mutator {
         return ng;
     }
 
-    private Gene mergeGenes(Gene[] genes, Random rng)
+    private Gene mergeGenes(final Gene[] genes, final Random rng)
     {
         Gene mergedGenes = genes[0];
 
@@ -170,7 +240,7 @@ public class Mutator {
         return mergedGenes;
     }
 
-    private Gene mergeGenes(Biomorph[] biomorphs, Random rng)
+    private Gene mergeGenes(final Biomorph[] biomorphs, final Random rng)
     {
         Gene mergedGenes = biomorphs[0].getRootGene();
 
@@ -182,16 +252,97 @@ public class Mutator {
         return mergedGenes;
     }
 
-    private Gene mutateGenes(Gene rootGene, Random rng)
+    private static class GenePicker {
+        public static GeneFactory.GeneWeight[] geneWeights;
+        public static float totalWeight = 0f;
+
+        static  {
+            geneWeights = GeneFactory.geneWeights();
+            totalWeight = 0f;
+
+
+            for (GeneFactory.GeneWeight gw : geneWeights)
+            {
+                totalWeight += gw.weight;
+            }
+        }
+
+        public static Gene pickGene(Random rng) {
+            double weightCount = rng.nextDouble() * totalWeight;
+
+            Class<? extends Gene> gene = null;
+
+            for (GeneFactory.GeneWeight gw : geneWeights)
+            {
+                assert(gw.geneCode != 'X');
+
+                weightCount -= gw.weight;
+
+                if(weightCount <= 0)
+                {
+                    gene = gw.gene;
+                    break;
+                }
+            }
+
+            assert(gene != null);
+
+            try {
+                return gene.newInstance();
+            } catch (InstantiationException e) {
+                e.printStackTrace();
+                System.exit(1);
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+                System.exit(1);
+            }
+
+            return null;
+        }
+    }
+
+    private void generateSubGenes(final Gene gene, final Random rng)
+    {
+        if(! (gene instanceof Renderable) )
+            return;
+
+        do {
+            // pick a gene
+            Gene newGene = GenePicker.pickGene(rng);
+
+            // randomise values
+            short[] newGenes = new short[newGene.maxValues()];
+            for(int i=0; i<newGenes.length; i++)
+            {
+                newGenes[i] = (short)rng.nextInt(256);
+            }
+
+            newGene.setValues(newGenes);
+
+            if(rng.nextFloat() <= probability("gene_recurse_add"))
+            {
+                generateSubGenes(newGene, rng);
+            }
+
+            gene.addSubGene(newGene);
+        }
+        while(rng.nextFloat() <= probability("gene_recurse_add"));
+    }
+
+    private Gene mutateGenes(final Gene rootGene, final Random rng)
     {
         Gene newRootGene = GeneFactory.getGeneFromCode(rootGene.getGeneCode());
 
-        int maxChange = (Integer)settings.get("gene_mutate_value_max_change");
+        int maxChange = (Integer)settings.get("gene_mutate_value_max_change").value;
 
         for (int i = 0; i < rootGene.subGenes.size(); i++)
         {
             Gene gene = rootGene.subGenes.get(i);
-            Gene newGene;
+
+            if(rng.nextFloat() <= probability("gene_remove"))
+            {
+                continue;
+            }
 
             short[] values = gene.getValues();
 
@@ -204,23 +355,46 @@ public class Mutator {
                 }
             }
 
-            newGene = mutateGenes(gene, rng);
+            Gene newGene = mutateGenes(gene, rng);
             newGene.setValues(values);
 
             newRootGene.addSubGene(newGene);
+
+            if(rng.nextFloat() <= probability("gene_add"))
+            {
+                generateSubGenes(gene, rng);
+            }
         }
 
         return newRootGene;
     }
-
-    public Generation mutateBiomorph(Biomorph[] biomorphs)
+    private Biomorph mutateBiomorph_internal(Generation newGeneration, final Biomorph[] biomorphs)
     {
+        Biomorph newBiomorph = new Biomorph(newGeneration);
+
+        Gene newGenes = mergeGenes(biomorphs, random);
+        newGenes = mutateGenes(newGenes, random);
+
+        //set genes
+        Gene rg = newBiomorph.getRootGene();
+        for (Gene gene : newGenes.getSubGenes())
+        {
+            rg.addSubGene(gene);
+        }
+        
+        return newBiomorph;
+    }
+    
+    public Generation mutateBiomorph(final Biomorph[] biomorphs) throws IncompatibleSpeciesException {
         return mutateBiomorph(biomorphs, new Gene[0]);
     }
-    public Generation mutateBiomorph(Biomorph[] biomorphs, Gene[] protectedParts) {
+    public Generation mutateBiomorph(final Biomorph[] biomorphs, Gene[] protectedParts) throws IncompatibleSpeciesException {
         if (biomorphs.length == 0) {
             throw new IllegalArgumentException("Not enough arguments");
         }
+
+        random = new Random();
+        random.setSeed(settings.get("seed").value.hashCode()); // Reset seed to ensure consistent reuse
 
         Generation newGeneration;
 
@@ -229,25 +403,20 @@ public class Mutator {
         else
             newGeneration = new Generation(this);
 
-        newGeneration.children = new Biomorph[childrenRequired];
+        newGeneration.children = new Biomorph[childrenRequired()];
         newGeneration.parents = biomorphs;
+          
+      	for(int i=0; i<childrenRequired(); i++)
+      	{
+      		Biomorph bm = newGeneration.children[i];
+      		
+      		while(bm == null || bm.getRootGene().getSubGenes().length == 0)
+      		{
+      			bm = newGeneration.children[i] = mutateBiomorph_internal(newGeneration, biomorphs);
+      		}
+      	}
 
-        for (int i=0; i<childrenRequired; i++)
-        {
-            Biomorph newBiomorph = new Biomorph(newGeneration);
-
-            Gene newGenes = mergeGenes(biomorphs, random);
-            newGenes = mutateGenes(newGenes, random);
-
-            //set genes
-            Gene rg = newBiomorph.getRootGene();
-            for (Gene gene : newGenes.getSubGenes())
-            {
-                rg.addSubGene(gene);
-            }
-
-            newGeneration.children[i] = newBiomorph;
-        }
+        biomorphs[0].generation.addNextGeneration(newGeneration);
 
         return newGeneration;
     }

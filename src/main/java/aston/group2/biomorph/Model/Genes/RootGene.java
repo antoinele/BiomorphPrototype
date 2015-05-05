@@ -46,7 +46,7 @@ public class RootGene extends Gene implements Renderable {
     }
 
     @Override
-    protected int maxValues()
+    public int maxValues()
     {
         return 0;
     }
@@ -68,7 +68,7 @@ public class RootGene extends Gene implements Renderable {
         return sb.toString();
     }
 
-    RootGeneRenderer r = null;
+    private transient RootGeneRenderer r = null;
 
     @Override
     public Renderer getRenderer() {

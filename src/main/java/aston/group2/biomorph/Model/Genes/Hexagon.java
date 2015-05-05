@@ -12,11 +12,11 @@ public class Hexagon extends Gene implements Renderable<Hexagon> {
     public short angle;
 
     public Hexagon() {
-        super('H');
+        super('H', 0.4f);
     }
 
     @Override
-    protected int maxValues() { return 2; }
+    public int maxValues() { return 2; }
 
     @Override
     protected void parseValues() {
@@ -25,7 +25,7 @@ public class Hexagon extends Gene implements Renderable<Hexagon> {
         angle      = values[1];
     }
 
-    private HexagonRenderer r = null;
+    private transient HexagonRenderer r = null;
 
     @Override
     public Renderer<Hexagon> getRenderer() {
