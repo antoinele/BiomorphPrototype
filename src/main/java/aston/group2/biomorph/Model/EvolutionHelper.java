@@ -14,13 +14,6 @@ public class EvolutionHelper {
     private static final int IFG_MIN_PICK = 6;
     private static final int IFG_MAX_PICK = 20;
 
-    private static boolean IFG_ENABLE = false;
-
-    public static Generation mutate()
-    {
-        return null; //TODO: first generation
-    }
-
     public static Generation mutate(Biomorph[] biomorphs)
     {
         return mutate(biomorphs, biomorphs[0].generation.mutator);
