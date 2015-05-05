@@ -102,17 +102,33 @@ public class EvolutionHelper {
         return resultBM;
     }
 
-    public static Species generateSpecies(Mutator mutator, boolean IFG)
+    public static Species generateSpecies(Mutator mutator, Biomorph[] seedBiomorphs)
     {
-        // TODO: I guess this is where "intelligent first generation" would go?
-       
-    	
-    	Generation generation = new Generation(mutator);
+        Generation generation = new Generation(mutator);
 
         Calendar creationDate = Calendar.getInstance();
 
         Species species = new Species(generation, creationDate);
 
+        seedBiomorphs[0].generation = generation;
+
+        generation.children = seedBiomorphs;
+
+        Generation newGeneration = mutate(seedBiomorphs, mutator);
+
+        // rewrite the first generation
+        newGeneration.prevGeneration = null;
+        species.firstGeneration = newGeneration;
+
+        BiomorphHistoryLoader.biomorphHistory.add(species);
+
+        BiomorphHistoryLoader.save();
+
+        return species;
+    }
+
+    public static Species generateSpecies(Mutator mutator, boolean IFG)
+    {
         Biomorph[] bma = null;
 
         if(IFG)
@@ -125,21 +141,7 @@ public class EvolutionHelper {
             bma = new Biomorph[] {new Biomorph("D21F00CSLBEEF00SMCAFEsL123456LFF12F0SLF24300s")};
         }
 
-        bma[0].generation = generation;
-
-        generation.children = bma;
-
-        Generation newGeneration = mutate(bma, mutator);
-
-        // rewrite the first generation
-        newGeneration.prevGeneration = null;
-        species.firstGeneration = newGeneration;
-
-        BiomorphHistoryLoader.biomorphHistory.add(species);
-
-        BiomorphHistoryLoader.save();
-        
-        return species;
+        return generateSpecies(mutator, bma);
     }
     
 

@@ -3,6 +3,7 @@ package aston.group2.biomorph.GUI;
 import aston.group2.biomorph.Model.Biomorph;
 import aston.group2.biomorph.Model.EvolutionHelper;
 import aston.group2.biomorph.Model.Mutator;
+import aston.group2.biomorph.Model.Species;
 import aston.group2.biomorph.Storage.BiomorphHistoryLoader;
 import aston.group2.biomorph.Storage.Generation;
 import aston.group2.biomorph.Utilities.IconHelper;
@@ -31,6 +32,25 @@ public class MutationWindow extends JFrame {
 	private int cols = 3;
 
 	public MutationWindow(int numberOfBiomorphs, boolean IFG) {
+        this(numberOfBiomorphs, null, IFG);
+	}
+
+	public MutationWindow(int numberOfBiomorph){
+		this(numberOfBiomorph, null);
+	}
+
+    public MutationWindow(int numberOfBiomorphs, Species species)
+    {
+        this(numberOfBiomorphs, species, false);
+    }
+
+	public MutationWindow(int numberOfBiomorphs, Species species, boolean IFG) {
+		if(species != null)
+		{
+			generation = species.getLastestGeneration();
+			newMutator = generation.mutator;
+		}
+
 		this.cols = numberOfBiomorphs / rows;
 
 		setLayout(new BorderLayout());

@@ -1,5 +1,8 @@
 package aston.group2.biomorph.GUI;
 
+import aston.group2.biomorph.Model.Biomorph;
+import aston.group2.biomorph.Model.EvolutionHelper;
+import aston.group2.biomorph.Model.Mutator;
 import aston.group2.biomorph.Model.Species;
 import aston.group2.biomorph.Storage.BiomorphHistoryLoader;
 
@@ -10,15 +13,12 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.IOException;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
 import java.util.List;
-
-import aston.group2.biomorph.Model.Biomorph;
-import aston.group2.biomorph.Model.EvolutionHelper;
-import aston.group2.biomorph.Model.Mutator;
-import aston.group2.biomorph.Model.Species;
-import aston.group2.biomorph.Storage.BiomorphHistory;
-import aston.group2.biomorph.Storage.BiomorphHistoryLoader;
-import aston.group2.biomorph.Storage.Generation;
 
 public class NewMainWindow extends JFrame {
 
@@ -117,33 +117,32 @@ public class NewMainWindow extends JFrame {
                     File file = jf.getSelectedFile();
 
                     try {
-                        BufferedReader br = Files.newBufferedReader(file.toPath(), Charset.forName("US-ASCII"));
+						BufferedReader br = Files.newBufferedReader(file.toPath(), Charset.forName("US-ASCII"));
 
-                        StringBuilder sb = new StringBuilder();
+						StringBuilder sb = new StringBuilder();
 
-                        String line;
-                        while((line = br.readLine()) != null)
-                        {
+						String line;
+						while ((line = br.readLine()) != null) {
 //                            if(!line.startsWith("#"))
 //                            {
-                                sb.append(line);
+							sb.append(line);
 //                            }
-                        }
+						}
 
-                      //  genomeField.setText(sb.toString());
-                        Biomorph bm = Biomorph.deserialise(sb.toString());
-                        
-                        Mutator mutator = new Mutator();
-                        mutator.childrenRequired = numOfBiomorphs.getValue();
+						//  genomeField.setText(sb.toString());
+						Biomorph bm = Biomorph.deserialise(sb.toString());
 
-                        Biomorph[] bma = {bm};
+						Mutator mutator = new Mutator(System.currentTimeMillis() / 1000);
+						mutator.setting("required_children").value = numOfBiomorphs.getValue();
 
-                        Species loadedSpecies = EvolutionHelper.generateSpecies(mutator, bma);
-                        MutationWindow mw = new MutationWindow(numOfBiomorphs.getValue(), loadedSpecies);
-                        mw.setVisible(true);
-                        NewMainWindow.this.dispose();
-                        
-                    } catch (IOException e1) {
+						Biomorph[] bma = {bm};
+
+						Species loadedSpecies = EvolutionHelper.generateSpecies(mutator, bma);
+						MutationWindow mw = new MutationWindow(numOfBiomorphs.getValue(), loadedSpecies);
+						mw.setVisible(true);
+						NewMainWindow.this.dispose();
+
+					} catch (IOException e1) {
                         e1.printStackTrace();
                     }
                 }
