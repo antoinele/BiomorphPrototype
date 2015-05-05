@@ -227,7 +227,7 @@ public class MutationWindow extends JFrame {
 
         Mutator mutator = new Mutator(Calendar.getInstance().getTimeInMillis());
 
-        mutator.childrenRequired = childrenRequired;
+        mutator.setting("required_children").value = childrenRequired;
 
         generation = EvolutionHelper.generateSpecies(mutator, IFG)
                 .getLastestGeneration();
@@ -309,7 +309,7 @@ public class MutationWindow extends JFrame {
 
         System.out.println("Generation: " + generation.hashCode());
 
-		for (int i = 0; i < Math.min(generation.children.length, rows * cols); i++) {
+		for (int i = 0; i < generation.children.length; i++) {
             System.out.println("    Biomorph: " + generation.children[i].toString());
 			BiomorphSurfaceWithTools bs = new BiomorphSurfaceWithTools(true);
 			bs.setBiomorph(generation.children[i]);

@@ -1,5 +1,5 @@
 Manifest-Version: 1.0
-Class-Path: reflections-0.9.9.jar annotations-2.0.1.jar guava-15.0.jar
-  javassist-3.18.2-GA.jar
+Class-Path: javassist-3.18.2-GA.jar reflections-0.9.9.jar annotations-
+ 2.0.1.jar guava-15.0.jar
 Main-Class: aston.group2.biomorph.GUI.NewMainWindow
 

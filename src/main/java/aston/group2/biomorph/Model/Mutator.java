@@ -6,13 +6,15 @@ import aston.group2.biomorph.Model.Genes.RootGene;
 import aston.group2.biomorph.Storage.Generation;
 
 import java.io.Serializable;
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Random;
 
 /**
  * Created by antoine on 16/03/15.
  */
 public class Mutator implements Serializable {
-    public int childrenRequired;
     public Random random;
 
     public final Map<String, Setting> settings;
@@ -82,23 +84,29 @@ public class Mutator implements Serializable {
     {
         random = new Random(); // TODO: this probably needs changing
 
-        settings = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
+        settings = new HashMap<>();
 
+        settings.put("required_children", new Setting("Required Children", 0, 2, 10));
         settings.put("gene_mutate_probability", new Setting("Gene Mutation probability", 0.8));
         settings.put("gene_mutate_value_probability", new Setting("Gene value mutation probability", 0.5));
-        settings.put("gene_mutate_value_max_change", new Setting("Maximum mutation value change", 3, 0, 255));
+        settings.put("gene_mutate_value_max_change", new Setting("Maximum mutation value change", 3, 1, 255));
         settings.put("gene_add_probability", new Setting("Gene addition probability", 0.2));
         settings.put("gene_recurse_add_probability", new Setting("Recursive gene addition probability", 0.2));
         settings.put("gene_remove_probability", new Setting("Gene removal probability", 0.1));
         settings.put("merge_type", new Setting("Merge type", MergeType.WEIGHTED));
-        settings.put("seed", new Setting("Seed", seed));
+        settings.put("seed", new Setting("Seed", String.valueOf(seed)));
+    }
+
+    public int childrenRequired()
+    {
+        return (Integer)setting("required_children").value;
     }
 
     private double probability(String probability)
     {
-        return (double) settings.get(probability + "_probability").value;
+        return (Double)settings.get(probability + "_probability").value;
     }
-    private Setting setting(String key) { return settings.get(key); }
+    public Setting setting(String key) { return settings.get(key); }
 
     private Gene mergeGene(final Gene g1, final Gene g2, final Random rng)
     {
@@ -395,10 +403,10 @@ public class Mutator implements Serializable {
         else
             newGeneration = new Generation(this);
 
-        newGeneration.children = new Biomorph[childrenRequired];
+        newGeneration.children = new Biomorph[childrenRequired()];
         newGeneration.parents = biomorphs;
           
-      	for(int i=0; i<childrenRequired; i++)
+      	for(int i=0; i<childrenRequired(); i++)
       	{
       		Biomorph bm = newGeneration.children[i];
       		

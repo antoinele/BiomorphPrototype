@@ -29,6 +29,7 @@ public class MutationSettings extends JDialog {
         components.put(name, component);
 
         GridBagConstraints c = new GridBagConstraints();
+        c.insets = new Insets(3, 0, 3, 0);
         c.gridy = row;
 
         c.gridx = 0;
@@ -43,26 +44,50 @@ public class MutationSettings extends JDialog {
     private void createSlider(final String name, String text, double min, double max, double value, int precision, int row) {
         int imin, imax, ivalue;
 
+        JPanel sliderPanel = new JPanel();
+        sliderPanel.setLayout(new BoxLayout(sliderPanel, BoxLayout.LINE_AXIS));
+
         final int magnitude = (int)Math.pow(10, precision);
         imin = (int)(min * magnitude);
         imax = (int)(max * magnitude);
         ivalue = (int)(value * magnitude);
 
         final JSlider slider = new JSlider(JSlider.HORIZONTAL, imin, imax, ivalue);
-        slider.setMajorTickSpacing( (imax - imin) / 4); // 4 steps
+        slider.setMajorTickSpacing((imax - imin) / 4); // 5 steps
         slider.setPaintTicks(true);
         slider.setToolTipText(text);
-        slider.setSnapToTicks(true);
+//        slider.setSnapToTicks(true);
+
+        final JLabel valueLabel = new JLabel();
+        {
+            Dimension d = new Dimension(100, 20);
+            valueLabel.setMaximumSize(d);
+            valueLabel.setMinimumSize(d);
+            valueLabel.setPreferredSize(d);
+
+            Mutator.Setting setting = mutator.settings.get(name);
+            if(setting.type == Mutator.Setting.Type.INT)
+                valueLabel.setText(String.valueOf((int)setting.value));
+            else
+                valueLabel.setText(String.valueOf(setting.value));
+        }
 
         slider.addChangeListener(new ChangeListener() {
             @Override
             public void stateChanged(ChangeEvent e) {
                 Mutator.Setting setting = mutator.settings.get(name);
                 setting.value = (double)slider.getValue() / magnitude;
+                if(setting.type == Mutator.Setting.Type.INT)
+                    valueLabel.setText(String.valueOf(Math.round((double)setting.value)));
+                else
+                    valueLabel.setText(String.valueOf(setting.value));
             }
         });
 
-        insertLabelledComponent(name, text, slider, row);
+        sliderPanel.add(valueLabel);
+        sliderPanel.add(slider);
+
+        insertLabelledComponent(name, text, sliderPanel, row);
     }
 
     private void createNumberInput(final String name, String text, int value, int row)
@@ -74,7 +99,7 @@ public class MutationSettings extends JDialog {
             @Override
             public void stateChanged(ChangeEvent e) {
                 Mutator.Setting setting = mutator.settings.get(name);
-                setting.value = (double)spinner.getValue();
+                setting.value = spinner.getValue();
             }
         });
 

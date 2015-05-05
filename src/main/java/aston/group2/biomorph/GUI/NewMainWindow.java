@@ -1,37 +1,16 @@
 package aston.group2.biomorph.GUI;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.IOException;
-import java.nio.charset.Charset;
-import java.nio.file.Files;
-import java.util.List;
+import aston.group2.biomorph.Model.Species;
+import aston.group2.biomorph.Storage.BiomorphHistoryLoader;
 
-import javax.swing.BorderFactory;
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JFileChooser;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JSlider;
-import javax.swing.SwingUtilities;
-import javax.swing.border.Border;
+import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.filechooser.FileNameExtensionFilter;
-
-import aston.group2.biomorph.Model.Biomorph;
-import aston.group2.biomorph.Model.Species;
-import aston.group2.biomorph.Storage.BiomorphHistory;
-import aston.group2.biomorph.Storage.BiomorphHistoryLoader;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.List;
 
 public class NewMainWindow extends JFrame {
 
@@ -51,7 +30,7 @@ public class NewMainWindow extends JFrame {
 		initHistory();
 		
 		setMinimumSize(new Dimension(900, 500));
-
+		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setLayout(null);
 
 		welcome = new JLabel("Welcome");
@@ -111,8 +90,8 @@ public class NewMainWindow extends JFrame {
 			    public void actionPerformed(ActionEvent event) {
 			    	MutationWindow mw = new MutationWindow(numOfBiomorphs.getValue(), isIntelligentFirst);
 			         mw.setVisible(true);
-			     
-			         
+
+
 			         NewMainWindow.this.dispose();
 			  }
 		 });
