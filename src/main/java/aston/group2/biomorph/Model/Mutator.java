@@ -17,7 +17,7 @@ public class Mutator implements Serializable {
 
     public final Map<String, Setting> settings;
 
-    public static enum MergeType {
+    public enum MergeType {
         MEAN, WEIGHTED
     }
 
@@ -298,17 +298,9 @@ public class Mutator implements Serializable {
         if(! (gene instanceof Renderable) )
             return;
 
-//        char[] genecodes = GeneFactory.geneCodes();
-
         do {
             // pick a gene
-//            char genecode = genecodes[rng.nextInt(genecodes.length)];
-
-//            Gene newGene = GeneFactory.getGeneFromCode(genecode);
-
             Gene newGene = GenePicker.pickGene(rng);
-
-            System.out.println("Gene Selected: " + newGene.getGeneCode());
 
             // randomise values
             short[] newGenes = new short[newGene.maxValues()];

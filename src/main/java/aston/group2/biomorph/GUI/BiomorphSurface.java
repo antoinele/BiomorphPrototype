@@ -95,9 +95,8 @@ public class BiomorphSurface extends JComponent {
 			aston.group2.biomorph.GUI.Renderers.Renderer r = ((Renderable) gene)
 					.getRenderer();
 
-            assert(r.getGene().getGeneCode() != 'X');
-
-			r.draw(g);
+            if(r.getGene().getGeneCode() != 'X') //TODO: lazy fix
+			    r.draw(g);
 		}
 
 		for (Gene sg : subGenes) {
