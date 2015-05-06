@@ -12,9 +12,8 @@ import java.awt.*;
 import java.awt.event.*;
 
 /**
- * 
  * @author Antoine, Theo and Joe
- *
+ * This class additional the features acessible on each biomorph within the grid e.g. save, favourite and zoom.
  */
 public class BiomorphSurfaceWithTools extends JPanel {
 	public final BiomorphSurface biomorphSurface;
@@ -30,7 +29,7 @@ public class BiomorphSurfaceWithTools extends JPanel {
 
 	}
 
-	/*
+	/**
 	 * Makes each biomorph editable by creating various command buttons to control the functionality of them e.g. save, zoom and favourite
 	 */
 	public BiomorphSurfaceWithTools(boolean selectable) {
@@ -173,6 +172,10 @@ public class BiomorphSurfaceWithTools extends JPanel {
 		
 		impressBiomorphWindow();
 	}
+	
+	/**
+	 * Creates a border for recognising all the biomorphs that have been selected
+	 */
 	public void impressBiomorphWindow(){
 		if(selected){
 			Border border = BorderFactory.createLineBorder(new Color(104, 175, 232), 5);

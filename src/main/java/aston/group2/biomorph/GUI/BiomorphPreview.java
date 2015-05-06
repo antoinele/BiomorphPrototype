@@ -19,7 +19,7 @@ import aston.group2.biomorph.Model.Biomorph;
 
 /**
  * @author Antoine and Theo
- *
+ * This class handles the biomorph preview window
  */
 public class BiomorphPreview extends JFrame {
 
