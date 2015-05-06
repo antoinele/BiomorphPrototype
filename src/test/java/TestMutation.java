@@ -5,6 +5,7 @@ import org.junit.Test;
 
 import aston.group2.biomorph.Model.Biomorph;
 import aston.group2.biomorph.Model.EvolutionHelper;
+import aston.group2.biomorph.Model.IncompatibleSpeciesException;
 import aston.group2.biomorph.Model.Mutator;
 import aston.group2.biomorph.Storage.Generation;
 
@@ -12,12 +13,12 @@ import aston.group2.biomorph.Storage.Generation;
 public class TestMutation {
 
 	@Test
-	public void test() {
+	public void test() throws IncompatibleSpeciesException {
 		 String genome = "D01F00CSLBEEF00SMCAFEsL123456s";
 		 Biomorph bm = Biomorph.deserialise(genome);
 		 Biomorph[] bma = {bm};
-		 Mutator mutator = new Mutator();
-		 mutator.childrenRequired = 100;
+		 Mutator mutator = new Mutator(System.currentTimeMillis());
+		 mutator.setting("required_children").value = 100;
 		 
 		 Generation g = mutator.mutateBiomorph(bma);
 		 
