@@ -1,9 +1,8 @@
 package aston.group2.biomorph.GUI.Renderers;
 
 import aston.group2.biomorph.GUI.BiomorphRenderer;
-import aston.group2.biomorph.GUI.BiomorphSurface;
-import aston.group2.biomorph.Model.Genes.Dot;
 import aston.group2.biomorph.GUI.Coordinate;
+import aston.group2.biomorph.Model.Genes.Dot;
 
 import java.awt.*;
 import java.awt.geom.AffineTransform;
@@ -29,6 +28,12 @@ public class DotRenderer extends Renderer<Dot> {
 
         g.rotate(d.angle, origin.x, origin.y);
 
+        g.setColor(renderState.fillColour);
+        g.fillOval(origin.x - (d.width / 2), origin.y - (d.height / 2), d.width, d.height);
+
+        g.setStroke(new BasicStroke(renderState.lineWidth));
+
+        g.setColor(renderState.lineColour);
         g.drawOval(origin.x - (d.width / 2), origin.y - (d.height / 2), d.width, d.height);
 
         g.setTransform(ot);

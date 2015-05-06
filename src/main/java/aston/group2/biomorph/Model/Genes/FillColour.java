@@ -10,24 +10,21 @@ public class FillColour extends Gene implements Processed {
 
     private Color colour;
 
-	public FillColour(byte[] values) throws Exception {
-		super('F', values);
+	public FillColour() {
+		super('F', 2.5f);
 	}
 
 	@Override
 	protected void parseValues() {
-        colour = ColourHelper.indexedHSBColour(getValues()[0]);
+        short[] v = getValues();
+
+        colour = ColourHelper.indexedHSBColour( (v[0] << 8) & v[1] );
     }
 
 	@Override
-	protected int maxValues() {
-		return 1;
+	public int maxValues() {
+		return 2;
 	}
-
-    public Color getColour()
-    {
-        return colour;
-    }
 
     @Override
     public void process(BiomorphRenderer.RenderState renderState, Graphics g) {

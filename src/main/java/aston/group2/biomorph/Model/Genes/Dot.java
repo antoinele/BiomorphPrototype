@@ -13,7 +13,7 @@ public class Dot extends Gene implements Renderable<Dot> {
 
     public Dot()
     {
-        super('D');
+        super('D', 0.8f);
     }
 
     @Override
@@ -35,7 +35,6 @@ public class Dot extends Gene implements Renderable<Dot> {
 
 	@Override
     public int maxValues() {
-		// TODO Auto-generated method stub
 		return 3;
 	}
 }

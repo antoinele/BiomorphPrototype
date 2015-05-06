@@ -1,13 +1,10 @@
 package aston.group2.biomorph.Model;
 
-import aston.group2.biomorph.GUI.Renderers.Renderer;
-import aston.group2.biomorph.Model.Genes.Gene;
 import aston.group2.biomorph.GUI.Coordinate;
-import aston.group2.biomorph.GUI.Renderable;
+import aston.group2.biomorph.Model.Genes.Gene;
 import aston.group2.biomorph.Model.Genes.RootGene;
 import aston.group2.biomorph.Storage.Generation;
 
-import java.awt.*;
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Stack;
@@ -15,7 +12,7 @@ import java.util.Stack;
 /**
  * Created by antoine on 29/10/14.
  */
-public class Biomorph implements Serializable {
+public class Biomorph implements Serializable, Cloneable {
     public Generation generation;
 
     private Coordinate origin;
@@ -122,5 +119,18 @@ public class Biomorph implements Serializable {
     public String toString()
     {
         return rootGene.toString();
+    }
+
+    @Override
+    public Biomorph clone() {
+        try {
+            return (Biomorph) super.clone();
+        }
+        catch (CloneNotSupportedException e)
+        {
+            e.printStackTrace();
+            System.exit(1);
+            return null;
+        }
     }
 }

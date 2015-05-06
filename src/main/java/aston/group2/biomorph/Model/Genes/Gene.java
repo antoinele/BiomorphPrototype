@@ -150,7 +150,7 @@ public abstract class Gene implements Serializable {
         sb.append(getGeneCode());
 
         short[] values = getValues();
-        for(int i=0; i < maxValues(); i++)
+        for(int i=0; i < Math.min(maxValues(), values.length); i++)
         {
             sb.append(String.format("%02X", values[i]));
         }

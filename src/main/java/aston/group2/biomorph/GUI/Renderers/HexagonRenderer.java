@@ -1,9 +1,8 @@
 package aston.group2.biomorph.GUI.Renderers;
 
 import aston.group2.biomorph.GUI.BiomorphRenderer;
-import aston.group2.biomorph.GUI.BiomorphSurface;
-import aston.group2.biomorph.Model.Genes.Hexagon;
 import aston.group2.biomorph.GUI.Coordinate;
+import aston.group2.biomorph.Model.Genes.Hexagon;
 
 import java.awt.*;
 
@@ -33,6 +32,10 @@ public class HexagonRenderer extends Renderer<Hexagon> {
             ycoords[i] = (int)Math.round(origin.y + sideLength * Math.sin(angle));
         }
 
+        g.setColor(renderState.fillColour);
+        g.fillPolygon(xcoords, ycoords, 6);
+
+        g.setColor(renderState.lineColour);
         g.drawPolygon(xcoords, ycoords, 6);
     }
 

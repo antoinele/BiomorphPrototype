@@ -1,7 +1,6 @@
 package aston.group2.biomorph.Model.Genes;
 
 import aston.group2.biomorph.GUI.BiomorphRenderer;
-import aston.group2.biomorph.GUI.BiomorphSurface;
 import aston.group2.biomorph.GUI.Processed;
 import aston.group2.biomorph.Utilities.ColourHelper;
 
@@ -11,23 +10,20 @@ public class LineColour extends Gene implements Processed{
 
     private Color colour;
 	
-	public LineColour(char geneCode, byte[] values) throws Exception {
-		super('C', values);
+	public LineColour() {
+		super('C', 2.5f);
 	}
 
     @Override
     protected void parseValues() {
-        colour = ColourHelper.indexedHSBColour(getValues()[0]);
+        short[] v = getValues();
+
+        colour = ColourHelper.indexedHSBColour( (v[0] << 8) & v[1] );
     }
 
     @Override
-    protected int maxValues() {
-        return 1;
-    }
-
-    public Color getColour()
-    {
-        return colour;
+    public int maxValues() {
+        return 2;
     }
 
     @Override

@@ -187,7 +187,7 @@ public class MutationSettings extends JDialog {
         ok.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                finish();
+                MutationSettings.this.finish();
                 MutationSettings.this.dispose();
             }
         });

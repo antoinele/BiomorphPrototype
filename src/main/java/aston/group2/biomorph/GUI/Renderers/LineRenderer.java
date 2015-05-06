@@ -1,9 +1,8 @@
 package aston.group2.biomorph.GUI.Renderers;
 
 import aston.group2.biomorph.GUI.BiomorphRenderer;
-import aston.group2.biomorph.GUI.BiomorphSurface;
-import aston.group2.biomorph.Model.Genes.Line;
 import aston.group2.biomorph.GUI.Coordinate;
+import aston.group2.biomorph.Model.Genes.Line;
 
 import java.awt.*;
 
@@ -39,6 +38,7 @@ public class LineRenderer extends Renderer<Line> {
 
         g.setStroke(new BasicStroke(stroke));
 
+        g.setColor(renderState.lineColour);
         g.drawLine(pc.x, pc.y, sc.x, sc.y);
 
         g.setStroke(s);

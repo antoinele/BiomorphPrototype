@@ -1,14 +1,15 @@
 package aston.group2.biomorph.GUI;
 
 import aston.group2.biomorph.Model.Biomorph;
+import aston.group2.biomorph.Model.Genes.FillColour;
 import aston.group2.biomorph.Model.Genes.Gene;
+import aston.group2.biomorph.Model.Genes.LineColour;
 
 import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.reflect.Field;
-import java.util.Objects;
 import java.util.Stack;
 
 /**
@@ -19,12 +20,12 @@ public class BiomorphRenderer {
     private Biomorph biomorph;
     private Gene rootGene;
 
-    public boolean CLIPMIRROR = false;
+    public final boolean CLIPMIRROR = true;
 
     private final int fixedWidth = 800;
     private final int fixedHeight = 600;
-    private int newWidth = 800;
-    private int newHeight = 600;
+    private int width = 800;
+    private int height = 600;
 
     public BiomorphRenderer() {}
     public BiomorphRenderer(Biomorph biomorph)
@@ -45,10 +46,10 @@ public class BiomorphRenderer {
             String value();
         }
 
-        private final Stack<Color> lineColourStack;
-        private final Stack<Color> fillColourStack;
+        private Stack<Color> lineColourStack;
+        private Stack<Color> fillColourStack;
 
-        private final Stack<Integer> lineWidthStack;
+        private Stack<Integer> lineWidthStack;
 
         @StackVariable("lineColourStack") public Color lineColour;
         @StackVariable("fillColourStack") public Color fillColour;
@@ -58,9 +59,18 @@ public class BiomorphRenderer {
         public RenderState()
         {
             // Initialise stacks
-            lineColourStack = new Stack<Color>();
-            fillColourStack = new Stack<Color>();
-            lineWidthStack = new Stack<Integer>();
+            lineColourStack = new Stack<>();
+            fillColourStack = new Stack<>();
+            lineWidthStack = new Stack<>();
+
+            // prevent compiler from optimising out these fields
+            lineColourStack.size();
+            fillColourStack.size();
+            lineWidthStack.size();
+
+            // prevent compiler from optimising out the colour classes
+            new FillColour();
+            new LineColour();
 
             lineColour = Color.black;
             fillColour = Color.black;
@@ -81,10 +91,10 @@ public class BiomorphRenderer {
             {
                 String stackName = field.getAnnotation(StackVariable.class).value();
 
-                if(stackName != null)
+                if(stackName != null && false)
                 {
                     try {
-                        Stack<Object> stack = (Stack<Object>) self.getField(stackName).get(this);
+                        Stack<Object> stack = (Stack<Object>) self.getDeclaredField(stackName).get(this);
 
                         field.set(this, stack.peek());
                     } catch (NoSuchFieldException e) {
@@ -108,7 +118,7 @@ public class BiomorphRenderer {
                 if(stackName != null)
                 {
                     try {
-                        Stack<Object> stack = (Stack<Object>) self.getField(stackName).get(this);
+                        Stack<Object> stack = (Stack<Object>) self.getDeclaredField(stackName).get(this);
 
                         stack.push(field.get(this));
                     } catch (NoSuchFieldException e) {
@@ -132,7 +142,7 @@ public class BiomorphRenderer {
                 if(stackName != null)
                 {
                     try {
-                        Stack<Object> stack = (Stack<Object>) self.getField(stackName).get(this);
+                        Stack<Object> stack = (Stack<Object>) self.getDeclaredField(stackName).get(this);
 
                         field.set(this, stack.pop());
                     } catch (NoSuchFieldException e) {
@@ -147,8 +157,8 @@ public class BiomorphRenderer {
 
     public void setSize(int width, int height)
     {
-        newWidth = width;
-        newHeight = height;
+        this.width = width;
+        this.height = height;
     }
 
     public void doDrawing(Graphics2D g) {
@@ -156,39 +166,47 @@ public class BiomorphRenderer {
                 RenderingHints.VALUE_ANTIALIAS_ON);
 
         g.setRenderingHints(rh);
-        g.translate(newWidth / 2, newHeight / 2);
+        g.translate(width / 2, height / 2);
 
-        g.scale((double)newWidth/fixedWidth, (double)newHeight/fixedHeight);
-
-        AffineTransform t = g.getTransform(); // Store transform before drawing
-        // messes with it
-
-        RenderState renderState = new RenderState();
 
         if (CLIPMIRROR) {
-            g.setClip(-newWidth / 2, -newHeight / 2, newWidth / 2,
-                    newHeight);
+            g.clip(new Rectangle(-width/2,-height/2,width/2,height));
+//            g.setClip(-width / 2, -height / 2, width, height);
         }
+
+        AffineTransform t = g.getTransform(); // Store transform before drawing messes with it
+
+        g.scale((double) width /fixedWidth, (double) height /fixedHeight);
+
+
+        RenderState renderState = new RenderState();
 
         // Iterate subgenes directly to avoid processing/drawing the root gene,
         // which is impossible
         for (Gene gene : rootGene.getSubGenes()) {
+            renderState.pushState();
             drawGene(renderState, g, gene);
+            renderState.popState();
         }
 
         g.setTransform(t); // Restore transform
+
+        if (CLIPMIRROR) {
+            g.clip(new Rectangle(-width / 2, -height / 2, width / 2, height));
+//            g.setClip(-width / 2, -height / 2, width, height);
+        }
+
+        g.scale((double) width / fixedWidth, (double) height / fixedHeight);
 
         AffineTransform mirrorTransform = AffineTransform.getScaleInstance(-1.0, 1.0);
 
         g.transform(mirrorTransform);
 
-        if (CLIPMIRROR) {
-            g.setClip(-newWidth / 2, -newHeight / 2, newWidth / 2, newHeight);
-        }
-
         // Draw genes again, but mirrored
         for (Gene gene : rootGene.getSubGenes()) {
+            renderState.pushState();
             drawGene(renderState, g, gene);
+            renderState.popState();
         }
     }
 
@@ -205,13 +223,17 @@ public class BiomorphRenderer {
             ((Processed) gene).process(renderState, g);
         }
 
+
+
         if (gene instanceof Renderable) {
             aston.group2.biomorph.GUI.Renderers.Renderer r = ((Renderable) gene).getRenderer();
             r.draw(renderState, g);
         }
 
         for (Gene sg : subGenes) {
+            renderState.pushState();
             drawGene(renderState, g, sg);
+            renderState.popState();
         }
     }
 

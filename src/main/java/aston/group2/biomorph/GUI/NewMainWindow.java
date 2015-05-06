@@ -21,17 +21,7 @@ import java.nio.file.Files;
 import java.util.List;
 
 public class NewMainWindow extends JFrame {
-
-	private JLabel welcome;
-	
-	private JButton newBiomorphs;
-	private JButton loadBiomorphs;
-
-	// slider for number of biomorphs, increments in 2s
-	private JSlider numOfBiomorphs;
-	private JLabel numOfBiomorph;
-	
-	private JCheckBox intelligentgen;
+	private JCheckBox intelligentGen;
 	private boolean isIntelligentFirst;
 	
 	public NewMainWindow(){
@@ -41,20 +31,20 @@ public class NewMainWindow extends JFrame {
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setLayout(null);
 
-		welcome = new JLabel("Welcome");
+		JLabel welcome = new JLabel("Welcome");
 		welcome.setFont (welcome.getFont ().deriveFont (40.0f));
 		welcome.setBounds(370, 80, 200, 100);
 	
 		
-		newBiomorphs = new JButton("New Biomorph");
-		loadBiomorphs = new JButton("Load Biomorph");
+		JButton newBiomorphs = new JButton("New Biomorph");
+		JButton loadBiomorphs = new JButton("Load Biomorph");
 		
 		newBiomorphs.setBounds(300, 400, 120, 40);
 		loadBiomorphs.setBounds(450, 400, 120, 40);
 		
 		// Slider for number of biomorphs (increments in 2s)
 		int initialValue = 6;
-		numOfBiomorphs = new JSlider(JSlider.HORIZONTAL, 2, 10, initialValue);
+		JSlider numOfBiomorphs = new JSlider(JSlider.HORIZONTAL, 2, 10, initialValue);
 		numOfBiomorphs.setValue(6);
 		numOfBiomorphs.setMajorTickSpacing(2);
 		numOfBiomorphs.setPaintTicks(true);
@@ -62,27 +52,25 @@ public class NewMainWindow extends JFrame {
 		numOfBiomorphs.setSnapToTicks(true);
 		numOfBiomorphs.setBounds(300, 300, 300, 50);
 		// label for biomorph slider
-		numOfBiomorph = new JLabel("Number of Biomorphs  " + initialValue);
-		numOfBiomorph.setFont (welcome.getFont ().deriveFont (20.0f));
+		JLabel numOfBiomorph = new JLabel("Number of Biomorphs " + initialValue);
+		numOfBiomorph.setFont(welcome.getFont().deriveFont(20.0f));
 		numOfBiomorph.setBounds(320, 250, 300, 50);
 		
-		intelligentgen = new JCheckBox("Intelligent First Generation");
-		intelligentgen.setFont(intelligentgen.getFont().deriveFont(15.0f));
-		intelligentgen.setBounds(630, 370, 300, 100);
+		intelligentGen = new JCheckBox("Intelligent First Generation");
+		intelligentGen.setFont(intelligentGen.getFont().deriveFont(15.0f));
+		intelligentGen.setBounds(630, 370, 300, 100);
 
-		isIntelligentFirst = intelligentgen.isSelected();
+		isIntelligentFirst = intelligentGen.isSelected();
 		
-		intelligentgen.addChangeListener(new ChangeListener() {
+		intelligentGen.addChangeListener(new ChangeListener() {
 
 			@Override
 			public void stateChanged(ChangeEvent arg0) {
 				// TODO Auto-generated method stub
-
-				isIntelligentFirst = intelligentgen.isSelected();
-				
+				isIntelligentFirst = intelligentGen.isSelected();
 			}
-			
-			
+
+
 		});
 		
 		// number of biomorphs slider listener
@@ -150,7 +138,7 @@ public class NewMainWindow extends JFrame {
             }
         });
 
-		add(intelligentgen);
+		add(intelligentGen);
 		add(welcome);
 		add(newBiomorphs);
 		add(loadBiomorphs);

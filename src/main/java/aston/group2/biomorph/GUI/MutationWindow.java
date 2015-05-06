@@ -299,11 +299,16 @@ public class MutationWindow extends JFrame {
 
         if(newMutator != null)
         {
+			if(generation.mutator.setting("seed").value.equals(newMutator.setting("seed").value))
+			{
+                newMutator.setting("seed").value = String.valueOf(System.currentTimeMillis());
+			}
             mutator = newMutator;
         }
         else
         {
             mutator = generation.mutator;
+            mutator.setting("seed").value = String.valueOf(System.currentTimeMillis());
         }
 
         generation = EvolutionHelper.mutate(bma, mutator);

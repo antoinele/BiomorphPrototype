@@ -49,7 +49,9 @@ public class GeneFactory {
             {
                 Gene ng = gene.newInstance();
 
-                geneMap.put(ng.getGeneCode(), new GeneWeight(ng.getGeneCode(), gene, ng.getWeight()));
+                char geneCode = ng.getGeneCode();
+
+                geneMap.put(geneCode, new GeneWeight(geneCode, gene, ng.getWeight()));
             }
             catch(InstantiationException ie)
             {
@@ -113,7 +115,6 @@ public class GeneFactory {
         {
             if(gw.geneCode != 'X')
             {
-                System.out.println("Gene: " + gw.geneCode);
                 result[i++] = gw;
             }
         }

@@ -393,18 +393,24 @@ public class Mutator implements Serializable {
             throw new IllegalArgumentException("Not enough arguments");
         }
 
+        Biomorph[] mutatingBiomorphs = new Biomorph[biomorphs.length];
+
+        for (int i = 0; i < biomorphs.length; i++) {
+            mutatingBiomorphs[i] = biomorphs[i].clone();
+        }
+
         random = new Random();
         random.setSeed(settings.get("seed").value.hashCode()); // Reset seed to ensure consistent reuse
 
         Generation newGeneration;
 
-        if(biomorphs[0].generation != null)
-            newGeneration = new Generation(biomorphs[0].generation, this);
+        if(mutatingBiomorphs[0].generation != null)
+            newGeneration = new Generation(mutatingBiomorphs[0].generation, this);
         else
             newGeneration = new Generation(this);
 
         newGeneration.children = new Biomorph[childrenRequired()];
-        newGeneration.parents = biomorphs;
+        newGeneration.parents = mutatingBiomorphs;
           
       	for(int i=0; i<childrenRequired(); i++)
       	{
@@ -412,11 +418,11 @@ public class Mutator implements Serializable {
       		
       		while(bm == null || bm.getRootGene().getSubGenes().length == 0)
       		{
-      			bm = newGeneration.children[i] = mutateBiomorph_internal(newGeneration, biomorphs);
+      			bm = newGeneration.children[i] = mutateBiomorph_internal(newGeneration, mutatingBiomorphs);
       		}
       	}
 
-        biomorphs[0].generation.addNextGeneration(newGeneration);
+        mutatingBiomorphs[0].generation.addNextGeneration(newGeneration);
 
         return newGeneration;
     }
