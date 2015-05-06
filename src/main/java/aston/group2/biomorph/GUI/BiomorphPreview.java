@@ -23,11 +23,17 @@ public class BiomorphPreview extends JFrame {
 	JSlider zoomSlider = new JSlider();
 	JLabel zoomSliderLabel = new JLabel();
 	BiomorphSurface bs = new BiomorphSurface();
-
+	
+	/*
+	 * Maximum length a biomorph can be scaled by
+	 */
 	private final int zoomSliderSteps = 2000;
 	
 	public BiomorphPreview(Biomorph biomorph) {
 
+	/*
+	 * Controls the look and display of the zoom window
+	 */
 		setMinimumSize(new Dimension(800, 600));
 		setLayout(new BorderLayout());
 
@@ -70,6 +76,9 @@ public class BiomorphPreview extends JFrame {
 
 	class ZoomMouseListener implements ChangeListener {
 
+		/*
+		 * Takes in the result obtained from the slider and updates the size of the biomorph accordingly
+		 */
 		public void stateChanged(ChangeEvent e) {
 			bs.setScaleFactor(((float)zoomSlider.getValue())*2/zoomSliderSteps);
 		}
