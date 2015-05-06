@@ -20,10 +20,9 @@ import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.util.List;
 /**
+ *  @author Joshan, Alex, Joe and Theo
  * Responsible for creating the evolutionary art grid and whether or not the first generation
- * will be take into account intelligent first generation
- * @author Joshan, Alex, Joe and Theo
- *
+ * will be take into account intelligent first generation.
  */
 public class NewMainWindow extends JFrame {
 	private JCheckBox intelligentGen;
