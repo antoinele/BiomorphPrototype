@@ -8,7 +8,7 @@ import java.awt.image.BufferedImage;
 /**
  * 
  * @author Antoine
- *
+ * Creates placeholders for the Biomorphs to be stored in.
  */
 public class BiomorphSurface extends JComponent {
 
@@ -35,6 +35,9 @@ public class BiomorphSurface extends JComponent {
 		return biomorphRenderer.getBiomorph();
 	}
 
+	/**
+	 * @param scaleFactor Controls how much a biomorph is scaled by.
+	 */
 	public void setScaleFactor(float scaleFactor){
 		this.scaleFactor = scaleFactor;
 		repaint();
@@ -50,6 +53,9 @@ public class BiomorphSurface extends JComponent {
         biomorphRenderer.doDrawing((Graphics2D) g);
     }
 
+	/**
+	 * Creates the frame for storing the biomorph in.
+	 */
 	public BufferedImage getFrame() {
 		int width = getWidth();
 		int height = getHeight();
