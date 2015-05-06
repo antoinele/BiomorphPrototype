@@ -15,6 +15,7 @@ import java.util.Map;
 
 /**
  * @author Antoine, Alex and Joshan
+ * This class controls how biomorphs can be manipulated and customized by the probabilites of mutation.
  */
 public class MutationSettings extends JDialog {
     private JPanel sliderPanel;

@@ -20,6 +20,8 @@ import java.util.Calendar;
 
 /**
  * @author Antoine, Theo, Joshan, Joe and Alex
+ * This is the core class of the program which is responsible for creating the main panels
+ * for displaying biomorphs as well as the hall of fame.
  */
 public class MutationWindow extends JFrame {
 	JPanel biomorphGrid;
