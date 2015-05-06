@@ -44,7 +44,7 @@ public class NewMainWindow extends JFrame {
 		
 		// Slider for number of biomorphs (increments in 2s)
 		int initialValue = 6;
-		JSlider numOfBiomorphs = new JSlider(JSlider.HORIZONTAL, 2, 10, initialValue);
+		final JSlider numOfBiomorphs = new JSlider(JSlider.HORIZONTAL, 2, 10, initialValue);
 		numOfBiomorphs.setValue(6);
 		numOfBiomorphs.setMajorTickSpacing(2);
 		numOfBiomorphs.setPaintTicks(true);
@@ -52,7 +52,7 @@ public class NewMainWindow extends JFrame {
 		numOfBiomorphs.setSnapToTicks(true);
 		numOfBiomorphs.setBounds(300, 300, 300, 50);
 		// label for biomorph slider
-		JLabel numOfBiomorph = new JLabel("Number of Biomorphs " + initialValue);
+		final JLabel numOfBiomorph = new JLabel("Number of Biomorphs " + initialValue);
 		numOfBiomorph.setFont(welcome.getFont().deriveFont(20.0f));
 		numOfBiomorph.setBounds(320, 250, 300, 50);
 		
