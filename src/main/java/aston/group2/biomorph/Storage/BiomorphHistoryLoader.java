@@ -3,7 +3,7 @@ package aston.group2.biomorph.Storage;
 import java.io.*;
 
 /**
- * Created by antoine on 27/04/15.
+ * @author Antoine
  */
 public class BiomorphHistoryLoader {
     public static BiomorphHistory biomorphHistory;

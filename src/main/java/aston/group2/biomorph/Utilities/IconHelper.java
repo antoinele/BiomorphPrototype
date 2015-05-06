@@ -7,7 +7,7 @@ import java.io.File;
 import java.io.IOException;
 
 /**
- * Created by antoine on 04/05/15.
+ * @author Antoine
  */
 public class IconHelper {
 	//Used for converting JButtons into image icons

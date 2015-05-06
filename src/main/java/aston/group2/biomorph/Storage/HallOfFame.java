@@ -10,7 +10,7 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * Created by antoine on 12/03/15.
+ * @author Antoine
  */
 public class HallOfFame implements Serializable {
     private final Biomorph[] hallOfFame = new Biomorph[10];

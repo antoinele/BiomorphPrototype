@@ -3,7 +3,7 @@ package aston.group2.biomorph.Utilities;
 import java.awt.*;
 
 /**
- * Created by antoine on 22/04/15.
+ * @author Antoine
  */
 public class ColourHelper {
 

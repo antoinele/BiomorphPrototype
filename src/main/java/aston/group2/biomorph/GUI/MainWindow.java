@@ -16,7 +16,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 
 /**
- * Created by antoine on 29/10/14.
+ * @author Antoine
  */
 public class MainWindow extends JFrame {
 
