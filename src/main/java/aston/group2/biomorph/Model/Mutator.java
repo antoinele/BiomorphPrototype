@@ -422,7 +422,8 @@ public class Mutator implements Serializable {
       		}
       	}
 
-        mutatingBiomorphs[0].generation.addNextGeneration(newGeneration);
+        if(mutatingBiomorphs[0].generation != null)
+            mutatingBiomorphs[0].generation.addNextGeneration(newGeneration);
 
         return newGeneration;
     }
