@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * Created by antoine on 31/10/14.
  */
-public class Coordinate implements Serializable {
+public class Coordinate implements Serializable, Cloneable {
     public Coordinate(int x, int y)
     {
         this.x = x;
@@ -14,4 +14,9 @@ public class Coordinate implements Serializable {
 
     public int x;
     public int y;
+
+    @Override
+    public Coordinate clone() throws CloneNotSupportedException {
+        return (Coordinate) super.clone();
+    }
 }

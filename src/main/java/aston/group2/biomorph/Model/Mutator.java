@@ -396,7 +396,11 @@ public class Mutator implements Serializable {
         Biomorph[] mutatingBiomorphs = new Biomorph[biomorphs.length];
 
         for (int i = 0; i < biomorphs.length; i++) {
-            mutatingBiomorphs[i] = biomorphs[i].clone();
+            try {
+                mutatingBiomorphs[i] = biomorphs[i].clone();
+            } catch (CloneNotSupportedException e) {
+                e.printStackTrace();
+            }
         }
 
         random = new Random();

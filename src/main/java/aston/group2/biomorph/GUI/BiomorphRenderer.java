@@ -210,7 +210,11 @@ public class BiomorphRenderer {
         }
     }
 
-    private void drawGene(RenderState renderState, Graphics2D g, Gene gene) {
+    private void drawGene(RenderState renderState, Graphics2D g, Gene gene)
+    {
+        drawGene(renderState, g, gene, true);
+    }
+    private void drawGene(RenderState renderState, Graphics2D g, Gene gene, boolean draw) {
         Gene[] subGenes = gene.getSubGenes();
 
         for (Gene sg : subGenes) {
@@ -225,14 +229,14 @@ public class BiomorphRenderer {
 
 
 
-        if (gene instanceof Renderable) {
+        if (draw && gene instanceof Renderable) {
             aston.group2.biomorph.GUI.Renderers.Renderer r = ((Renderable) gene).getRenderer();
             r.draw(renderState, g);
         }
 
         for (Gene sg : subGenes) {
             renderState.pushState();
-            drawGene(renderState, g, sg);
+            drawGene(renderState, g, sg, draw && gene instanceof Renderable);
             renderState.popState();
         }
     }

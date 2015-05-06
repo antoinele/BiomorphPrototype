@@ -322,11 +322,11 @@ public class MutationWindow extends JFrame {
     {
         if(generation.prevGeneration != null) {
             generation = generation.prevGeneration;
+
+            newMutator = null;
+
+            refreshGrid();
         }
-
-        newMutator = null;
-
-        refreshGrid();
     }
 
 	private void refreshGrid() {

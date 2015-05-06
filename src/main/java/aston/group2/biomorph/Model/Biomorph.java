@@ -122,15 +122,8 @@ public class Biomorph implements Serializable, Cloneable {
     }
 
     @Override
-    public Biomorph clone() {
-        try {
-            return (Biomorph) super.clone();
-        }
-        catch (CloneNotSupportedException e)
-        {
-            e.printStackTrace();
-            System.exit(1);
-            return null;
-        }
+    public Biomorph clone() throws CloneNotSupportedException {
+        Biomorph clone = (Biomorph) super.clone();
+        return clone;
     }
 }
