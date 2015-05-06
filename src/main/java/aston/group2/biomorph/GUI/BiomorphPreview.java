@@ -18,7 +18,7 @@ import javax.swing.event.ChangeListener;
 import aston.group2.biomorph.Model.Biomorph;
 
 /**
- * @author Theo
+ * @author Antoine and Theo
  *
  */
 public class BiomorphPreview extends JFrame {
