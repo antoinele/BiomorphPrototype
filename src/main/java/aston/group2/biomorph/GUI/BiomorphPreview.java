@@ -17,6 +17,10 @@ import javax.swing.event.ChangeListener;
 
 import aston.group2.biomorph.Model.Biomorph;
 
+/**
+ * @author Theo
+ *
+ */
 public class BiomorphPreview extends JFrame {
 
 	JPanel bottomPanel = new JPanel();

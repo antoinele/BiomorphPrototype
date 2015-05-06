@@ -12,7 +12,7 @@ import java.util.Map;
 import java.util.Random;
 
 /**
- * Created by antoine on 16/03/15.
+ * @author Antoine and Theo
  */
 public class Mutator implements Serializable {
     public Random random;

@@ -6,7 +6,7 @@ import java.io.Serializable;
 import java.util.Calendar;
 
 /**
- * Created by Antoine on 19/03/2015.
+ * @author Antoine
  */
 public class Species implements Serializable {
     public Generation firstGeneration;
