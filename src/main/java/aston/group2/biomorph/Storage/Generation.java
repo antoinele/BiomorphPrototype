@@ -9,6 +9,7 @@ import java.io.Serializable;
 
 /**
  * @author Antoine
+ * Organizes the role each biomorph will play during each generation phase.
  */
 public class Generation implements Serializable {
     public Species species;
