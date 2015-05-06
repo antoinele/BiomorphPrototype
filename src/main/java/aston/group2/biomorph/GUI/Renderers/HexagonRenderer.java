@@ -7,7 +7,7 @@ import aston.group2.biomorph.Model.Genes.Hexagon;
 import java.awt.*;
 
 /**
- * Created by Antoine on 27/11/2014.
+ * @author Antoine
  */
 public class HexagonRenderer extends Renderer<Hexagon> {
 

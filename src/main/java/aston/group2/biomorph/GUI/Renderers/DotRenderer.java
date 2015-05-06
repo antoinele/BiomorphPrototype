@@ -8,7 +8,7 @@ import java.awt.*;
 import java.awt.geom.AffineTransform;
 
 /**
- * Created by antoine on 31/10/14.
+ * @author Antoine
  */
 public class DotRenderer extends Renderer<Dot> {
     public DotRenderer(Dot dot)
