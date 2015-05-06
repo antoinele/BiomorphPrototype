@@ -360,7 +360,7 @@ public class Mutator implements Serializable {
 
             newRootGene.addSubGene(newGene);
 
-            if(rng.nextFloat() <= probability("gene_add"))
+            if(newGene instanceof Renderable && rng.nextFloat() <= probability("gene_add"))
             {
                 generateSubGenes(gene, rng);
             }
@@ -386,9 +386,6 @@ public class Mutator implements Serializable {
     }
     
     public Generation mutateBiomorph(final Biomorph[] biomorphs) throws IncompatibleSpeciesException {
-        return mutateBiomorph(biomorphs, new Gene[0]);
-    }
-    public Generation mutateBiomorph(final Biomorph[] biomorphs, Gene[] protectedParts) throws IncompatibleSpeciesException {
         if (biomorphs.length == 0) {
             throw new IllegalArgumentException("Not enough arguments");
         }

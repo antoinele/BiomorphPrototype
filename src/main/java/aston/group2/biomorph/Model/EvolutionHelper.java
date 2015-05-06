@@ -131,7 +131,7 @@ public class EvolutionHelper {
 
         if(bma == null || bma.length == 0)
         {
-            bma = new Biomorph[] {new Biomorph("D21F00CSLBEEF00SMCAFEsL123456LFF12F0SLF24300s")};
+            bma = new Biomorph[] {new Biomorph("D21F00CSLBEEF00L123456LFF12F0SLF24300s")};
         }
 
         return generateSpecies(mutator, bma);

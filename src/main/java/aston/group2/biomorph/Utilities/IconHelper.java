@@ -1,10 +1,13 @@
 package aston.group2.biomorph.Utilities;
 
+import aston.group2.biomorph.Storage.BiomorphHistoryLoader;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 
 /**
  * Created by antoine on 04/05/15.
@@ -12,8 +15,18 @@ import java.io.IOException;
 public class IconHelper {
     public static JButton makeButton(String icon, String tooltip) {
         try {
-            BufferedImage iconImg = ImageIO.read(new File("resources/icons/"
-                    + icon + ".png"));
+            BufferedImage iconImg;
+            {
+                InputStream is = BiomorphHistoryLoader.biomorphHistory.getClass().getResourceAsStream("resources/icons/" + icon + ".png");
+                if (is != null) {
+                    iconImg = ImageIO.read(is);
+                }
+                else
+                {
+                    iconImg = ImageIO.read(new File("resources/icons/" + icon + ".png"));
+                }
+            }
+
             JButton button = new JButton(new ImageIcon(iconImg));
             button.setToolTipText(tooltip);
             return button;

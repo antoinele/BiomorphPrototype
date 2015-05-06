@@ -7,6 +7,7 @@ import java.awt.*;
  */
 public class ColourHelper {
 
+/*
     private static final int[] colour_table = {0x000000, 0x0000a8, 0x00a800, 0x00a8a8, 0xa80000, 0xa800a8, 0xa85400,
         0xa8a8a8, 0x545454, 0x5454fc, 0x54fc54, 0x54fcfc, 0xfc5454, 0xfc54fc, 0xfcfc54, 0xfcfcfc, 0x000000, 0x141414,
         0x202020, 0x2c2c2c, 0x383838, 0x444444, 0x505050, 0x606060, 0x707070, 0x808080, 0x909090, 0xa0a0a0, 0xb4b4b4,
@@ -36,11 +37,12 @@ public class ColourHelper {
     {
         return new Color(colour_table[index % colour_table.length]);
     }
+*/
 
     public static Color indexedHSBColour(int index)
     {
         assert(index >= 0 && index < (1<<16));
-        float   h = (index >> 8) / 64f,
+        float   h = (index >> 8) / 255f,
                 s = 0.75f + (0.25f * ((index >> 6 & 3) / 4f)),
                 b = 0.75f + (0.25f * ((index >> 4 & 3) / 4f));
 
