@@ -13,6 +13,7 @@ import java.util.Random;
 
 /**
  * @author Antoine and Theo
+ * This is the core class for handling how multiple biomorphs are merged together.
  */
 public class Mutator implements Serializable {
     public Random random;

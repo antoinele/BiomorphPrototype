@@ -8,6 +8,7 @@ import java.util.Set;
 
 /**
  * @author Antoine
+ * A class that stores the various types of genes used for forming biomorphs.
  */
 public class GeneFactory {
 

@@ -9,7 +9,7 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * Created by antoine on 29/10/14.
+ * @author Antoine
  */
 public abstract class Gene implements Serializable, Cloneable {
 //    public static final byte MAX_VALUES = 3;

@@ -4,7 +4,8 @@ import aston.group2.biomorph.GUI.Renderers.LineRenderer;
 import aston.group2.biomorph.GUI.Renderable;
 
 /**
- * Created by antoine on 30/10/14.
+ * @author Antoine
+ * Creates a gene that consists of a line.
  */
 public class Line extends Gene implements Renderable<Line> {
     public short length;

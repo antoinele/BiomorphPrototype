@@ -5,7 +5,8 @@ import aston.group2.biomorph.GUI.Renderers.Renderer;
 import aston.group2.biomorph.GUI.Renderable;
 
 /**
- * Created by Antoine on 27/11/2014.
+ * @author Antoine
+ * creates a gene in the form of a hexagon
  */
 public class Hexagon extends Gene implements Renderable<Hexagon> {
     public short sideLength;

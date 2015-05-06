@@ -7,7 +7,7 @@ import aston.group2.biomorph.GUI.Renderers.Renderer;
 import java.awt.*;
 
 /**
- * Created by antoine on 17/04/15.
+ * @author Antoine
  */
 
 public class RootGene extends Gene implements Renderable {
