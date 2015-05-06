@@ -8,6 +8,8 @@ import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -125,12 +127,12 @@ public class MutationSettings extends JDialog {
                         setting.value = ((JSpinner)kv.getValue()).getValue();
                     }
                     else {
-                        setting.value = ((JSlider)kv.getValue()).getValue();
+                        setting.value = ((JSlider)kv.getValue().getComponent(1)).getValue();
                     }
                     break;
 
                 case DOUBLE:
-                    setting.value = ((JSlider)kv.getValue()).getValue() / Math.pow(10, setting.precision);
+                    setting.value = ((JSlider)kv.getValue().getComponent(1)).getValue() / Math.pow(10, setting.precision);
                     break;
 
                 case STRING:
@@ -189,6 +191,14 @@ public class MutationSettings extends JDialog {
             public void actionPerformed(ActionEvent e) {
                 MutationSettings.this.finish();
                 MutationSettings.this.dispose();
+            }
+        });
+
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                super.windowClosing(e);
+                finish();
             }
         });
 
