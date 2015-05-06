@@ -124,6 +124,9 @@ public class Biomorph implements Serializable, Cloneable {
     @Override
     public Biomorph clone() throws CloneNotSupportedException {
         Biomorph clone = (Biomorph) super.clone();
+        clone.origin = origin.clone();
+        clone.generation = generation; // they're related I guess
+
         return clone;
     }
 }
