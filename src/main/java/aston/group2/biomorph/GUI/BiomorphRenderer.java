@@ -168,8 +168,10 @@ public class BiomorphRenderer {
         g.setRenderingHints(rh);
         g.translate(width / 2, height / 2);
 
+        Shape oldClip;
 
         if (CLIPMIRROR) {
+            oldClip = g.getClip();
             g.clip(new Rectangle(-width/2,-height/2,width/2,height));
 //            g.setClip(-width / 2, -height / 2, width, height);
         }
@@ -192,7 +194,8 @@ public class BiomorphRenderer {
         g.setTransform(t); // Restore transform
 
         if (CLIPMIRROR) {
-            g.clip(new Rectangle(-width / 2, -height / 2, width / 2, height));
+            g.setClip(oldClip);
+            g.clip(new Rectangle(0, -height / 2, width / 2, height));
 //            g.setClip(-width / 2, -height / 2, width, height);
         }
 
