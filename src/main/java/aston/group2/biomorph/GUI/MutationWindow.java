@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 /**
- * Created by antoine on 17/04/15.
+ * @author Antoine, Theo, Joshan, Joe and Alex
  */
 public class MutationWindow extends JFrame {
 	JPanel biomorphGrid;

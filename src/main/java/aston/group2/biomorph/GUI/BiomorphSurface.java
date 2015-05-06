@@ -5,7 +5,11 @@ import aston.group2.biomorph.Model.Biomorph;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-
+/**
+ * 
+ * @author Antoine
+ *
+ */
 public class BiomorphSurface extends JComponent {
 
 	private BiomorphRenderer biomorphRenderer;

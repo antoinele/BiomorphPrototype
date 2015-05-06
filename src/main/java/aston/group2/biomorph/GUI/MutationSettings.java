@@ -14,7 +14,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Created by antoine on 01/05/15.
+ * @author Antoine, Alex and Joshan
  */
 public class MutationSettings extends JDialog {
     private JPanel sliderPanel;

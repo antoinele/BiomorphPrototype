@@ -16,6 +16,7 @@ import aston.group2.biomorph.GUI.BiomorphSurface;
 import aston.group2.biomorph.Model.Biomorph;
 /**
  * This is the central class for controlling how biomorphs are saved and stored within a file system.
+ * @author Joe, Alex and Joshan
  */
 public class Exporter {
 	public static void exportBiomorph(Biomorph biomorph){

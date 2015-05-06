@@ -11,7 +11,11 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.*;
 
-
+/**
+ * 
+ * @author Antoine, Theo and Joe
+ *
+ */
 public class BiomorphSurfaceWithTools extends JPanel {
 	public final BiomorphSurface biomorphSurface;
 

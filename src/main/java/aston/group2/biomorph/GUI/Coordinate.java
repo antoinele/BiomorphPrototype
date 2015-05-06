@@ -3,7 +3,7 @@ package aston.group2.biomorph.GUI;
 import java.io.Serializable;
 
 /**
- * Created by antoine on 31/10/14.
+ * @author Antoine
  */
 public class Coordinate implements Serializable, Cloneable {
     public Coordinate(int x, int y)

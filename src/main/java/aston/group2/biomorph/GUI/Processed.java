@@ -3,7 +3,7 @@ package aston.group2.biomorph.GUI;
 import java.awt.*;
 
 /**
- * Created by antoine on 31/10/14.
+ * @author Antoine
  */
 public interface Processed {
     /**

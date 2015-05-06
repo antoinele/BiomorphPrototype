@@ -13,7 +13,7 @@ import java.lang.reflect.Field;
 import java.util.Stack;
 
 /**
- * Created by antoine on 22/04/15.
+ * @author Antoine
  */
 public class BiomorphRenderer {
 
