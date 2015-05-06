@@ -9,5 +9,5 @@ public interface Processed {
     /**
      * This runs before rendering
      */
-    void process(BiomorphRenderer.RenderState renderState, Graphics g);
+    void process(Graphics g);
 }

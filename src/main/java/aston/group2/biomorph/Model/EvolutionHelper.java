@@ -22,7 +22,7 @@ public class EvolutionHelper {
     public static Generation mutate(Biomorph[] biomorphs, Mutator mutator)
     {
         try {
-            Generation generation = mutator.mutateBiomorph(biomorphs, null);
+            Generation generation = mutator.mutateBiomorph(biomorphs);
 
             BiomorphHistoryLoader.save();
 

@@ -1,10 +1,8 @@
 package aston.group2.biomorph.GUI.Renderers;
 
-import aston.group2.biomorph.GUI.BiomorphRenderer;
-import aston.group2.biomorph.Model.Genes.Gene;
 import aston.group2.biomorph.GUI.Coordinate;
 import aston.group2.biomorph.GUI.Renderable;
-import aston.group2.biomorph.GUI.BiomorphSurface;
+import aston.group2.biomorph.Model.Genes.Gene;
 
 import java.awt.*;
 
@@ -19,7 +17,7 @@ public abstract class Renderer<T extends Gene> {
         this.gene = gene;
     }
 
-    public abstract void draw(BiomorphRenderer.RenderState renderState, Graphics2D g);
+    public abstract void draw(Graphics2D g);
     public abstract Coordinate getAttachPoint();
 
     public Coordinate getParentAttachPoint()

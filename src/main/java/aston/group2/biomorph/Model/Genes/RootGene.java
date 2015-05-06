@@ -1,6 +1,5 @@
 package aston.group2.biomorph.Model.Genes;
 
-import aston.group2.biomorph.GUI.BiomorphRenderer;
 import aston.group2.biomorph.GUI.Coordinate;
 import aston.group2.biomorph.GUI.Renderable;
 import aston.group2.biomorph.GUI.Renderers.Renderer;
@@ -35,7 +34,7 @@ public class RootGene extends Gene implements Renderable {
         }
 
         @Override
-        public void draw(BiomorphRenderer.RenderState renderState, Graphics2D g) {
+        public void draw(Graphics2D g) {
             throw new RuntimeException("This should never be called");
         }
 
