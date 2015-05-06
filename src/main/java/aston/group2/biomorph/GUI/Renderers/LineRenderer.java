@@ -1,6 +1,5 @@
 package aston.group2.biomorph.GUI.Renderers;
 
-import aston.group2.biomorph.GUI.BiomorphRenderer;
 import aston.group2.biomorph.GUI.Coordinate;
 import aston.group2.biomorph.Model.Genes.Line;
 
@@ -27,7 +26,7 @@ public class LineRenderer extends Renderer<Line> {
     }
 
     @Override
-    public void draw(BiomorphRenderer.RenderState renderState, Graphics2D g) {
+    public void draw(Graphics2D g) {
         Coordinate pc = getParentAttachPoint();
         Coordinate sc = calculateSecondPoint();
 
@@ -38,7 +37,6 @@ public class LineRenderer extends Renderer<Line> {
 
         g.setStroke(new BasicStroke(stroke));
 
-        g.setColor(renderState.lineColour);
         g.drawLine(pc.x, pc.y, sc.x, sc.y);
 
         g.setStroke(s);

@@ -334,10 +334,7 @@ public class MutationWindow extends JFrame {
 	private void refreshGrid() {
 		biomorphGrid.removeAll();
 
-        System.out.println("Generation: " + generation.hashCode());
-
 		for (int i = 0; i < generation.children.length; i++) {
-            System.out.println("    Biomorph: " + generation.children[i].toString());
 			BiomorphSurfaceWithTools bs = new BiomorphSurfaceWithTools(true);
 			bs.setBiomorph(generation.children[i]);
 			biomorphGrid.add(bs);

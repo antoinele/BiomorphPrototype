@@ -15,15 +15,11 @@ import java.util.Stack;
 public class Biomorph implements Serializable, Cloneable {
     public Generation generation;
 
-    private Coordinate origin;
-
     private RootGene rootGene;
 
     public Biomorph(Generation generation)
     {
-        this.origin = new Coordinate(0,0);
-
-        rootGene = new RootGene(this.origin);
+        rootGene = new RootGene(new Coordinate(0,0));
 
         this.generation = generation;
     }
@@ -34,11 +30,6 @@ public class Biomorph implements Serializable, Cloneable {
 
         deserialiseString(genome);
     }
-
-//    public void setOrigin(Coordinate origin)
-//    {
-//        this.origin = origin;
-//    }
 
     public Gene getRootGene()
     {
@@ -51,7 +42,7 @@ public class Biomorph implements Serializable, Cloneable {
 
         Stack<Gene> geneStack = new Stack<Gene>();
 
-        rootGene = new RootGene(this.origin);
+        rootGene = new RootGene(new Coordinate(0,0));
 
         geneStack.push(rootGene);
 
@@ -116,16 +107,19 @@ public class Biomorph implements Serializable, Cloneable {
         return bm;
     }
 
+    @Override
     public String toString()
     {
         return rootGene.toString();
     }
 
+    public String toString(boolean newlines) { return rootGene.toString(newlines, 0); }
+
     @Override
     public Biomorph clone() throws CloneNotSupportedException {
         Biomorph clone = (Biomorph) super.clone();
-        clone.origin = origin.clone();
         clone.generation = generation; // they're related I guess
+        clone.rootGene = (RootGene)rootGene.clone();
 
         return clone;
     }

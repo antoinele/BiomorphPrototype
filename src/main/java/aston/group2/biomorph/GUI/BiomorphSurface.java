@@ -44,8 +44,7 @@ public class BiomorphSurface extends JComponent {
 	public void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-		((Graphics2D)g).scale(scaleFactor, scaleFactor);
-
+		biomorphRenderer.setScale(scaleFactor);
 		biomorphRenderer.setSize(getWidth(), getHeight());
 
         biomorphRenderer.doDrawing((Graphics2D) g);

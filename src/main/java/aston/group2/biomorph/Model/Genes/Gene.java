@@ -11,14 +11,14 @@ import java.util.List;
 /**
  * Created by antoine on 29/10/14.
  */
-public abstract class Gene implements Serializable {
+public abstract class Gene implements Serializable, Cloneable {
 //    public static final byte MAX_VALUES = 3;
     public final char geneCode;
     private Gene parent = null;
     private byte[] values;
     private final float generateWeight;
 
-    public final List<Gene> subGenes;
+    public List<Gene> subGenes;
 
     public Gene(char geneCode)
     {
@@ -142,11 +142,23 @@ public abstract class Gene implements Serializable {
         return (maxValues()*2) + 1;
     }
 
+    private static String fillSpaces(int n)
+    {
+        char[] spaces = new char[n*4]; // 4 space indent
+        Arrays.fill(spaces, ' ');
+        return new String(spaces);
+    }
+
     @Override
     public String toString()
     {
+        return toString(false, 0);
+    }
+    public String toString(boolean newlines, int indent)
+    {
         StringBuilder sb = new StringBuilder();
 
+        if(newlines) sb.append(fillSpaces(indent));
         sb.append(getGeneCode());
 
         short[] values = getValues();
@@ -155,17 +167,66 @@ public abstract class Gene implements Serializable {
             sb.append(String.format("%02X", values[i]));
         }
 
+        if(newlines) sb.append('\n');
+
         if(getSubGenes().length > 0)
         {
-            sb.append('S');
+            if(newlines) {
+                sb.append(fillSpaces(indent));
+                sb.append("S\n");
+            }
+            else
+                sb.append('S');
+
+            indent++;
 
             for (Gene gene : getSubGenes()) {
-                sb.append(gene.toString());
+                sb.append(gene.toString(newlines, indent));
+                if(newlines) sb.append('\n');
             }
 
-            sb.append('s');
+            indent--;
+
+            if(newlines) {
+                sb.append(fillSpaces(indent));
+                sb.append("s\n");
+            }
+            else
+                sb.append('s');
         }
 
         return sb.toString();
+    }
+
+    @Override
+    public Gene clone() throws CloneNotSupportedException {
+        Gene g = (Gene)super.clone();
+        g.values = values.clone();
+
+        List<Gene> cSubGenes = new ArrayList<>(subGenes.size());
+        for (Gene sg : subGenes)
+        {
+            cSubGenes.add(sg.clone(g));
+        }
+
+        g.subGenes = cSubGenes;
+
+        return g;
+    }
+
+    private Gene clone(Gene parent) throws CloneNotSupportedException {
+        Gene g = (Gene)super.clone();
+        g.parent = parent;
+        g.values = values.clone();
+
+        List<Gene> cSubGenes = new ArrayList<>(subGenes.size());
+        for (Gene sg : subGenes)
+        {
+            cSubGenes.add(sg.clone(g));
+        }
+
+        g.subGenes = cSubGenes;
+
+        return g;
     }
 }

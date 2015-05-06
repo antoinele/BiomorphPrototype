@@ -1,0 +1,574 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement />
+  <nodes>
+    <node x="1334.9375" y="2551.0">aston.group2.biomorph.GUI.MutationWindow</node>
+    <node x="2872.616516146688" y="137.0">aston.group2.biomorph.GUI.Renderers.Renderer</node>
+    <node x="1105.8415161466876" y="0.0">aston.group2.biomorph.Model.Genes.Gene</node>
+    <node x="2935.741516146688" y="1515.5">aston.group2.biomorph.Storage.HallOfFame</node>
+    <node x="1308.5291324575803" y="1205.5">aston.group2.biomorph.Model.Mutator.Setting.Type</node>
+    <node x="884.0" y="3210.0">aston.group2.biomorph.GUI.SpeciesGallery</node>
+    <node x="2656.616516146688" y="180.0">aston.group2.biomorph.GUI.Renderable</node>
+    <node x="181.0558018609736" y="2271.0">aston.group2.biomorph.GUI.BiomorphSurfaceWithTools</node>
+    <node x="1440.1875" y="1876.0">aston.group2.biomorph.Model.Mutator</node>
+    <node x="1520.3123836891075" y="862.5">aston.group2.biomorph.Model.Mutator.GenePicker</node>
+    <node x="703.0" y="3210.0">aston.group2.biomorph.GUI.BiomorphRenderer.RenderState.StackVariable</node>
+    <node x="2629.741516146688" y="1578.5">aston.group2.biomorph.Storage.BiomorphHistory</node>
+    <node x="2766.929016146688" y="819.5">aston.group2.biomorph.Model.Genes.Hexagon</node>
+    <node x="244.0" y="3210.0">aston.group2.biomorph.Model.Mutator.MergeType</node>
+    <node x="7.0" y="788.5">aston.group2.biomorph.GUI.BiomorphRenderer.RenderState</node>
+    <node x="2499.009688013136" y="571.5">aston.group2.biomorph.GUI.Renderers.LineRenderer</node>
+    <node x="2857.447188013136" y="582.0">aston.group2.biomorph.GUI.Renderers.HexagonRenderer</node>
+    <node x="1082.3123836891075" y="841.5">aston.group2.biomorph.Model.GeneFactory</node>
+    <node x="2317.741516146688" y="1950.0">aston.group2.biomorph.Model.EvolutionHelper</node>
+    <node x="259.0558018609736" y="1971.0">aston.group2.biomorph.GUI.BiomorphPreview</node>
+    <node x="3097.116516146688" y="809.0">aston.group2.biomorph.Model.Genes.Dot</node>
+    <node x="921.0558018609735" y="1981.0">aston.group2.biomorph.GUI.MainWindow</node>
+    <node x="632.0558018609736" y="2013.5">aston.group2.biomorph.Utilities.Exporter</node>
+    <node x="0.0" y="561.0">aston.group2.biomorph.Model.Genes.LineColour</node>
+    <node x="227.0" y="561.0">aston.group2.biomorph.Model.Genes.FillColour</node>
+    <node x="0.0" y="3210.0">aston.group2.biomorph.Utilities.ColourHelper</node>
+    <node x="2032.2415161466877" y="788.0">aston.group2.biomorph.Model.Biomorph</node>
+    <node x="1953.2415161466877" y="1247.5">aston.group2.biomorph.Model.IncompatibleSpeciesException</node>
+    <node x="454.0" y="550.5">aston.group2.biomorph.Model.Genes.Movement</node>
+    <node x="139.875" y="180.0">aston.group2.biomorph.GUI.Processed</node>
+    <node x="1225.0291324575803" y="1495.0">aston.group2.biomorph.Model.Mutator.Setting</node>
+    <node x="2230.241516146688" y="1183.0">aston.group2.biomorph.Model.Species</node>
+    <node x="1975.3415161466878" y="1505.0">aston.group2.biomorph.Storage.Generation</node>
+    <node x="3163.447188013136" y="582.0">aston.group2.biomorph.GUI.Renderers.DotRenderer</node>
+    <node x="1433.7853995621235" y="2271.5">aston.group2.biomorph.GUI.MutationSettings</node>
+    <node x="1328.4401614668855" y="572.0">aston.group2.biomorph.Model.GeneFactory.GeneWeight</node>
+    <node x="389.0" y="3210.0">aston.group2.biomorph.Utilities.IconHelper</node>
+    <node x="409.16932813355197" y="1536.0">aston.group2.biomorph.GUI.BiomorphSurface</node>
+    <node x="2148.991516146688" y="604.0">aston.group2.biomorph.Model.InvalidGeneSequenceException</node>
+    <node x="1684.2498836891075" y="529.0">aston.group2.biomorph.Model.Genes.RootGene</node>
+    <node x="2807.741516146688" y="2013.5">aston.group2.biomorph.Storage.BiomorphHistoryLoader.Storage</node>
+    <node x="410.66932813355197" y="1099.0">aston.group2.biomorph.GUI.BiomorphRenderer</node>
+    <node x="2477.929016146688" y="809.0">aston.group2.biomorph.Model.Genes.Line</node>
+    <node x="2380.491516146688" y="147.5">aston.group2.biomorph.GUI.Coordinate</node>
+    <node x="1600.6875" y="3030.0">aston.group2.biomorph.GUI.NewMainWindow</node>
+    <node x="2719.741516146688" y="2303.5">aston.group2.biomorph.Storage.BiomorphHistoryLoader</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="aston.group2.biomorph.GUI.BiomorphSurfaceWithTools" target="aston.group2.biomorph.GUI.BiomorphSurface">
+      <point x="143.33333333333348" y="-110.0" />
+      <point x="539.3891351943071" y="2251.0" />
+      <point x="543.5558018609736" y="2251.0" />
+      <point x="543.5558018609736" y="1856.0" />
+      <point x="597.294328133552" y="1856.0" />
+      <point x="-26.875" y="99.5" />
+    </edge>
+    <edge source="aston.group2.biomorph.Utilities.Exporter" target="aston.group2.biomorph.GUI.BiomorphSurface">
+      <point x="0.0" y="-35.0" />
+      <point x="766.5558018609736" y="1856.0" />
+      <point x="704.794328133552" y="1856.0" />
+      <point x="80.625" y="99.5" />
+    </edge>
+    <edge source="aston.group2.biomorph.GUI.MutationSettings" target="aston.group2.biomorph.Model.Mutator">
+      <point x="0.0" y="-109.5" />
+      <point x="1595.2853995621235" y="2251.0" />
+      <point x="1603.3125" y="2251.0" />
+      <point x="-54.375" y="172.5" />
+    </edge>
+    <edge source="aston.group2.biomorph.GUI.NewMainWindow" target="aston.group2.biomorph.GUI.MutationWindow">
+      <point x="-71.5" y="-67.5" />
+      <point x="1672.1875" y="3005.0" />
+      <point x="1603.9375" y="3005.0" />
+      <point x="0.0" y="214.5" />
+    </edge>
+    <edge source="aston.group2.biomorph.Model.GeneFactory" target="aston.group2.biomorph.Model.GeneFactory.GeneWeight">
+      <point x="-104.5" y="-67.0" />
+      <point x="1186.8123836891075" y="768.0" />
+      <point x="1363.1068281335524" y="768.0" />
+      <point x="-69.33333333333326" y="56.5" />
+    </edge>
+    <edge source="aston.group2.biomorph.Model.Genes.LineColour" target="aston.group2.biomorph.GUI.Processed">
+      <point x="-51.75" y="-67.5" />
+      <point x="51.75" y="459.0" />
+      <point x="187.04166666666674" y="459.0" />
+      <point x="-94.33333333333331" y="24.5" />
+    </edge>
+    <edge source="aston.group2.biomorph.Model.Genes.RootGene" target="aston.group2.biomorph.GUI.Coordinate">
+      <point x="-37.5" y="-99.5" />
+      <point x="1796.7498836891075" y="479.0" />
+      <point x="2394.291516146688" y="479.0" />
+      <point x="-55.19999999999982" y="57.0" />
+    </edge>
+    <edge source="aston.group2.biomorph.GUI.BiomorphRenderer" target="aston.group2.biomorph.Model.Genes.Gene">
+      <point x="0.0" y="-173.0" />
+      <point x="624.669328133552" y="1079.0" />
+      <point x="692.5" y="1079.0" />
+      <point x="692.5" y="499.0" />
+      <point x="1271.3915161466875" y="499.0" />
+      <point x="-70.95000000000005" y="204.5" />
+    </edge>
+    <edge source="aston.group2.biomorph.Model.Mutator" target="aston.group2.biomorph.Model.Biomorph">
+      <point x="62.14285714285711" y="-172.5" />
+      <point x="1719.8303571428573" y="1836.0" />
+      <point x="1914.3415161466878" y="1836.0" />
+      <point x="1914.3415161466878" y="1069.0" />
+      <point x="2136.408182813354" y="1069.0" />
+      <point x="-83.33333333333348" y="120.5" />
+    </edge>
+    <edge source="aston.group2.biomorph.Model.Mutator.GenePicker" target="aston.group2.biomorph.Model.GeneFactory.GeneWeight">
+      <point x="0.0" y="-46.0" />
+      <point x="1652.3123836891075" y="768.0" />
+      <point x="1501.773494800219" y="768.0" />
+      <point x="69.33333333333326" y="56.5" />
+    </edge>
+    <edge source="aston.group2.biomorph.Model.Biomorph" target="aston.group2.biomorph.Model.Genes.RootGene">
+      <point x="-75.0" y="-120.5" />
+      <point x="2144.741516146688" y="758.0" />
+      <point x="1934.2498836891075" y="758.0" />
+      <point x="100.0" y="99.5" />
+    </edge>
+    <edge source="aston.group2.biomorph.GUI.BiomorphPreview" target="aston.group2.biomorph.GUI.BiomorphSurface">
+      <point x="68.5" y="-77.5" />
+      <point x="464.5558018609736" y="1846.0" />
+      <point x="543.544328133552" y="1846.0" />
+      <point x="-80.625" y="99.5" />
+    </edge>
+    <edge source="aston.group2.biomorph.GUI.Renderers.HexagonRenderer" target="aston.group2.biomorph.GUI.Renderers.Renderer">
+      <point x="0.0" y="-46.5" />
+      <point x="2994.447188013136" y="509.0" />
+      <point x="2978.116516146688" y="509.0" />
+      <point x="0.0" y="67.5" />
+    </edge>
+    <edge source="aston.group2.biomorph.GUI.MutationWindow" target="aston.group2.biomorph.Storage.Generation">
+      <point x="153.71428571428578" y="-214.5" />
+      <point x="1757.6517857142858" y="2521.0" />
+      <point x="2195.966516146688" y="2521.0" />
+      <point x="44.125" y="130.5" />
+    </edge>
+    <edge source="aston.group2.biomorph.Model.Genes.FillColour" target="aston.group2.biomorph.Model.Genes.Gene">
+      <point x="51.75" y="-67.5" />
+      <point x="382.25" y="479.0" />
+      <point x="1176.7915161466876" y="479.0" />
+      <point x="-165.54999999999995" y="204.5" />
+    </edge>
+    <edge source="aston.group2.biomorph.Storage.BiomorphHistory" target="aston.group2.biomorph.Model.Species">
+      <point x="0.0" y="-57.0" />
+      <point x="2772.741516146688" y="1475.0" />
+      <point x="2527.741516146688" y="1475.0" />
+      <point x="127.5" y="89.0" />
+    </edge>
+    <edge source="aston.group2.biomorph.Storage.BiomorphHistoryLoader" target="aston.group2.biomorph.Storage.BiomorphHistoryLoader.Storage">
+      <point x="0.0" y="-77.5" />
+      <point x="2899.741516146688" y="2251.0" />
+      <point x="2947.741516146688" y="2251.0" />
+      <point x="0.0" y="35.0" />
+    </edge>
+    <edge source="aston.group2.biomorph.Model.EvolutionHelper" target="aston.group2.biomorph.Model.Biomorph">
+      <point x="97.0" y="-98.5" />
+      <point x="2560.241516146688" y="1856.0" />
+      <point x="2580.741516146688" y="1856.0" />
+      <point x="2580.741516146688" y="1079.0" />
+      <point x="2261.408182813354" y="1079.0" />
+      <point x="41.666666666666515" y="120.5" />
+    </edge>
+    <edge source="aston.group2.biomorph.Model.Genes.Movement" target="aston.group2.biomorph.GUI.Processed">
+      <point x="-57.0" y="-78.0" />
+      <point x="511.0" y="459.0" />
+      <point x="375.70833333333326" y="459.0" />
+      <point x="94.33333333333331" y="24.5" />
+    </edge>
+    <edge source="aston.group2.biomorph.GUI.MutationWindow" target="aston.group2.biomorph.GUI.BiomorphSurfaceWithTools">
+      <point x="-230.57142857142844" y="-214.5" />
+      <point x="1373.3660714285716" y="2531.0" />
+      <point x="396.0558018609736" y="2531.0" />
+      <point x="0.0" y="110.0" />
+    </edge>
+    <edge source="aston.group2.biomorph.Model.Genes.Dot" target="aston.group2.biomorph.GUI.Renderers.DotRenderer">
+      <point x="32.75" y="-99.5" />
+      <point x="3260.866516146688" y="768.0" />
+      <point x="3215.447188013136" y="768.0" />
+      <point x="-52.0" y="46.5" />
+    </edge>
+    <edge source="aston.group2.biomorph.Model.Genes.Movement" target="aston.group2.biomorph.Model.Genes.Gene">
+      <point x="57.0" y="-78.0" />
+      <point x="625.0" y="489.0" />
+      <point x="1224.0915161466876" y="489.0" />
+      <point x="-118.25" y="204.5" />
+    </edge>
+    <edge source="aston.group2.biomorph.Storage.BiomorphHistoryLoader" target="aston.group2.biomorph.Storage.HallOfFame">
+      <point x="72.00000000000011" y="-77.5" />
+      <point x="2971.741516146688" y="2241.0" />
+      <point x="3122.741516146688" y="2241.0" />
+      <point x="0.0" y="120.0" />
+    </edge>
+    <edge source="aston.group2.biomorph.GUI.Renderers.DotRenderer" target="aston.group2.biomorph.GUI.Renderers.Renderer">
+      <point x="0.0" y="-46.5" />
+      <point x="3267.447188013136" y="429.0" />
+      <point x="3048.4498494800214" y="429.0" />
+      <point x="70.33333333333348" y="67.5" />
+    </edge>
+    <edge source="aston.group2.biomorph.Model.Genes.Line" target="aston.group2.biomorph.GUI.Renderable">
+      <point x="100.875" y="-99.5" />
+      <point x="2713.304016146688" y="768.0" />
+      <point x="2743.509688013136" y="768.0" />
+      <point x="2743.509688013136" y="499.0" />
+      <point x="2730.116516146688" y="499.0" />
+      <point x="-24.5" y="24.5" />
+    </edge>
+    <edge source="aston.group2.biomorph.Model.Genes.RootGene" target="aston.group2.biomorph.Model.Genes.Gene">
+      <point x="-112.5" y="-99.5" />
+      <point x="1721.7498836891075" y="499.0" />
+      <point x="1413.2915161466876" y="499.0" />
+      <point x="70.95000000000005" y="204.5" />
+    </edge>
+    <edge source="aston.group2.biomorph.GUI.BiomorphRenderer.RenderState" target="aston.group2.biomorph.Model.Genes.FillColour">
+      <point x="105.0" y="-120.0" />
+      <point x="322.0" y="768.0" />
+      <point x="330.5" y="768.0" />
+      <point x="0.0" y="67.5" />
+    </edge>
+    <edge source="aston.group2.biomorph.GUI.NewMainWindow" target="aston.group2.biomorph.Model.Mutator">
+      <point x="71.5" y="-67.5" />
+      <point x="1815.1875" y="3005.0" />
+      <point x="1883.4375" y="3005.0" />
+      <point x="1883.4375" y="2251.0" />
+      <point x="1820.8125" y="2251.0" />
+      <point x="163.125" y="172.5" />
+    </edge>
+    <edge source="aston.group2.biomorph.Model.Biomorph" target="aston.group2.biomorph.Storage.Generation">
+      <point x="0.0" y="120.5" />
+      <point x="2219.741516146688" y="1465.0" />
+      <point x="2151.841516146688" y="1465.0" />
+      <point x="0.0" y="-130.5" />
+    </edge>
+    <edge source="aston.group2.biomorph.Model.Mutator" target="aston.group2.biomorph.Model.Mutator.Setting">
+      <point x="-124.28571428571422" y="-172.5" />
+      <point x="1533.4017857142858" y="1806.0" />
+      <point x="1312.0291324575803" y="1806.0" />
+      <point x="-87.0" y="140.5" />
+    </edge>
+    <edge source="aston.group2.biomorph.Model.Genes.RootGene" target="aston.group2.biomorph.GUI.Renderable">
+      <point x="112.5" y="-99.5" />
+      <point x="1946.7498836891075" y="499.0" />
+      <point x="2681.116516146688" y="499.0" />
+      <point x="-73.5" y="24.5" />
+    </edge>
+    <edge source="aston.group2.biomorph.GUI.Renderers.LineRenderer" target="aston.group2.biomorph.GUI.Renderers.Renderer">
+      <point x="58.5" y="-57.0" />
+      <point x="2674.509688013136" y="509.0" />
+      <point x="2907.7831828133544" y="509.0" />
+      <point x="-70.33333333333348" y="67.5" />
+    </edge>
+    <edge source="aston.group2.biomorph.Storage.Generation" target="aston.group2.biomorph.Model.Mutator">
+      <point x="-44.125" y="130.5" />
+      <point x="2107.716516146688" y="1856.0" />
+      <point x="1844.1160714285716" y="1856.0" />
+      <point x="186.42857142857156" y="-172.5" />
+    </edge>
+    <edge source="aston.group2.biomorph.Model.Genes.Hexagon" target="aston.group2.biomorph.Model.Genes.Gene">
+      <point x="-104.25" y="-89.0" />
+      <point x="2801.679016146688" y="768.0" />
+      <point x="2766.679016146688" y="768.0" />
+      <point x="2766.679016146688" y="459.0" />
+      <point x="1507.8915161466875" y="459.0" />
+      <point x="165.54999999999995" y="204.5" />
+    </edge>
+    <edge source="aston.group2.biomorph.Model.Biomorph" target="aston.group2.biomorph.Model.InvalidGeneSequenceException">
+      <point x="0.0" y="-120.5" />
+      <point x="2219.741516146688" y="748.0" />
+      <point x="2293.991516146688" y="748.0" />
+      <point x="0.0" y="24.5" />
+    </edge>
+    <edge source="aston.group2.biomorph.GUI.MutationWindow" target="aston.group2.biomorph.Model.Mutator">
+      <point x="76.85714285714289" y="-214.5" />
+      <point x="1680.7946428571431" y="2511.0" />
+      <point x="1815.5353995621235" y="2511.0" />
+      <point x="1815.5353995621235" y="2251.0" />
+      <point x="1712.0625" y="2251.0" />
+      <point x="54.375" y="172.5" />
+    </edge>
+    <edge source="aston.group2.biomorph.Model.Biomorph" target="aston.group2.biomorph.GUI.Coordinate">
+      <point x="150.0" y="-120.5" />
+      <point x="2369.741516146688" y="768.0" />
+      <point x="2460.491516146688" y="768.0" />
+      <point x="2460.491516146688" y="489.0" />
+      <point x="2477.0915161466874" y="489.0" />
+      <point x="27.59999999999991" y="57.0" />
+    </edge>
+    <edge source="aston.group2.biomorph.Storage.HallOfFame" target="aston.group2.biomorph.Model.Biomorph">
+      <point x="-93.5" y="-120.0" />
+      <point x="3029.241516146688" y="1475.0" />
+      <point x="3088.905521346469" y="1475.0" />
+      <point x="3088.905521346469" y="1059.0" />
+      <point x="2344.741516146688" y="1059.0" />
+      <point x="125.0" y="120.5" />
+    </edge>
+    <edge source="aston.group2.biomorph.Model.Genes.Dot" target="aston.group2.biomorph.Model.Genes.Gene">
+      <point x="-98.25" y="-99.5" />
+      <point x="3129.866516146688" y="768.0" />
+      <point x="3141.947188013136" y="768.0" />
+      <point x="3141.947188013136" y="449.0" />
+      <point x="1555.1915161466877" y="449.0" />
+      <point x="212.85000000000014" y="204.5" />
+    </edge>
+    <edge source="aston.group2.biomorph.Model.Genes.Line" target="aston.group2.biomorph.GUI.Renderers.LineRenderer">
+      <point x="-33.625" y="-99.5" />
+      <point x="2578.804016146688" y="768.0" />
+      <point x="2557.509688013136" y="768.0" />
+      <point x="-58.5" y="57.0" />
+    </edge>
+    <edge source="aston.group2.biomorph.Model.Mutator" target="aston.group2.biomorph.Storage.Generation">
+      <point x="124.28571428571422" y="-172.5" />
+      <point x="1781.9732142857142" y="1846.0" />
+      <point x="2019.4665161466878" y="1846.0" />
+      <point x="-132.375" y="130.5" />
+    </edge>
+    <edge source="aston.group2.biomorph.GUI.BiomorphSurface" target="aston.group2.biomorph.GUI.BiomorphRenderer">
+      <point x="107.5" y="-99.5" />
+      <point x="107.0" y="173.0" />
+    </edge>
+    <edge source="aston.group2.biomorph.GUI.Renderers.LineRenderer" target="aston.group2.biomorph.GUI.Coordinate">
+      <point x="-58.5" y="-57.0" />
+      <point x="2557.509688013136" y="489.0" />
+      <point x="2504.6915161466877" y="489.0" />
+      <point x="55.19999999999982" y="57.0" />
+    </edge>
+    <edge source="aston.group2.biomorph.Model.Mutator.Setting" target="aston.group2.biomorph.Model.Mutator.Setting.Type">
+      <point x="0.0" y="-140.5" />
+      <point x="0.0" y="66.5" />
+    </edge>
+    <edge source="aston.group2.biomorph.Model.Genes.Hexagon" target="aston.group2.biomorph.GUI.Renderable">
+      <point x="-34.75" y="-89.0" />
+      <point x="2871.179016146688" y="768.0" />
+      <point x="2819.759688013136" y="768.0" />
+      <point x="2819.759688013136" y="499.0" />
+      <point x="2779.116516146688" y="499.0" />
+      <point x="24.5" y="24.5" />
+    </edge>
+    <edge source="aston.group2.biomorph.GUI.MutationWindow" target="aston.group2.biomorph.Model.Biomorph">
+      <point x="230.57142857142867" y="-214.5" />
+      <point x="1834.508928571429" y="2531.0" />
+      <point x="2619.241516146688" y="2531.0" />
+      <point x="2619.241516146688" y="1069.0" />
+      <point x="2303.074849480021" y="1069.0" />
+      <point x="83.33333333333303" y="120.5" />
+    </edge>
+    <edge source="aston.group2.biomorph.Storage.Generation" target="aston.group2.biomorph.Model.Biomorph">
+      <point x="-141.20000000000005" y="-130.5" />
+      <point x="2010.6415161466875" y="1475.0" />
+      <point x="1942.7415161466877" y="1475.0" />
+      <point x="1942.7415161466877" y="1079.0" />
+      <point x="2178.074849480021" y="1079.0" />
+      <point x="-41.666666666666515" y="120.5" />
+    </edge>
+    <edge source="aston.group2.biomorph.Model.Genes.FillColour" target="aston.group2.biomorph.GUI.Processed">
+      <point x="-51.75" y="-67.5" />
+      <point x="278.75" y="459.0" />
+      <point x="281.375" y="459.0" />
+      <point x="0.0" y="24.5" />
+    </edge>
+    <edge source="aston.group2.biomorph.Model.Mutator" target="aston.group2.biomorph.Model.Genes.RootGene">
+      <point x="0.0" y="-172.5" />
+      <point x="1657.6875" y="1826.0" />
+      <point x="1800.4998836891075" y="1826.0" />
+      <point x="1800.4998836891075" y="768.0" />
+      <point x="1734.2498836891075" y="768.0" />
+      <point x="-100.0" y="99.5" />
+    </edge>
+    <edge source="aston.group2.biomorph.Storage.BiomorphHistoryLoader.Storage" target="aston.group2.biomorph.Storage.BiomorphHistory">
+      <point x="-70.0" y="-35.0" />
+      <point x="2877.741516146688" y="1856.0" />
+      <point x="2868.0748494800214" y="1856.0" />
+      <point x="95.33333333333348" y="57.0" />
+    </edge>
+    <edge source="aston.group2.biomorph.Model.Genes.Dot" target="aston.group2.biomorph.GUI.Renderable">
+      <point x="-32.75" y="-99.5" />
+      <point x="3195.366516146688" y="768.0" />
+      <point x="3152.947188013136" y="768.0" />
+      <point x="3152.947188013136" y="439.0" />
+      <point x="2828.116516146688" y="439.0" />
+      <point x="73.5" y="24.5" />
+    </edge>
+    <edge source="aston.group2.biomorph.Model.EvolutionHelper" target="aston.group2.biomorph.Storage.Generation">
+      <point x="-97.0" y="-98.5" />
+      <point x="2366.241516146688" y="1856.0" />
+      <point x="2284.216516146688" y="1856.0" />
+      <point x="132.375" y="130.5" />
+    </edge>
+    <edge source="aston.group2.biomorph.Model.EvolutionHelper" target="aston.group2.biomorph.Model.Species">
+      <point x="0.0" y="-98.5" />
+      <point x="2463.241516146688" y="1856.0" />
+      <point x="2442.741516146688" y="1856.0" />
+      <point x="42.5" y="89.0" />
+    </edge>
+    <edge source="aston.group2.biomorph.Model.Genes.Line" target="aston.group2.biomorph.Model.Genes.Gene">
+      <point x="-100.875" y="-99.5" />
+      <point x="2511.554016146688" y="768.0" />
+      <point x="2484.929016146688" y="768.0" />
+      <point x="2484.929016146688" y="469.0" />
+      <point x="1460.5915161466876" y="469.0" />
+      <point x="118.25" y="204.5" />
+    </edge>
+    <edge source="aston.group2.biomorph.Model.Mutator" target="aston.group2.biomorph.Model.Genes.Gene">
+      <point x="-186.42857142857156" y="-172.5" />
+      <point x="1471.2589285714284" y="1816.0" />
+      <point x="1071.8123836891075" y="1816.0" />
+      <point x="1071.8123836891075" y="509.0" />
+      <point x="1318.6915161466877" y="509.0" />
+      <point x="-23.649999999999864" y="204.5" />
+    </edge>
+    <edge source="aston.group2.biomorph.GUI.MutationWindow" target="aston.group2.biomorph.GUI.MutationSettings">
+      <point x="0.0" y="-214.5" />
+      <point x="1603.9375" y="2531.0" />
+      <point x="1595.2853995621235" y="2531.0" />
+      <point x="0.0" y="109.5" />
+    </edge>
+    <edge source="aston.group2.biomorph.GUI.MutationWindow" target="aston.group2.biomorph.GUI.BiomorphSurface">
+      <point x="-153.71428571428555" y="-214.5" />
+      <point x="1450.2232142857147" y="2521.0" />
+      <point x="621.5558018609736" y="2521.0" />
+      <point x="621.5558018609736" y="1856.0" />
+      <point x="651.044328133552" y="1856.0" />
+      <point x="26.875" y="99.5" />
+    </edge>
+    <edge source="aston.group2.biomorph.Model.GeneFactory.GeneWeight" target="aston.group2.biomorph.Model.Genes.Gene">
+      <point x="0.0" y="-56.5" />
+      <point x="1432.4401614668855" y="509.0" />
+      <point x="1365.9915161466877" y="509.0" />
+      <point x="23.65000000000009" y="204.5" />
+    </edge>
+    <edge source="aston.group2.biomorph.GUI.BiomorphSurfaceWithTools" target="aston.group2.biomorph.GUI.BiomorphPreview">
+      <point x="0.0" y="-110.0" />
+      <point x="0.0" y="77.5" />
+    </edge>
+    <edge source="aston.group2.biomorph.GUI.BiomorphRenderer" target="aston.group2.biomorph.GUI.BiomorphRenderer.RenderState">
+      <point x="-142.66666666666663" y="-173.0" />
+      <point x="482.00266146688546" y="1079.0" />
+      <point x="217.0" y="1079.0" />
+      <point x="0.0" y="120.0" />
+    </edge>
+    <edge source="aston.group2.biomorph.Model.Genes.LineColour" target="aston.group2.biomorph.Model.Genes.Gene">
+      <point x="51.75" y="-67.5" />
+      <point x="155.25" y="469.0" />
+      <point x="1129.4915161466877" y="469.0" />
+      <point x="-212.8499999999999" y="204.5" />
+    </edge>
+    <edge source="aston.group2.biomorph.GUI.MainWindow" target="aston.group2.biomorph.GUI.BiomorphSurface">
+      <point x="0.0" y="-67.5" />
+      <point x="1045.5558018609736" y="1836.0" />
+      <point x="812.294328133552" y="1836.0" />
+      <point x="188.125" y="99.5" />
+    </edge>
+    <edge source="aston.group2.biomorph.GUI.BiomorphRenderer.RenderState" target="aston.group2.biomorph.Model.Genes.LineColour">
+      <point x="-105.0" y="-120.0" />
+      <point x="112.0" y="768.0" />
+      <point x="103.5" y="768.0" />
+      <point x="0.0" y="67.5" />
+    </edge>
+    <edge source="aston.group2.biomorph.Model.Genes.Hexagon" target="aston.group2.biomorph.GUI.Renderers.HexagonRenderer">
+      <point x="34.75" y="-89.0" />
+      <point x="2940.679016146688" y="768.0" />
+      <point x="2925.947188013136" y="768.0" />
+      <point x="-68.5" y="46.5" />
+    </edge>
+    <edge source="aston.group2.biomorph.Storage.BiomorphHistoryLoader.Storage" target="aston.group2.biomorph.Storage.HallOfFame">
+      <point x="70.0" y="-35.0" />
+      <point x="3017.741516146688" y="1856.0" />
+      <point x="2998.0748494800214" y="1856.0" />
+      <point x="-124.66666666666652" y="120.0" />
+    </edge>
+    <edge source="aston.group2.biomorph.Storage.Generation" target="aston.group2.biomorph.Model.Species">
+      <point x="70.59999999999991" y="-130.5" />
+      <point x="2222.4415161466877" y="1475.0" />
+      <point x="2272.741516146688" y="1475.0" />
+      <point x="-127.5" y="89.0" />
+    </edge>
+    <edge source="aston.group2.biomorph.Storage.Generation" target="aston.group2.biomorph.Model.IncompatibleSpeciesException">
+      <point x="-70.59999999999991" y="-130.5" />
+      <point x="0.0" y="24.5" />
+    </edge>
+    <edge source="aston.group2.biomorph.Model.Species" target="aston.group2.biomorph.Storage.Generation">
+      <point x="-42.5" y="89.0" />
+      <point x="2357.741516146688" y="1475.0" />
+      <point x="2293.0415161466876" y="1475.0" />
+      <point x="141.19999999999982" y="-130.5" />
+    </edge>
+    <edge source="aston.group2.biomorph.GUI.BiomorphRenderer" target="aston.group2.biomorph.Model.Biomorph">
+      <point x="142.66666666666663" y="-173.0" />
+      <point x="767.3359948002185" y="1049.0" />
+      <point x="2053.074849480021" y="1049.0" />
+      <point x="-166.66666666666652" y="120.5" />
+    </edge>
+    <edge source="aston.group2.biomorph.GUI.MainWindow" target="aston.group2.biomorph.Model.Biomorph">
+      <point x="83.0" y="-67.5" />
+      <point x="1128.5558018609736" y="1826.0" />
+      <point x="1042.6989737274216" y="1826.0" />
+      <point x="1042.6989737274216" y="1059.0" />
+      <point x="2094.741516146688" y="1059.0" />
+      <point x="-125.0" y="120.5" />
+    </edge>
+    <edge source="aston.group2.biomorph.Storage.BiomorphHistoryLoader" target="aston.group2.biomorph.Storage.BiomorphHistory">
+      <point x="-144.0" y="-77.5" />
+      <point x="2755.741516146688" y="2251.0" />
+      <point x="2713.741516146688" y="2251.0" />
+      <point x="2713.741516146688" y="1856.0" />
+      <point x="2677.4081828133544" y="1856.0" />
+      <point x="-95.33333333333348" y="57.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="0.5000000000000001" x="776.9999999999998" y="1111.0" />
+  <SelectedNodes>
+    <node>aston.group2.biomorph.GUI.MutationWindow</node>
+    <node>aston.group2.biomorph.GUI.Renderers.Renderer</node>
+    <node>aston.group2.biomorph.Model.Genes.Gene</node>
+    <node>aston.group2.biomorph.Storage.HallOfFame</node>
+    <node>aston.group2.biomorph.Model.Mutator.Setting.Type</node>
+    <node>aston.group2.biomorph.GUI.SpeciesGallery</node>
+    <node>aston.group2.biomorph.GUI.Renderable</node>
+    <node>aston.group2.biomorph.GUI.BiomorphSurfaceWithTools</node>
+    <node>aston.group2.biomorph.Model.Mutator</node>
+    <node>aston.group2.biomorph.Model.Mutator.GenePicker</node>
+    <node>aston.group2.biomorph.GUI.BiomorphRenderer.RenderState.StackVariable</node>
+    <node>aston.group2.biomorph.Storage.BiomorphHistory</node>
+    <node>aston.group2.biomorph.Model.Genes.Hexagon</node>
+    <node>aston.group2.biomorph.Model.Mutator.MergeType</node>
+    <node>aston.group2.biomorph.GUI.BiomorphRenderer.RenderState</node>
+    <node>aston.group2.biomorph.GUI.Renderers.LineRenderer</node>
+    <node>aston.group2.biomorph.GUI.Renderers.HexagonRenderer</node>
+    <node>aston.group2.biomorph.Model.GeneFactory</node>
+    <node>aston.group2.biomorph.Model.EvolutionHelper</node>
+    <node>aston.group2.biomorph.GUI.BiomorphPreview</node>
+    <node>aston.group2.biomorph.Model.Genes.Dot</node>
+    <node>aston.group2.biomorph.GUI.MainWindow</node>
+    <node>aston.group2.biomorph.Utilities.Exporter</node>
+    <node>aston.group2.biomorph.Model.Genes.LineColour</node>
+    <node>aston.group2.biomorph.Model.Genes.FillColour</node>
+    <node>aston.group2.biomorph.Utilities.ColourHelper</node>
+    <node>aston.group2.biomorph.Model.Biomorph</node>
+    <node>aston.group2.biomorph.Model.IncompatibleSpeciesException</node>
+    <node>aston.group2.biomorph.Model.Genes.Movement</node>
+    <node>aston.group2.biomorph.GUI.Processed</node>
+    <node>aston.group2.biomorph.Model.Mutator.Setting</node>
+    <node>aston.group2.biomorph.Model.Species</node>
+    <node>aston.group2.biomorph.Storage.Generation</node>
+    <node>aston.group2.biomorph.GUI.Renderers.DotRenderer</node>
+    <node>aston.group2.biomorph.GUI.MutationSettings</node>
+    <node>aston.group2.biomorph.Model.GeneFactory.GeneWeight</node>
+    <node>aston.group2.biomorph.Utilities.IconHelper</node>
+    <node>aston.group2.biomorph.GUI.BiomorphSurface</node>
+    <node>aston.group2.biomorph.Model.InvalidGeneSequenceException</node>
+    <node>aston.group2.biomorph.Model.Genes.RootGene</node>
+    <node>aston.group2.biomorph.Storage.BiomorphHistoryLoader.Storage</node>
+    <node>aston.group2.biomorph.GUI.BiomorphRenderer</node>
+    <node>aston.group2.biomorph.Model.Genes.Line</node>
+    <node>aston.group2.biomorph.GUI.Coordinate</node>
+    <node>aston.group2.biomorph.GUI.NewMainWindow</node>
+    <node>aston.group2.biomorph.Storage.BiomorphHistoryLoader</node>
+  </SelectedNodes>
+  <Categories>
+    <Category>Fields</Category>
+    <Category>Constructors</Category>
+    <Category>Methods</Category>
+    <Category>Properties</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
