@@ -1,3 +1,4 @@
+
 package aston.group2.biomorph.Utilities;
 
 import java.awt.Image;
@@ -13,10 +14,12 @@ import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import aston.group2.biomorph.GUI.BiomorphSurface;
 import aston.group2.biomorph.Model.Biomorph;
-
+/**
+ * This is the central class for controlling how biomorphs are saved and stored within a file system.
+ */
 public class Exporter {
 	public static void exportBiomorph(Biomorph biomorph){
-
+//This method takes a biomorph and stores it biomorph format within your file system
 		JFileChooser jf = new JFileChooser();
 		jf.setFileFilter(new FileNameExtensionFilter("Biomorph file","biomorph"));
 		int rv = jf.showSaveDialog(null);
@@ -40,7 +43,7 @@ public class Exporter {
 	}
 
 	public static void exportPNG(Biomorph biomorph){
-
+//This method takes a biomorph and converts it into png format
 		BiomorphSurface biomorphSurface = new BiomorphSurface(biomorph);
 
 		biomorphSurface.setSize(1000, 1000);
