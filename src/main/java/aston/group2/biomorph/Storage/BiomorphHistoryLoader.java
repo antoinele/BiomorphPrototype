@@ -25,6 +25,7 @@ public class BiomorphHistoryLoader {
         return save();
     }
 
+    //This program allows an existing Biomorph to be imported into the program
     public static boolean load()
     {
         Storage storage;

@@ -28,6 +28,7 @@ public class HallOfFame implements Serializable {
         notifyUpdateListeners();
     }
 
+    //This program creates the hall of boxes, where each biomorph is displayed 
     public boolean add(Biomorph biomorph)
     {
         for (int i = 0; i < hallOfFame.length; i++) {
