@@ -22,7 +22,7 @@ import java.util.List;
 /**
  * Responsible for creating the evolutionary art grid and whether or not the first generation
  * will be take into account intelligent first generation
- * @author Joshan, Alex and Joe
+ * @author Joshan, Alex, Joe and Theo
  *
  */
 public class NewMainWindow extends JFrame {
