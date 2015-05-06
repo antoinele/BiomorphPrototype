@@ -6,7 +6,7 @@ import aston.group2.biomorph.Model.Genes.Line;
 import java.awt.*;
 
 /**
- * Created by antoine on 31/10/14.
+ * @author Antoine
  */
 public class LineRenderer extends Renderer<Line> {
     public LineRenderer(Line line) { super(line); }

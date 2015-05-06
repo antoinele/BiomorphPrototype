@@ -7,7 +7,7 @@ import aston.group2.biomorph.Model.Genes.Gene;
 import java.awt.*;
 
 /**
- * Created by antoine on 30/10/14.
+ * @author Antoine
  */
 public abstract class Renderer<T extends Gene> {
     private T gene;

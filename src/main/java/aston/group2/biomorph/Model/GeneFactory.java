@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.Set;
 
 /**
- * Created by antoine on 29/10/14.
+ * @author Antoine
  */
 public class GeneFactory {
 

@@ -6,7 +6,7 @@ import aston.group2.biomorph.Storage.Generation;
 import java.util.*;
 
 /**
- * Created by antoine on 16/03/15.
+ * @author Antoine
  */
 public class EvolutionHelper {
 

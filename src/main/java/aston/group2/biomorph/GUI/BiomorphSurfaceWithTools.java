@@ -11,10 +11,15 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.*;
 
-
+/**
+ * 
+ * @author Antoine, Theo and Joe
+ *
+ */
 public class BiomorphSurfaceWithTools extends JPanel {
 	public final BiomorphSurface biomorphSurface;
 
+	
 	private JCheckBox checkbox;
 	private boolean selectable = false;
 	private boolean selected = false;
@@ -25,10 +30,16 @@ public class BiomorphSurfaceWithTools extends JPanel {
 
 	}
 
+	/*
+	 * Makes each biomorph editable by creating various command buttons to control the functionality of them e.g. save, zoom and favourite
+	 */
 	public BiomorphSurfaceWithTools(boolean selectable) {
         if (selectable) {
             addMouseListener(new MouseListener() {
 
+            	/*
+            	 * Makes biomorphs selectable
+            	 */
                 @Override
                 public void mouseClicked(MouseEvent arg0) {
                     selected = !checkbox.isSelected();

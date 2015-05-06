@@ -10,9 +10,10 @@ import java.io.IOException;
 import java.io.InputStream;
 
 /**
- * Created by antoine on 04/05/15.
+ * @author Antoine
  */
 public class IconHelper {
+	//Used for converting JButtons into image icons
     public static JButton makeButton(String icon, String tooltip) {
         try {
             BufferedImage iconImg;

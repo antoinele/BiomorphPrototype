@@ -5,7 +5,7 @@ import java.util.List;
 
 import aston.group2.biomorph.Model.*;
 /**
- * Created by antoine on 12/03/15.
+ * @author Antoine 
  */
 public class BiomorphHistory implements Serializable {
 	private List<Species> biomorphList;

@@ -7,7 +7,7 @@ import java.awt.*;
 import java.awt.geom.AffineTransform;
 
 /**
- * Created by antoine on 22/04/15.
+ * @author Antoine
  */
 public class BiomorphRenderer {
 

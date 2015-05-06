@@ -8,7 +8,7 @@ import aston.group2.biomorph.Model.Species;
 import java.io.Serializable;
 
 /**
- * Created by antoine on 12/03/15.
+ * @author Antoine
  */
 public class Generation implements Serializable {
     public Species species;

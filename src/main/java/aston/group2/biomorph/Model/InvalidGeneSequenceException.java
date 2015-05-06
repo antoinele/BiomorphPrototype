@@ -1,7 +1,7 @@
 package aston.group2.biomorph.Model;
 
 /**
- * Created by antoine on 30/10/14.
+ * @author Antoine
  */
 public class InvalidGeneSequenceException extends RuntimeException {
     public InvalidGeneSequenceException(char geneCode)

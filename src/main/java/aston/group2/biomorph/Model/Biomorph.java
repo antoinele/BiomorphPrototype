@@ -10,7 +10,7 @@ import java.util.Arrays;
 import java.util.Stack;
 
 /**
- * Created by antoine on 29/10/14.
+ * @author Antoine
  */
 public class Biomorph implements Serializable, Cloneable {
     public Generation generation;

@@ -19,7 +19,9 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 /**
- * Created by antoine on 17/04/15.
+ * @author Antoine, Theo, Joshan, Joe and Alex
+ * This is the core class of the program which is responsible for creating the main panels
+ * for displaying biomorphs as well as the hall of fame.
  */
 public class MutationWindow extends JFrame {
 	JPanel biomorphGrid;
