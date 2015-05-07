@@ -18,7 +18,7 @@ public class IconHelper {
         try {
             BufferedImage iconImg;
             {
-                InputStream is = BiomorphHistoryLoader.biomorphHistory.getClass().getResourceAsStream("resources/icons/" + icon + ".png");
+                InputStream is = BiomorphHistoryLoader.biomorphHistory.getClass().getResourceAsStream("/resources/icons/" + icon + ".png");
                 if (is != null) {
                     iconImg = ImageIO.read(is);
                 }

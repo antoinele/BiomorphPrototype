@@ -179,7 +179,7 @@ public class MutationSettings extends JDialog {
                     createTextBox(kv.getKey(), setting.name, (String)setting.value, i++);
                     break;
                 default:
-                    System.err.println(String.format("Unhandled type: %s. Field: %s", setting.type.name(), kv.getKey()));
+//                    System.err.println(String.format("Unhandled type: %s. Field: %s", setting.type.name(), kv.getKey()));
             }
         }
 

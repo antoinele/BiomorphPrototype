@@ -1,21 +1,11 @@
 package aston.group2.biomorph.GUI;
 
-import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+import aston.group2.biomorph.Model.Biomorph;
 
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JSlider;
-import javax.swing.SwingUtilities;
+import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-
-import aston.group2.biomorph.Model.Biomorph;
+import java.awt.*;
 
 /**
  * @author Antoine and Theo

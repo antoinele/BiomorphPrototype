@@ -348,7 +348,7 @@ public class Mutator implements Serializable {
             short[] values = gene.getValues();
 
             if(rng.nextFloat() <= probability("gene_mutate")) {
-                // Mutate gene values?
+                // Mutate gene values
                 for (int j = 0; j < values.length; j++) {
                     if (rng.nextFloat() <= probability("gene_mutate_value")) {
                         values[j] += rng.nextInt(maxChange*2) - maxChange;
@@ -391,6 +391,7 @@ public class Mutator implements Serializable {
             throw new IllegalArgumentException("Not enough arguments");
         }
 
+        // Clone input biomorphs so they aren't accidentally modified during mutation //TODO: this isn't effective
         Biomorph[] mutatingBiomorphs = new Biomorph[biomorphs.length];
 
         for (int i = 0; i < biomorphs.length; i++) {
@@ -401,9 +402,11 @@ public class Mutator implements Serializable {
             }
         }
 
+        // Reset rng
         random = new Random();
-        random.setSeed(settings.get("seed").value.hashCode()); // Reset seed to ensure consistent reuse
+        random.setSeed(settings.get("seed").value.hashCode());
 
+        // Create a new generation to fill
         Generation newGeneration;
 
         if(mutatingBiomorphs[0].generation != null)
@@ -412,20 +415,22 @@ public class Mutator implements Serializable {
             newGeneration = new Generation(this);
 
         newGeneration.children = new Biomorph[childrenRequired()];
-        newGeneration.parents = mutatingBiomorphs;
+        newGeneration.parents = biomorphs; // Set generation parents to the selected biomorphs
+                                           // Ensure it's the biomorphs passed in rather than the cloned ones
           
       	for(int i=0; i<childrenRequired(); i++)
       	{
       		Biomorph bm = newGeneration.children[i];
-      		
+
+            // Ensure the biomorph filling a slot isn't totally empty
       		while(bm == null || bm.getRootGene().getSubGenes().length == 0)
       		{
       			bm = newGeneration.children[i] = mutateBiomorph_internal(newGeneration, mutatingBiomorphs);
       		}
       	}
 
-        if(mutatingBiomorphs[0].generation != null)
-            mutatingBiomorphs[0].generation.addNextGeneration(newGeneration);
+        if(biomorphs[0].generation != null)
+            biomorphs[0].generation.addNextGeneration(newGeneration);
 
         return newGeneration;
     }

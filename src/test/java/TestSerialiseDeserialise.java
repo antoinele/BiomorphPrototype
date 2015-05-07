@@ -10,7 +10,7 @@ public class TestSerialiseDeserialise {
     @Test
     public void testSerialiseDeserialise()
     {
-        String genome = "D01F00CSLBEEF00SMCAFEsL123456s";
+        String genome = "D01F00CSLBEEF00L123456s";
 
         Biomorph bm = Biomorph.deserialise(genome);
         assertEquals(bm.toString(), genome);

@@ -1,24 +1,21 @@
-import static org.junit.Assert.*;
-
-import org.junit.Assert;
-import org.junit.Test;
-
 import aston.group2.biomorph.Model.Biomorph;
-import aston.group2.biomorph.Model.EvolutionHelper;
 import aston.group2.biomorph.Model.IncompatibleSpeciesException;
 import aston.group2.biomorph.Model.Mutator;
 import aston.group2.biomorph.Storage.Generation;
+import org.junit.Test;
+
+import static org.junit.Assert.assertTrue;
 
 
 public class TestMutation {
 
 	@Test
 	public void test() throws IncompatibleSpeciesException {
-		 String genome = "D01F00CSLBEEF00SMCAFEsL123456s";
+		 String genome = "D01F00CSLBEEF00L123456s";
 		 Biomorph bm = Biomorph.deserialise(genome);
 		 Biomorph[] bma = {bm};
 		 Mutator mutator = new Mutator(System.currentTimeMillis());
-		 mutator.setting("required_children").value = 100;
+		 mutator.setting("required_children").value = 6;
 		 
 		 Generation g = mutator.mutateBiomorph(bma);
 		 

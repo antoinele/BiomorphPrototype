@@ -4,7 +4,9 @@ Biomorph Prototype
 The preferred IDE to use is IntelliJ, however the project has been converted
 so that Eclipse may use it too.
 
-The main class is `MainWindow`
+The main class is `NewMainWindow`
+
+The working directory must be writable as `biomorphhistory.dat` is written to it.
 
 ## .biomorph file format
 
