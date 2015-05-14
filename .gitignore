@@ -87,3 +87,4 @@ $RECYCLE.BIN/
 *.lnk
 
 biomorphhistory.dat
+.out/
